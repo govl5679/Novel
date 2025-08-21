@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device=width, initial-scale=1">
-    <title>팬아트</title>
+    <title>팬아트 게시판 | 북북노벨</title>
 
     <!-- bootstrap v5.3 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
@@ -19,7 +19,37 @@
         integrity="sha512-wJgJNTBBkLit7ymC6vvzM1EcSWeM9mmOu+1USHaRBbHkm6W9EgM0HY27+UtUaprntaYQJF75rc8gjxllKs5OIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* 사용자 정의 스타일 (주석) */
+        /* 사용자 정의 스타일 */
+        .card-hidden {
+            display: none !important;
+        }
+
+        .search-highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .page-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .card-body img {
+            width: 100%;
+            height: 200px;
+            /* 원하는 높이로 통일 */
+            object-fit: cover;
+            /* 비율 유지하면서 꽉 채우기 */
+            border-radius: 5px;
+            /* 선택사항: 모서리 둥글게 */
+        }
     </style>
 </head>
 
@@ -57,8 +87,8 @@
                     <div>
                         <select class="form-control" id="category" name="category">
                             <option value="title">제목</option>
-                            <option value="aka">작성자명</option>
-                            <option value="name">댓글</option>
+                            <option value="author">작성자명</option>
+                            <option value="comment">댓글</option>
                         </select>
                     </div>
                 </div>
@@ -70,135 +100,57 @@
                         <input class="form-control" type="text" id="search-term" name="q" placeholder="검색어를 입력하세요">
                     </div>
                     <div class="me-1">
-                        <button class="btn btn-success" type="submit">검색</button>
+                        <button class="btn btn-success" type="button" id="search-btn">검색</button>
+                    </div>
+                    <div class="me-1">
+                        <button class="btn btn-outline-secondary" type="button" id="reset-btn">초기화</button>
+                    </div>
+                    <div class="me-1 text-end">
+                        <button type="button" class="btn btn-outline-dark" onclick="location.href='useredit.html'">
+                            <i class="bi bi-pencil-fill me-1"></i>글쓰기
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- //검색 -->
-        <!-- 게시물 -->
-        <div class="row">
-            <div class="col-4">
-                <div class="card m-2">
-                    <div class="card-body">
-                        <img src="https://c.wallhere.com/photos/94/12/chipmunk_herbs_nuts-1027761.jpg!d" alt="다람쥐"
-                            width="100%">
-                    </div>
-                    <div class="card-footer">
-                        <div>
-                            <div>
-                                <a href="#">커여운 다람쥐</a>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="col-6">
-                                <a>작성자 : 난카푸치노</a>
-                            </div>
-                            <div class="col-6 text-end">
-                                <i class="bi bi-hand-thumbs-up">:10</i>&nbsp;
-                                <i class="bi bi-eye-fill">:100</i>
-                            </div>
-                        </div>
-                    </div>
+
+        <!-- 검색 결과 정보 -->
+        <div class="container mt-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="page-info" id="result-info">
+                    전체 <span id="total-count">0</span>개의 게시물이 있습니다.
                 </div>
-            </div>
-            <div class="col-4">
-                <div class="card m-2">
-                    <div class="card-body">
-                        <img src="https://c.wallhere.com/photos/94/12/chipmunk_herbs_nuts-1027761.jpg!d" alt="다람쥐"
-                            width="100%">
-                    </div>
-                    <div class="card-footer">
-                        <div>
-                            <div>
-                                <a href="#">커여운 다람쥐</a>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="col-6">
-                                <a>작성자 : 난카푸치노</a>
-                            </div>
-                            <div class="col-6 text-end">
-                                <i class="bi bi-hand-thumbs-up">:10</i>&nbsp;
-                                <i class="bi bi-eye-fill">:100</i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card m-2">
-                    <div class="card-body">
-                        <img src="https://c.wallhere.com/photos/94/12/chipmunk_herbs_nuts-1027761.jpg!d" alt="다람쥐"
-                            width="100%">
-                    </div>
-                    <div class="card-footer">
-                        <div>
-                            <div>
-                                <a href="#">커여운 다람쥐</a>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="col-6">
-                                <a>작성자 : 난카푸치노</a>
-                            </div>
-                            <div class="col-6 text-end">
-                                <i class="bi bi-hand-thumbs-up">:10</i>&nbsp;
-                                <i class="bi bi-eye-fill">:100</i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card m-2">
-                    <div class="card-body">
-                        <img src="https://cdn.pixabay.com/photo/2025/06/30/20/42/20-42-19-805_1280.jpg" alt="꿀벌"
-                            width="100%">
-                    </div>
-                    <div class="card-footer">
-                        <div>
-                            <div>
-                                <a href="#">커여운 꿀벌</a>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="col-6">
-                                <a>작성자 : 난카푸치노</a>
-                            </div>
-                            <div class="col-6 text-end">
-                                <i class="bi bi-hand-thumbs-up">:10</i>&nbsp;
-                                <i class="bi bi-eye-fill">:100</i>
-                            </div>
-                        </div>
-                    </div>
+                <div class="page-info">
+                    <span id="current-page-info">1</span> / <span id="total-page-info">1</span> 페이지
                 </div>
             </div>
         </div>
+
+        <!-- 게시물 -->
+        <div class="row" id="card-container">
+            <!-- 카드들이 동적으로 생성됩니다 -->
+        </div>
+
+        <!-- 검색 결과 없음 메시지 -->
+        <div id="no-results" class="no-results" style="display: none;">
+            <i class="bi bi-search" style="font-size: 48px; color: #ccc;"></i>
+            <p>검색 결과가 없습니다.</p>
+            <p>다른 검색어로 시도해보세요.</p>
+        </div>
+
         <!-- 페이지 버튼 -->
         <div class="border-top">
             <div class="m-3 row">
                 <div class="col-5"></div>
-                <div class="col-2 btn-group me-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-outline-dark" onclick="goToPage('user_list.html');"><i
-                            class="bi bi-chevron-double-left"></i></button>
-                    <button type="button" class="btn btn-outline-dark" onclick="goToPage('user_list.html');"><i
-                            class="bi bi-chevron-left"></i></button>
-                    <button type="button" class="btn btn-outline-dark active"
-                        onclick="goToPage('user_list.html');">1</button>
-                    <button type="button" class="btn btn-outline-dark" onclick="goToPage('user_list2.html');">2</button>
-                    <button type="button" class="btn btn-outline-dark" onclick="goToPage('user_list2.html');"><i
-                            class="bi bi-chevron-right"></i></button>
-                    <button type="button" class="btn btn-outline-dark" onclick="goToPage('user_list2.html');"><i
-                            class="bi bi-chevron-double-right"></i></button>
+                <div class="col-2 btn-group me-2" role="group" aria-label="Pagination" id="pagination">
+                    <!-- 페이지 버튼들이 동적으로 생성됩니다 -->
                 </div>
             </div>
         </div>
         <!-- //페이지 버튼 -->
     </div>
     <!-- //본문 -->
-
-
 
     <!-- bootstrap v5.3 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"
@@ -217,9 +169,337 @@
 
     <!-- custom -->
     <script>
+        $(document).ready(function () {
+            // 게시물 데이터 (실제로는 서버에서 가져올 데이터)
+            let allCards = [
+                {
+                    id: 1,
+                    title: "커여운 다람쥐",
+                    author: "난카푸치노",
+                    image: "https://c.wallhere.com/photos/94/12/chipmunk_herbs_nuts-1027761.jpg!d",
+                    likes: 10,
+                    views: 100,
+                    link: "fanart.html"
+                },
+                {
+                    id: 2,
+                    title: "사랑스러운 고양이",
+                    author: "고양이집사",
+                    image: "https://c.wallhere.com/photos/94/12/chipmunk_herbs_nuts-1027761.jpg!d",
+                    likes: 25,
+                    views: 150,
+                    link: "#"
+                },
+                {
+                    id: 3,
+                    title: "귀여운 강아지",
+                    author: "멍멍이사랑",
+                    image: "https://c.wallhere.com/photos/94/12/chipmunk_herbs_nuts-1027761.jpg!d",
+                    likes: 15,
+                    views: 80,
+                    link: "#"
+                },
+                {
+                    id: 4,
+                    title: "커여운 꿀벌",
+                    author: "벌꿀농장",
+                    image: "https://cdn.pixabay.com/photo/2025/06/30/20/42/20-42-19-805_1280.jpg",
+                    likes: 30,
+                    views: 200,
+                    link: "#"
+                },
+                {
+                    id: 5,
+                    title: "예쁜 나비",
+                    author: "나비사랑",
+                    image: "https://c.wallhere.com/photos/94/12/chipmunk_herbs_nuts-1027761.jpg!d",
+                    likes: 8,
+                    views: 60,
+                    link: "#"
+                },
+                {
+                    id: 6,
+                    title: "멋진 독수리",
+                    author: "하늘의왕자",
+                    image: "https://c.wallhere.com/photos/94/12/chipmunk_herbs_nuts-1027761.jpg!d",
+                    likes: 20,
+                    views: 120,
+                    link: "#"
+                },
+                {
+                    id: 7,
+                    title: "아름다운 꽃",
+                    author: "꽃사랑이",
+                    image: "https://c.wallhere.com/photos/94/12/chipmunk_herbs_nuts-1027761.jpg!d",
+                    likes: 12,
+                    views: 90,
+                    link: "#"
+                },
+                {
+                    id: 8,
+                    title: "푸른 바다",
+                    author: "바다여행자",
+                    image: "https://c.wallhere.com/photos/94/12/chipmunk_herbs_nuts-1027761.jpg!d",
+                    likes: 18,
+                    views: 110,
+                    link: "#"
+                }
+            ];
 
+            let filteredCards = [...allCards]; // 필터링된 카드 배열
+            let currentPage = 1; // 현재 페이지
+            let itemsPerPage = 6; // 페이지당 아이템 수
+
+            // 카드 HTML 생성 함수
+            function createCardHTML(card) {
+                return `
+        <div class="col-4 card-item" data-id="${card.id}" data-title="${card.title.toLowerCase()}" data-author="${card.author.toLowerCase()}">
+            <div class="card m-2">
+                <div class="card-body">
+                    <a href="${card.link}">
+                        <img src="${card.image}" alt="${card.title}" width="100%" 
+                             onerror="this.src='https://via.placeholder.com/300x200?text=이미지+없음'">
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <div>
+                        <div>
+                            <a href="${card.link}" class="card-title">${card.title}</a>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="col-6">
+                            <span class="card-author">작성자 : ${card.author}</span>
+                        </div>
+                        <div class="col-6 text-end">
+                            <i class="bi bi-hand-thumbs-up">${card.likes}</i>&nbsp;
+                            <i class="bi bi-eye-fill">${card.views}</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+            }
+
+            // 모든 카드 렌더링
+            function renderAllCards() {
+                const container = $('#card-container');
+                container.empty();
+
+                filteredCards.forEach(card => {
+                    container.append(createCardHTML(card));
+                });
+
+                updateResultInfo();
+                renderPagination();
+                showPage(1);
+            }
+
+            // 페이지네이션 렌더링
+            function renderPagination() {
+                const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
+                const pagination = $('#pagination');
+                pagination.empty();
+
+                if (totalPages <= 1) {
+                    pagination.hide();
+                    return;
+                }
+
+                pagination.show();
+
+                // 이전 페이지들 버튼
+                pagination.append(`
+                    <button type="button" class="btn btn-outline-dark" id="first-page" ${currentPage <= 1 ? 'disabled' : ''}>
+                        <i class="bi bi-chevron-double-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-dark" id="prev-page" ${currentPage <= 1 ? 'disabled' : ''}>
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                `);
+
+                // 페이지 번호 버튼들
+                const startPage = Math.max(1, currentPage - 2);
+                const endPage = Math.min(totalPages, currentPage + 2);
+
+                for (let i = startPage; i <= endPage; i++) {
+                    const activeClass = i === currentPage ? 'active' : '';
+                    pagination.append(`
+                        <button type="button" class="btn btn-outline-dark page-num ${activeClass}" data-page="${i}">
+                            ${i}
+                        </button>
+                    `);
+                }
+
+                // 다음 페이지들 버튼
+                pagination.append(`
+                    <button type="button" class="btn btn-outline-dark" id="next-page" ${currentPage >= totalPages ? 'disabled' : ''}>
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-dark" id="last-page" ${currentPage >= totalPages ? 'disabled' : ''}>
+                        <i class="bi bi-chevron-double-right"></i>
+                    </button>
+                `);
+
+                // 페이지 정보 업데이트
+                $('#current-page-info').text(currentPage);
+                $('#total-page-info').text(totalPages);
+            }
+
+            // 특정 페이지 표시
+            function showPage(page) {
+                const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
+                currentPage = Math.max(1, Math.min(page, totalPages));
+
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+
+                // 모든 카드 숨기기
+                $('.card-item').addClass('card-hidden');
+
+                // 현재 페이지의 카드들만 표시
+                const currentCards = filteredCards.slice(startIndex, endIndex);
+                currentCards.forEach(card => {
+                    $(`.card-item[data-id="${card.id}"]`).removeClass('card-hidden');
+                });
+
+                // 결과 없음 메시지 처리
+                if (filteredCards.length === 0) {
+                    $('#no-results').show();
+                } else {
+                    $('#no-results').hide();
+                }
+
+                renderPagination();
+
+                // 스크롤을 맨 위로
+                $('html, body').animate({
+                    scrollTop: $('#card-container').offset().top - 100
+                }, 300);
+            }
+
+            // 검색 결과 정보 업데이트
+            function updateResultInfo() {
+                const searchTerm = $('#search-term').val().trim();
+                const category = $('#category').val();
+
+                if (searchTerm) {
+                    $('#result-info').html(`'<strong>${searchTerm}</strong>' 검색 결과: <span id="total-count">${filteredCards.length}</span>개`);
+                } else {
+                    $('#result-info').html(`전체 <span id="total-count">${filteredCards.length}</span>개의 게시물이 있습니다.`);
+                }
+            }
+
+            // 검색 기능
+            function performSearch() {
+                const searchTerm = $('#search-term').val().trim().toLowerCase();
+                const category = $('#category').val();
+
+                if (!searchTerm) {
+                    filteredCards = [...allCards];
+                } else {
+                    filteredCards = allCards.filter(card => {
+                        if (category === 'title') {
+                            return card.title.toLowerCase().includes(searchTerm);
+                        } else if (category === 'author') {
+                            return card.author.toLowerCase().includes(searchTerm);
+                        } else if (category === 'comment') {
+                            // 댓글 검색은 실제로는 서버에서 처리해야 하지만, 
+                            // 여기서는 제목과 작성자에서 검색하도록 함
+                            return card.title.toLowerCase().includes(searchTerm) ||
+                                card.author.toLowerCase().includes(searchTerm);
+                        }
+                        return false;
+                    });
+                }
+
+                // 검색 결과 하이라이트
+                if (searchTerm) {
+                    setTimeout(() => {
+                        highlightSearchTerm(searchTerm);
+                    }, 100);
+                }
+
+                renderAllCards();
+
+                // 토스트 메시지
+                $.toast({
+                    heading: '검색 완료',
+                    text: `${filteredCards.length}개의 결과를 찾았습니다.`,
+                    icon: 'info',
+                    position: 'top-right',
+                    hideAfter: 2000
+                });
+            }
+
+            // 검색어 하이라이트
+            function highlightSearchTerm(term) {
+                if (!term) return;
+
+                $('.card-title, .card-author').each(function () {
+                    const $this = $(this);
+                    const text = $this.text();
+                    const regex = new RegExp(`(${term})`, 'gi');
+                    const highlightedText = text.replace(regex, '<span class="search-highlight">$1</span>');
+                    $this.html(highlightedText);
+                });
+            }
+
+            // 하이라이트 제거
+            function removeHighlight() {
+                $('.search-highlight').each(function () {
+                    const $this = $(this);
+                    $this.replaceWith($this.text());
+                });
+            }
+
+            // 검색 초기화
+            function resetSearch() {
+                $('#search-term').val('');
+                $('#category').val('title');
+                filteredCards = [...allCards];
+                removeHighlight();
+                renderAllCards();
+
+                $.toast({
+                    heading: '검색 초기화',
+                    text: '모든 게시물을 표시합니다.',
+                    icon: 'success',
+                    position: 'top-right',
+                    hideAfter: 2000
+                });
+            }
+
+            // 이벤트 핸들러들
+            $('#search-btn').click(performSearch);
+            $('#reset-btn').click(resetSearch);
+
+            // Enter 키로 검색
+            $('#search-term').keypress(function (e) {
+                if (e.which === 13) {
+                    performSearch();
+                }
+            });
+
+            // 페이지네이션 이벤트
+            $(document).on('click', '#first-page', () => showPage(1));
+            $(document).on('click', '#last-page', () => {
+                const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
+                showPage(totalPages);
+            });
+            $(document).on('click', '#prev-page', () => showPage(currentPage - 1));
+            $(document).on('click', '#next-page', () => showPage(currentPage + 1));
+            $(document).on('click', '.page-num', function () {
+                const page = parseInt($(this).data('page'));
+                showPage(page);
+            });
+
+            // 초기 렌더링
+            renderAllCards();
+        });
     </script>
-
 </body>
 
 </html>
