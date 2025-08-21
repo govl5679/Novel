@@ -137,7 +137,7 @@ let validationState = {
 };
 
 // 초기화
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeTheme();
     initializeLanguage();
     initializeForm();
@@ -168,7 +168,7 @@ function initializeLanguage() {
     updateLanguageText();
 
     document.querySelectorAll('[data-lang-code]').forEach(item => {
-        item.addEventListener('click', function(e) {
+        item.addEventListener('click', function (e) {
             e.preventDefault();
             const langCode = this.getAttribute('data-lang-code');
             changeLanguage(langCode);
@@ -206,7 +206,7 @@ function initializeForm() {
 
     // 비밀번호 토글 기능
     document.querySelectorAll('.password-toggle').forEach(toggle => {
-        toggle.addEventListener('click', function() {
+        toggle.addEventListener('click', function () {
             const input = this.closest('.input-group').querySelector('input');
             const type = input.type === 'password' ? 'text' : 'password';
             input.type = type;
@@ -560,12 +560,12 @@ function handleRegister(e) {
 
     // 모든 필드 유효성 검사
     const isValid = validateUserId() &&
-                   validatePassword() &&
-                   validatePasswordConfirm() &&
-                   validateFullName() &&
-                   validateEmail() &&
-                   formatAndValidatePhone() &&
-                   formatAndValidateBirthDate();
+        validatePassword() &&
+        validatePasswordConfirm() &&
+        validateFullName() &&
+        validateEmail() &&
+        formatAndValidatePhone() &&
+        formatAndValidateBirthDate();
 
     // 중복 확인 여부 체크
     if (!validationState.userId || !validationState.email) {
