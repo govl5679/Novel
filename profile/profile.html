@@ -31,243 +31,429 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg d-flex flex-column fixed-top bg-white sticky-top">
+        <div class="container row py-3">
+            <!--북북노벨 타이틀-->
+            <div class="navbar-nav col-3">
+                <a class="navbar-brand fs-2 fw-bold" href="../home/home.html">
+                    <i class="bi bi-book me-2 fs-1 text-success"></i>북북노벨
+                </a>
+            </div>
+            <!--검색창-->
+            <div class="navbar-nav col-8">
+                <form class="input-group" action="../home/search.html">
+                    <input type="text" class="form-control" placeholder="Recipient’s username" id="">
+                    <button class="btn btn-outline-light p-3" type="submit" id="search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- 프로필 -->
+            <div class="navbar-nav col-1 d-flex justify-content-end">
+                <i class="bi bi-person-circle fs-2 ms-3"></i>
+            </div>
+        </div>
+        <div class="border-top col-12 border-success"></div>
+        <!-- 목록 -->
+        <div class="container navbar-nav d-flex justify-content-start py-3 fs-5">
+            <a class="nav-link text-dark me-2" href="../home/home.html">자유</a>
+            <a class="nav-link text-dark me-2" href="../home/ranking.html">랭킹</a>
+            <a class="nav-link text-dark me-2" href="../user_board/free_list.html">유저 게시판</a>
+            <a class="nav-link text-dark me-2" href="../notice/list.html">공지사항</a>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="border mt-3 mb-3">
-            <div class="row mb-3">
-                <!-- 프사 -->
-                <div class="col-5">
-                    <i class="bi bi-person-circle ms-3"></i>
+        <div class="mt-3 mb-3">
+            <div class="row">
+                <!-- 프로필 사진 -->
+                <div class="col-md-4 text-center">
+                    <label for="profileUpload" style="cursor: pointer;">
+                        <img id="profileImage" src="" alt="프로필 사진" class="d-none img-fluid rounded-circle shadow"
+                            style="max-width: 100%; aspect-ratio: 1 / 1; object-fit: cover;">
+                        <i id="profileIcon" class="bi bi-person-circle text-success" style="font-size: 25rem; margin: 0; line-height: 1;"></i>
+                        <input type="file" id="profileUpload" accept="image/*" class="d-none">
+                    </label>
                 </div>
-                <!-- 기본정보 -->
-                <div class="col-6 border mt-3 p-3 h3">
-                    <div class="mb-3">닉네임 / 레벨</div>
-                    <div class="mb-3">포인트</div>
-                    <div class="mb-3">계정</div>
-                    <div>회원번호 + 복사</div>
+
+                <!-- 회원 정보 -->
+                <div class="col-md-8">
+                    <div class="card p-4 shadow-sm">
+                        <h2 class="mb-3"><strong>닉네임:</strong> 사용자닉네임</h2>
+                        <h2 class="mb-3"><strong>레벨:</strong> 12</h2>
+                        <h2 class="mb-3"><strong>포인트:</strong> 3450</h2>
+                        <h2 class="mb-3"><strong>이메일:</strong> user@email.com</h2>
+                        <h2 class="mb-3"><strong>회원번호:</strong> #2025001</h2>
+                    </div>
                 </div>
             </div>
-            <div class="row border ms-3 me-3 mb-3">
+            <div class="text-end">
+                <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">수정</button>
+            </div>
+            <div class="row row-cols-sm-1 row-cols-md-2 g-2">
                 <!-- 관심 작품 -->
-                <div class="col-5 mt-3 ms-3">
-                    <div class="border mb-3">
+                <div class="col mt-3">
+                    <p class="h1 mb-3 text-center">
                         관심 작품
-                    </div>
-                    <div class="border mb-3">
-                        작품 표지
+                    </p>
+                    <div class="mt-3 mb-3 ms-3 shadow-sm">
+                        <div class="card">
+                            <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                            <div class="card-body">
+                                <h5 class="card-title">나 혼자만 레벨업</h5>
+                                <p class="card-text">장성락</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                    class="bi bi-eye"></i>5.6억&nbsp;<i class="bi bi-star"></i>10.0
+                                <a href="#" class="btn btn-success mt-3">이어보기</a>
+                            </div>
+                        </div>
+                        <div class="progress mt-3">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 80%;"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">80%</div>
+                        </div>
                     </div>
                 </div>
                 <!-- 작품 화 선택창 -->
-                <div class="col-6 border mt-3 mb-3 ms-3">
-                    작품 화 선택창
+                <div class="col border mt-3 mb-3 p-4 shadow-sm">
+                    <div class="text-muted">총화수 : [203 화] [1/14 Page]</div>
+                    <table class="table table-hover mt-3">
+                        <thead>
+                            <h1>회차</h1>
+                        </thead>
+                        <hr>
+                        <tbody>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 21화 (전체 완결)</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 20화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 19화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 18화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 17화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 16화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 15화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 14화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 13화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 12화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 11화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 10화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 9화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 8화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                            <tr>
+                                <td>나 혼자만 레벨업 외전 7화</td>
+                                <td class="text-center">2025.07.04</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
         <!-- 3 -->
-        <div class="row mb-3">
-            <button class="btn btn-success col-2 me-3">최근 본</button>
-            <button class="btn btn-success col-2 me-3">구매</button>
-            <button class="btn btn-success col-2 me-3">리뷰</button>
-            <button class="btn btn-success col-2">댓글</button>
+        <div class="row mb-3 justify-content-between">
+            <button class="btn btn-success col-2 ms-3">최근 본</button>
+            <button class="btn btn-success col-2">구매</button>
+            <button class="btn btn-success col-2">리뷰</button>
+            <button class="btn btn-success col-2 me-3">댓글</button>
         </div>
         <!-- 4 -->
-        <div class="row border mb-3">
-            <div class="col-2 mt-3 mb-3 ms-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">나 혼자만 레벨다운</h5>
-                        <p class="card-text">장세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
-                        <a href="#" class="btn btn-success mt-3">이어보기</a>
+        <div class="mb-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                <div class="mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">너 혼자만 레벨업</h5>
+                            <p class="card-text">장세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
                     </div>
                 </div>
-                <div class="progress mt-3" style="width: 290px;">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">90%</div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">얘 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div class="mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">얘 혼자만 레벨업</h5>
+                            <p class="card-text">쟝세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
                     </div>
                 </div>
-                <div class="progress mt-3" style="width: 290px;">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">90%</div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">걔 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div class="mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">쟤 혼자만 레벨업</h5>
+                            <p class="card-text">정세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
                     </div>
                 </div>
-                <div class="progress mt-3" style="width: 290px;">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">90%</div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">쟤 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div class="mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">걔 혼자만 레벨업</h5>
+                            <p class="card-text">졍세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
                     </div>
                 </div>
-                <div class="progress mt-3" style="width: 290px;">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">90%</div>
+                <div class="mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">형 혼자만 레벨업</h5>
+                            <p class="card-text">종세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="col-2 mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">오빠 혼자만 레벨업</h5>
+                            <p class="card-text">죵세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="col-2 mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">언니 혼자만 레벨업</h5>
+                            <p class="card-text">중세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="col-2 mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">누나 혼자만 레벨업</h5>
+                            <p class="card-text">즁세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">엄마 혼자만 레벨업</h5>
+                            <p class="card-text">증세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="col-2 mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">아빠 혼자만 레벨업</h5>
+                            <p class="card-text">징세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="col-2 mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">할머니 혼자만 레벨업</h5>
+                            <p class="card-text">쟹세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="col-2 mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">할아버지 혼자만 레벨업</h5>
+                            <p class="card-text">졩세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">고모 혼자만 레벨업</h5>
+                            <p class="card-text">좡세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="col-2 mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">고모부 혼자만 레벨업</h5>
+                            <p class="card-text">좽세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="col-2 mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">이모 혼자만 레벨업</h5>
+                            <p class="card-text">줭세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                </div>
+                <div class="col-2 mt-3 mb-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
+                        <div class="card-body">
+                            <h5 class="card-title">이모부 혼자만 레벨업</h5>
+                            <p class="card-text">쥉세령</p><i class="bi bi-columns"></i>판타지&nbsp;<i
+                                class="bi bi-eye"></i>80억&nbsp;<i class="bi bi-star"></i>10.0
+                            <a href="#" class="btn btn-success mt-3">이어보기</a>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- 5 -->
-        <div class="row border mb-3">
-            <div class="col-2 mt-3 mb-3 ms-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">너 혼자만 레벨업</h5>
-                        <p class="card-text">무명</p>
-                        <a href="#" class="btn btn-primary">이어보기</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">얘 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">걔 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">쟤 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 6 -->
-        <div class="row border mb-3">
-            <div class="col-2 mt-3 mb-3 ms-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">너 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">얘 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">걔 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">쟤 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 7 -->
-        <div class="row border mb-3">
-            <div class="col-2 mt-3 mb-3 ms-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">너 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">얘 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">걔 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 mt-3 mb-3" style="margin-right: 100px;">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="이미지를 불러오지 못 했습니다.">
-                    <div class="card-body">
-                        <h5 class="card-title">쟤 혼자만 레벨업</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
 
     <!-- bootstrap v5.3 -->
@@ -287,7 +473,23 @@
 
     <!-- custom -->
     <script>
+        const uploadInput = document.getElementById("profileUpload");
+        const profileImg = document.getElementById("profileImage");
+        const profileIcon = document.getElementById("profileIcon");
 
+        // 파일 선택 시 실행
+        uploadInput.addEventListener("change", (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profileImg.src = e.target.result;   // 이미지 미리보기
+                    profileImg.classList.remove("d-none");
+                    profileIcon.classList.add("d-none"); // 아이콘 숨기기
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     </script>
 
 </body>
