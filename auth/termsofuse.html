@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>약관 동의 - 북북노벨</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/termsofuse.css" rel="stylesheet">
+</head>
+<body data-theme="light">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" data-lang="site_name">북북노벨</a>
+
+            <div class="nav-controls">
+                <!-- Language Dropdown -->
+                <div class="dropdown lang-dropdown">
+                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe"></i>
+                        <span class="ms-1 d-none d-sm-inline" data-lang="current_lang">한국어</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" data-lang-code="ko">한국어</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang-code="ja">日本語</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang-code="en">English</a></li>
+                    </ul>
+                </div>
+
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" type="button" aria-label="테마 변경">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    <div class="auth-card">
+                        <div class="auth-header">
+                            <h1 class="auth-title" data-lang="terms_title">약관 동의</h1>
+                            <p class="auth-subtitle" data-lang="terms_subtitle">서비스 이용을 위해 약관에 동의해주세요</p>
+                        </div>
+
+                        <!-- Progress Steps -->
+                        <div class="progress-steps">
+                            <div class="step active">1</div>
+                            <div class="step">2</div>
+                        </div>
+
+                        <!-- All Terms Agreement -->
+                        <div class="all-terms-check" id="allTermsCheck">
+                            <div class="d-flex align-items-center">
+                                <input class="form-check-input me-3" type="checkbox" id="agreeAll">
+                                <label class="all-terms-label" for="agreeAll" data-lang="agree_all">
+                                    전체 약관에 동의합니다
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Terms Container -->
+                        <div class="terms-container">
+                            <!-- 서비스 이용약관 -->
+                            <div class="terms-item" data-required="true">
+                                <div class="terms-header">
+                                    <div class="terms-check">
+                                        <input class="form-check-input" type="checkbox" id="termsOfService" required>
+                                        <label class="terms-label" for="termsOfService">
+                                            <span data-lang="terms_of_service">서비스 이용약관</span>
+                                            <span class="required-badge" data-lang="required">필수</span>
+                                        </label>
+                                    </div>
+                                    <button type="button" class="view-details" data-terms="service" data-lang="view_details">
+                                        자세히 보기
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 개인정보 처리방침 -->
+                            <div class="terms-item" data-required="true">
+                                <div class="terms-header">
+                                    <div class="terms-check">
+                                        <input class="form-check-input" type="checkbox" id="privacyPolicy" required>
+                                        <label class="terms-label" for="privacyPolicy">
+                                            <span data-lang="privacy_policy">개인정보 처리방침</span>
+                                            <span class="required-badge" data-lang="required">필수</span>
+                                        </label>
+                                    </div>
+                                    <button type="button" class="view-details" data-terms="privacy" data-lang="view_details">
+                                        자세히 보기
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 만 14세 이상 확인 -->
+                            <div class="terms-item" data-required="true">
+                                <div class="terms-header">
+                                    <div class="terms-check">
+                                        <input class="form-check-input" type="checkbox" id="ageConfirm" required>
+                                        <label class="terms-label" for="ageConfirm">
+                                            <span data-lang="age_confirm">만 14세 이상입니다</span>
+                                            <span class="required-badge" data-lang="required">필수</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 마케팅 정보 수신 동의 -->
+                            <div class="terms-item" data-required="false">
+                                <div class="terms-header">
+                                    <div class="terms-check">
+                                        <input class="form-check-input" type="checkbox" id="marketingConsent">
+                                        <label class="terms-label" for="marketingConsent">
+                                            <span data-lang="marketing_consent">마케팅 정보 수신 동의</span>
+                                            <span class="optional-badge" data-lang="optional">선택</span>
+                                        </label>
+                                    </div>
+                                    <button type="button" class="view-details" data-terms="marketing" data-lang="view_details">
+                                        자세히 보기
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 이벤트 및 혜택 알림 -->
+                            <div class="terms-item" data-required="false">
+                                <div class="terms-header">
+                                    <div class="terms-check">
+                                        <input class="form-check-input" type="checkbox" id="eventConsent">
+                                        <label class="terms-label" for="eventConsent">
+                                            <span data-lang="event_consent">이벤트 및 혜택 알림 수신</span>
+                                            <span class="optional-badge" data-lang="optional">선택</span>
+                                        </label>
+                                    </div>
+                                    <button type="button" class="view-details" data-terms="event" data-lang="view_details">
+                                        자세히 보기
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary w-100" id="agreeBtn" disabled>
+                            <span data-lang="agree_and_continue">약관 동의</span>
+                        </button>
+
+                        <div class="auth-links">
+                            <span data-lang="already_have_account">이미 계정이 있으신가요?</span>
+                            <a href="/Novel/auth/login.html" onclick="navigateToPage('login')" data-lang="sign_in">로그인</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Detail Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">약관 상세</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="terms-content" id="termsContent">
+                        <!-- 약관 내용이 여기에 동적으로 로드됩니다 -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-lang="close">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/termsofuse.js"></script>
+</body>
+</html>
