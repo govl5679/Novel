@@ -467,7 +467,7 @@ function redirectToNextPage() {
             window.open(REDIRECT_CONFIG.url, '_blank');
         } else {
             // 현재 탭에서 이동
-            window.location.href = "/Novel/auth/register_page.html";
+            window.location.href = "./../auth/register_page.html";
         }
     } catch (error) {
         console.error('페이지 이동 중 오류 발생:', error);
