@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원관리 2페이지</title>
+
+    <!-- bootstrap v5.3 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
+        integrity="sha512-fw7f+TcMjTb7bpbLJZlP8g2Y4XcCyFZW8uy8HsRZsH/SwbMw0plKHFHr99DN3l04VsYNwvzicUX/6qurvIxbxw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- bootstrap icons 1.13.1 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- jquery toast plugin v1.3.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
+        integrity="sha512-wJgJNTBBkLit7ymC6vvzM1EcSWeM9mmOu+1USHaRBbHkm6W9EgM0HY27+UtUaprntaYQJF75rc8gjxllKs5OIQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* 사용자 정의 스타일 (주석) */
+    </style>
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark sticky-top flex-column">
+        <div class="container-fluid container-xl">
+            <div class="">
+                <a class="navbar-brand fs-2"><i class="bi bi-book me-2"></i>북북노벨/관리자</a>
+                <div class="navbar-nav">
+                    <a class="nav-link text-white" href="../home/home.html">자유</a>
+                    <a class="nav-link text-white" href="../home/ranking.html">랭킹</a>
+                    <a class="nav-link text-white" href="../user_board/free_list.html">유저 게시판</a>
+                    <a class="nav-link text-white">/</a>
+                    <a class="nav-link text-white" href="../admin/user_list.html">회원관리</a>
+                </div>
+            </div>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <!-- //navbar -->
+    <!-- 본문 -->
+    <div class="contanier">
+        <!-- 검색 -->
+        <div class="container text-end mt-2">
+            <div class="d-flex justify-content-end">
+                <div class="d-flex me-3">
+                    <div class="me-1 p-2">
+                        <label for="category">카테고리:&nbsp;</label>
+                    </div>
+                    <div>
+                        <select class="form-control" id="category" name="category">
+                            <option value="all">전체</option>
+                            <option value="aka">닉네임</option>
+                            <option value="name">이름</option>
+                            <option value="id">아이디</option>
+                            <option value="tel">휴대폰</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="me-1 p-2">
+                        <label for="search-term">&nbsp;검색어:&nbsp;</label>
+                    </div>
+                    <div class="me-1">
+                        <input class="form-control" type="text" id="search-term" name="q" placeholder="검색어를 입력하세요">
+                    </div>
+                    <div class="me-1">
+                        <button class="btn btn-primary" type="submit">검색</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //검색 -->
+        <!-- 유저 항목 -->
+        <table class="table mt-2 table-bordered">
+            <thead>
+                <tr class="table-dark text-center" valign="middle">
+                    <th class="col-1" rowspan="2">회원번호</th>
+                    <th class="col-1" rowspan="2"><input type="checkbox" class="form-check-input" id="checkboxAll"></th>
+                    <th class="col-1" rowspan="2">아이디</th>
+                    <th>이름</th>
+                    <th colspan="4">본인인증</th>
+                    <th rowspan="2">휴대폰</th>
+                    <th class="col-1" rowspan="2">포인트/쿠키</th>
+                    <th class="col-1">가입일</th>
+                    <th class="col-1" rowspan="2">관리</th>
+                </tr>
+                <tr class="table-dark text-center" valign="middle">
+                    <th>닉네임</th>
+                    <th>메일<br>인증</th>
+                    <th>메일<br>수신</th>
+                    <th>SMS<br>수신</th>
+                    <th>성인<br>인증</th>
+                    <th class="col-1">최종접속일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 유저 01 -->
+                <tr class="table-light text-center" valign="middle">
+                    <td rowspan="2">01</td>
+                    <td rowspan="2"><input type="checkbox" class="form-check-input list-checkbox" id="checkboxAll">
+                    </td>
+                    <td rowspan="2"><u>govl5679</u></td>
+                    <td><u>백병렬</u></td>
+                    <td colspan="4">
+                        <div class="row">
+                            <div class="col-6">
+                                <input class="form-check-input" type="radio" name="auth-method-3" id="auth-ipin-3"> 아이핀
+                            </div>
+                            <div class="col-6">
+                                <input class="form-check-input" type="radio" name="auth-method-3" id="auth-phone-3"
+                                    checked> 휴대폰
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="2"><u>010-7735-9765</u></td>
+                    <td rowspan="2">5</td>
+                    <td>25-08-01</td>
+                    <td rowspan="2"><button type="button" class="btn btn-primary"
+                            onclick="goToPage('read.html');">상세정보</button></td>
+                </tr>
+                <tr class="table-light text-center" valign="middle">
+                    <td><u>난카푸치노</u></td>
+                    <td><input type="checkbox" class="form-check-input" id="checkboxAll" checked></td>
+                    <td><input type="checkbox" class="form-check-input" id="checkboxAll" checked></td>
+                    <td><input type="checkbox" class="form-check-input" id="checkboxAll" checked></td>
+                    <td><input type="checkbox" class="form-check-input" id="checkboxAll" checked></td>
+                    <td>25-08-01</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- //유저 정보 -->
+    </div>
+    <!-- //본문 -->
+
+    <!-- 수정, 탈퇴처리 -->
+    <div class="mt-3 me-2 text-end">
+        <button type="button" class="btn btn-success" onclick="save();">변경사항 저장</button>
+        <button type="button" class="btn btn-danger" onclick="del();">탈퇴 처리</button>
+    </div>
+    <!-- //수정, 탈퇴처리 -->
+
+    <!-- 페이지 버튼 -->
+    <div class="mt-3 row">
+        <div class="col-5"></div>
+        <div class="col-2 btn-group me-2" role="group" aria-label="First group">
+            <button type="button" class="btn btn-outline-dark" onclick="goToPage('user_list.html');"><i
+                    class="bi bi-chevron-double-left"></i></button>
+            <button type="button" class="btn btn-outline-dark" onclick="goToPage('user_list.html');"><i
+                    class="bi bi-chevron-left"></i></button>
+            <button type="button" class="btn btn-outline-dark" onclick="goToPage('user_list.html');">1</button>
+            <button type="button" class="btn btn-outline-dark active" onclick="goToPage('user_list2.html');">2</button>
+            <button type="button" class="btn btn-outline-dark" onclick="goToPage('user_list2.html');"><i
+                    class="bi bi-chevron-right"></i></button>
+            <button type="button" class="btn btn-outline-dark" onclick="goToPage('user_list2.html');"><i
+                    class="bi bi-chevron-double-right"></i></button>
+        </div>
+    </div>
+    <!-- //페이지 버튼 -->
+
+    <!-- bootstrap v5.3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"
+        integrity="sha512-Tc0i+vRogmX4NN7tuLbQfBxa8JkfUSAxSFVzmU31nVdHyiHElPPy2cWfFacmCJKw0VqovrzKhdd2TSTMdAxp2g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- jquery v3.7.1 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- jquery toast plugin v1.3.2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
+        integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- custom -->
+    <script>
+        // checkboxAll (jquery)
+        let checked = false;
+
+        const checkboxAll = $('#checkboxAll');
+
+        $(document).ready(function () {
+            $('#checkboxAll').on('change', function () {
+                var isChecked = $(this).prop('checked');
+                $('.list-checkbox').prop('checked', isChecked);
+            });
+        });
+
+        // 변경사항 저장
+        function save() {
+            confirm('저장하시겠습니까?');
+        }
+
+        // 탈퇴 처리
+        function del() {
+            confirm('정말 삭제하시겠습니까?');
+        }
+
+        // 페이지 이동
+        function goToPage(url) {
+            window.location.href = url;
+        }
+
+    </script>
+
+</body>
+
+</html>
