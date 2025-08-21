@@ -318,14 +318,17 @@
 
         // 변경사항 저장
         function save() {
-            confirm('저장하시겠습니까?');
-            location.reload(true);
+            if (confirm('저장하시겠습니까?')) {
+                alert('저장 되었습니다.');
+            }
         }
 
         // 탈퇴 처리
         function del() {
-            confirm('정말 탈퇴 처리하시겠습니까?');
-            location.reload(true);
+            if (confirm('정말 탈퇴 처리하시겠습니까?')) {
+                alert('탈퇴 처리 되었습니다.');
+                location.reload(true);
+            };
         }
 
         // 페이지 이동

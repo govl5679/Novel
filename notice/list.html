@@ -25,24 +25,36 @@
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success sticky-top flex-column">
+    <nav class="navbar navbar-expand-lg d-flex flex-column fixed-top bg-white sticky-top">
 
-        <div class="container-fluid container-xl">
-            <div class="">
-                <a class="navbar-brand fs-2" href="../home/home.html"><i class="bi bi-book me-2"></i>북북노벨</a>
-                <div class="navbar-nav">
-                    <a class="nav-link text-white" href="../home/home.html">자유</a>
-                    <a class="nav-link text-white" href="../home/ranking.html">랭킹</a>
-                    <a class="nav-link text-white" href="../user_board/free_list.html">유저 게시판</a>
-                    <a class="nav-link text-white" href="../notice/list.html">공지사항</a>
-                </div>
+        <div class="container row py-3">
+            <!--북북노벨 타이틀-->
+            <div class="navbar-nav col-3">
+                <a class="navbar-brand fs-2 fw-bold" href="../home/home.html">
+                    <i class="bi bi-book me-2 fs-1 text-success"></i>북북노벨
+                </a>
             </div>
-            <div class="input-group w-50">
-                <input type="text" class="form-control" placeholder="Recipient’s username"
-                       aria-label="Recipient’s username" aria-describedby="button-addon2">
-                <button class="btn btn-light" type="button" id="button-addon2">Button</button>
+            <!--검색창-->
+            <div class="navbar-nav col-8">
+                <form class="input-group" action="../home/search.html">
+                    <input type="text" class="form-control" placeholder="Recipient’s username" id="">
+                    <button class="btn btn-outline-success p-3" type="submit" id="search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
             </div>
-            <i class="bi bi-person-circle text-white fs-2 ms-3"></i>
+            <!-- 프로필 -->
+            <div class="navbar-nav col-1 d-flex justify-content-end">
+                <i class="bi bi-person-circle fs-2 ms-3"></i>
+            </div>
+        </div>
+        <div class="border-top col-12 border-success"></div>
+        <!-- 목록 -->
+        <div class="container navbar-nav d-flex justify-content-start py-3 fs-5">
+            <a class="nav-link text-dark me-2" href="../home/home.html">자유</a>
+            <a class="nav-link text-dark me-2" href="../home/ranking.html">랭킹</a>
+            <a class="nav-link text-dark me-2" href="../user_board/free_list.html">유저 게시판</a>
+            <a class="nav-link text-dark me-2" href="../notice/list.html">공지사항</a>
         </div>
     </nav>
     <!-- navbar -->
