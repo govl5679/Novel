@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - 북북노벨</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/register_page.css" rel="stylesheet">
+</head>
+
+<body data-theme="light">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" data-lang="site_name">북북노벨</a>
+
+            <div class="nav-controls">
+                <!-- Language Dropdown -->
+                <div class="dropdown lang-dropdown">
+                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe"></i>
+                        <span class="ms-1 d-none d-sm-inline" data-lang="current_lang">한국어</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" data-lang-code="ko">한국어</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang-code="ja">日本語</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang-code="en">English</a></li>
+                    </ul>
+                </div>
+
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" type="button" aria-label="테마 변경">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-7">
+                    <div class="auth-card">
+                        <div class="auth-header">
+                            <h1 class="auth-title" data-lang="register_title">회원가입</h1>
+                            <p class="auth-subtitle" data-lang="register_subtitle">새 계정을 만들어 서비스를 시작하세요</p>
+                        </div>
+
+                        <!-- Progress Steps -->
+                        <div class="progress-steps">
+                            <div class="step completed">1</div>
+                            <div class="step active">2</div>
+                        </div>
+
+                        <form id="registerForm" novalidate>
+                            <!-- 아이디 -->
+                            <div class="form-group">
+                                <label for="userId" class="form-label">
+                                    <span data-lang="username_label">아이디</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디"
+                                        data-lang-placeholder="username_placeholder" autocomplete="username" required>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-primary btn-sm btn-check"
+                                            id="checkUserId">
+                                            <span data-lang="check_duplicate">중복확인</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                                <div class="valid-feedback"></div>
+                            </div>
+
+                            <!-- 비밀번호 -->
+                            <div class="form-group">
+                                <label for="password" class="form-label">
+                                    <span data-lang="password_label">비밀번호</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="비밀번호" data-lang-placeholder="password_placeholder"
+                                        autocomplete="new-password" required>
+                                    <div class="input-group-append">
+                                        <button type="button" class="password-toggle" aria-label="비밀번호 보기/숨기기">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="password-strength">
+                                    <div class="strength-bar">
+                                        <div class="strength-fill"></div>
+                                    </div>
+                                    <div class="strength-text" data-lang="password_strength">비밀번호 강도</div>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <!-- 비밀번호 확인 -->
+                            <div class="form-group">
+                                <label for="passwordConfirm" class="form-label">
+                                    <span data-lang="password_confirm_label">비밀번호 확인</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="passwordConfirm"
+                                        name="passwordConfirm" placeholder="비밀번호 확인"
+                                        data-lang-placeholder="password_confirm_placeholder" autocomplete="new-password"
+                                        required>
+                                    <div class="input-group-append">
+                                        <button type="button" class="password-toggle" aria-label="비밀번호 보기/숨기기">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                                <div class="valid-feedback"></div>
+                            </div>
+
+                            <!-- 이름 -->
+                            <div class="form-group">
+                                <label for="fullName" class="form-label">
+                                    <span data-lang="name_label">이름</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="이름"
+                                    data-lang-placeholder="name_placeholder" autocomplete="name" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <!-- 이메일 -->
+                            <div class="form-group">
+                                <label for="email" class="form-label">
+                                    <span data-lang="email_label">이메일 주소</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="이메일 주소" data-lang-placeholder="email_placeholder"
+                                        autocomplete="email" required>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-primary btn-sm btn-check"
+                                            id="checkEmail">
+                                            <span data-lang="check_duplicate">중복확인</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                                <div class="valid-feedback"></div>
+                            </div>
+
+                            <!-- 전화번호 -->
+                            <div class="form-group">
+                                <label for="phone" class="form-label">
+                                    <span data-lang="phone_label">전화번호</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="전화번호"
+                                    data-lang-placeholder="phone_placeholder" autocomplete="tel" required
+                                    maxlength="13">
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <!-- 생년월일 -->
+                            <div class="form-group">
+                                <label for="birthDate" class="form-label">
+                                    <span data-lang="birth_date_label">생년월일</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="birthDate" name="birthDate"
+                                    placeholder="생년월일 8자리" data-lang-placeholder="birth_date_placeholder"
+                                    autocomplete="bday" required maxlength="10">
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100" id="registerBtn">
+                                <span class="btn-text" data-lang="register_button">계정 생성</span>
+                                <span class="loading-spinner hidden"></span>
+                            </button>
+                        </form>
+
+                        <div class="auth-links">
+                            <span data-lang="already_have_account">이미 계정이 있으신가요?</span>
+                            <a href="/Novel/auth/login.html" onclick="navigateToPage('login')" data-lang="sign_in">로그인</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/register_page.js"></script>
+</body>
+
+</html>
