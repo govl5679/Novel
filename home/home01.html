@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>북스토어 – 홈</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #0f172a;
+            --muted: #6b7280;
+            --card: #ffffff;
+            --line: #e5e7eb;
+            --primary: #111827;
+            --accent: #f97316;
+            --radius: 16px;
+            --shadow: 0 10px 20px rgba(0, 0, 0, .06);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, .8);
+            backdrop-filter: saturate(180%) blur(8px);
+            border-bottom: 1px solid var(--line);
+            z-index: 10;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-weight: 800;
+            letter-spacing: -.02em;
+            font-size: 20px;
+        }
+
+        .search {
+            flex: 1;
+            position: relative;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 12px 14px 12px 44px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            outline: none;
+            background: #fafafa;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            opacity: .6;
+        }
+
+        .nav {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav a {
+            padding: 8px 12px;
+            border-radius: 10px;
+        }
+
+        .nav a:hover {
+            background: #f3f4f6;
+        }
+
+        /* 섹션 공통 */
+        .section {
+            margin-top: 28px;
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin: 0 0 14px;
+            letter-spacing: -.01em;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .more {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* 카테고리 */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .category-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .category-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .category-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 16px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, .08);
+        }
+
+        .cat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+        }
+
+        .cat-info strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .cat-info span {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* 수평 리스트 */
+        .hscroll {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 200px;
+            gap: 14px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .hscroll::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .hscroll::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 999px;
+        }
+
+        /* 북 카드 */
+        .book-card {
+            scroll-snap-align: start;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: calc(var(--radius) - 4px);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 28px rgba(0, 0, 0, .1);
+        }
+
+        .book-cover {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            display: block;
+            background: #f3f4f6;
+        }
+
+        .book-body {
+            padding: 10px 12px 12px;
+        }
+
+        .book-title {
+            font-size: 14px;
+            line-height: 1.35;
+            height: 38px;
+            overflow: hidden;
+            display: block;
+        }
+
+        .book-price {
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        /* Featured Books */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .tab {
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background: #111827;
+            color: #fff;
+        }
+
+        .grid-books {
+            margin-top: 16px;
+            display: grid;
+            gap: 14px;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+
+        @media (max-width: 1100px) {
+            .grid-books {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .grid-books {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .grid-books {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .grid-books {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .footer {
+            border-top: 1px solid var(--line);
+            margin-top: 40px;
+        }
+
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            padding-top: 18px;
+            padding-bottom: 28px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="topbar">
+            <div class="logo">📚 북스토어</div>
+            <div class="search">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+                </svg>
+                <input type="search" placeholder="도서, 저자, 출판사를 검색" aria-label="검색" />
+            </div>
+            <nav class="nav" aria-label="빠른메뉴">
+                <a href="#">로그인</a>
+                <a href="#">장바구니</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Featured Categories -->
+        <section class="section" aria-labelledby="cat-title">
+            <div class="section-header">
+                <h2 id="cat-title">추천 카테고리</h2>
+                <a class="more" href="#">전체 카테고리 ▸</a>
+            </div>
+            <div class="category-grid">
+                <a class="category-card" href="#" aria-label="예술 & 사진">
+                    <span class="cat-icon" style="background:#efe9ff">🎨</span>
+                    <span class="cat-info"><strong>예술 · 사진</strong><span>지금 쇼핑</span></span>
+                </a>
+                <a class="category-card" href="#" aria-label="음식 & 요리">
+                    <span class="cat-icon" style="background:#ffefe3">🍳</span>
+                    <span class="cat-info"><strong>음식 · 요리</strong><span>지금 쇼핑</span></span>
+                </a>
+                <a class="category-card" href="#" aria-label="로맨스">
+                    <span class="cat-icon" style="background:#e8fbf1">💌</span>
+                    <span class="cat-info"><strong>로맨스</strong><span>지금 쇼핑</span></span>
+                </a>
+                <a class="category-card" href="#" aria-label="건강">
+                    <span class="cat-icon" style="background:#e9f6ff">🩺</span>
+                    <span class="cat-info"><strong>건강</strong><span>지금 쇼핑</span></span>
+                </a>
+                <a class="category-card" href="#" aria-label="전기/자서전">
+                    <span class="cat-icon" style="background:#ffe9ed">📖</span>
+                    <span class="cat-info"><strong>전기 · 자서전</strong><span>지금 쇼핑</span></span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Bestselling Books (horizontal) -->
+        <section class="section" aria-labelledby="best-title">
+            <div class="section-header">
+                <h2 id="best-title">베스트셀러</h2>
+                <a class="more" href="#">더보기 ▸</a>
+            </div>
+            <div class="hscroll" id="best-list">
+                <!-- 항목은 JS로도 추가 가능. 여기서는 예시 8개 -->
+                <article class="book-card"><img class="book-cover" src="https://picsum.photos/seed/b1/400/550"
+                        alt="도서표지" />
+                    <div class="book-body"><span class="book-title">생각은 현실이 된다</span>
+                        <div class="book-price">₩12,900</div>
+                    </div>
+                </article>
+                <article class="book-card"><img class="book-cover" src="https://picsum.photos/seed/b2/400/550"
+                        alt="도서표지" />
+                    <div class="book-body"><span class="book-title">작은 습관의 기적</span>
+                        <div class="book-price">₩14,800</div>
+                    </div>
+                </article>
+                <article class="book-card"><img class="book-cover" src="https://picsum.photos/seed/b3/400/550"
+                        alt="도서표지" />
+                    <div class="book-body"><span class="book-title">그림으로 배우는 사진</span>
+                        <div class="book-price">₩18,000</div>
+                    </div>
+                </article>
+                <article class="book-card"><img class="book-cover" src="https://picsum.photos/seed/b4/400/550"
+                        alt="도서표지" />
+                    <div class="book-body"><span class="book-title">데일리 웰니스 가이드</span>
+                        <div class="book-price">₩15,500</div>
+                    </div>
+                </article>
+                <article class="book-card"><img class="book-cover" src="https://picsum.photos/seed/b5/400/550"
+                        alt="도서표지" />
+                    <div class="book-body"><span class="book-title">완벽한 초대장</span>
+                        <div class="book-price">₩11,900</div>
+                    </div>
+                </article>
+                <article class="book-card"><img class="book-cover" src="https://picsum.photos/seed/b6/400/550"
+                        alt="도서표지" />
+                    <div class="book-body"><span class="book-title">사소한 것들의 목록</span>
+                        <div class="book-price">₩13,200</div>
+                    </div>
+                </article>
+                <article class="book-card"><img class="book-cover" src="https://picsum.photos/seed/b7/400/550"
+                        alt="도서표지" />
+                    <div class="book-body"><span class="book-title">사랑의 규칙</span>
+                        <div class="book-price">₩10,500</div>
+                    </div>
+                </article>
+                <article class="book-card"><img class="book-cover" src="https://picsum.photos/seed/b8/400/550"
+                        alt="도서표지" />
+                    <div class="book-body"><span class="book-title">작가의 초상</span>
+                        <div class="book-price">₩16,800</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Featured Books (grid with tabs) -->
+        <section class="section" aria-labelledby="feat-title">
+            <h2 id="feat-title" style="margin-bottom:8px">추천 도서</h2>
+            <div class="tabs" role="tablist" aria-label="추천 도서 정렬">
+                <button class="tab active" role="tab" aria-selected="true" data-tab="featured">추천</button>
+                <button class="tab" role="tab" aria-selected="false" data-tab="sale">할인</button>
+                <button class="tab" role="tab" aria-selected="false" data-tab="most">많이 본</button>
+            </div>
+            <div class="grid-books" id="grid-books" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div>© 2025 북스토어. 모든 권리 보유.</div>
+            <div>고객센터 1600-0000 · help@bookstore.kr</div>
+        </div>
+    </footer>
+
+    <script>
+        // 더미 데이터 (국문)
+        const DATA = {
+            featured: [
+                { title: '바람과 함께 사라지다', price: 12900, img: 'https://picsum.photos/seed/f1/400/550' },
+                { title: '어느 작가의 오후', price: 11800, img: 'https://picsum.photos/seed/f2/400/550' },
+                { title: '밤의 문장들', price: 9900, img: 'https://picsum.photos/seed/f3/400/550' },
+                { title: '코딩으로 먹고살기', price: 15800, img: 'https://picsum.photos/seed/f4/400/550' },
+                { title: '식탁 위의 과학', price: 15300, img: 'https://picsum.photos/seed/f5/400/550' },
+                { title: '도시 산책자', price: 12500, img: 'https://picsum.photos/seed/f6/400/550' },
+                { title: '초보 투자자 가이드', price: 14200, img: 'https://picsum.photos/seed/f7/400/550' },
+                { title: '작고 확실한 위로', price: 9800, img: 'https://picsum.photos/seed/f8/400/550' },
+                { title: '이야기의 탄생', price: 17500, img: 'https://picsum.photos/seed/f9/400/550' },
+                { title: '그림으로 배우는 건강', price: 13300, img: 'https://picsum.photos/seed/f10/400/550' },
+                { title: '휴식의 기술', price: 11900, img: 'https://picsum.photos/seed/f11/400/550' },
+                { title: '빛과 그림자', price: 13900, img: 'https://picsum.photos/seed/f12/400/550' }
+            ],
+            sale: [
+                { title: '초격차 생산성', price: 8900, img: 'https://picsum.photos/seed/s1/400/550' },
+                { title: '디지털 미니멀리즘', price: 9900, img: 'https://picsum.photos/seed/s2/400/550' },
+                { title: '맛있게 단백질', price: 8600, img: 'https://picsum.photos/seed/s3/400/550' },
+                { title: '아이디어 정리 노트', price: 7700, img: 'https://picsum.photos/seed/s4/400/550' },
+                { title: '하루 한 장 캘리', price: 6500, img: 'https://picsum.photos/seed/s5/400/550' },
+                { title: '감정의 온도', price: 8200, img: 'https://picsum.photos/seed/s6/400/550' },
+                { title: '스몰 스텝', price: 7400, img: 'https://picsum.photos/seed/s7/400/550' },
+                { title: '행복 실험실', price: 9300, img: 'https://picsum.photos/seed/s8/400/550' },
+                { title: '퇴근 후 드로잉', price: 7800, img: 'https://picsum.photos/seed/s9/400/550' },
+                { title: '초간단 집밥', price: 7100, img: 'https://picsum.photos/seed/s10/400/550' },
+                { title: '스마트 머니', price: 9000, img: 'https://picsum.photos/seed/s11/400/550' },
+                { title: '클래식 산책', price: 8400, img: 'https://picsum.photos/seed/s12/400/550' }
+            ],
+            most: [
+                { title: '밤의 도서관', price: 13200, img: 'https://picsum.photos/seed/m1/400/550' },
+                { title: '인생 문장 수집', price: 12500, img: 'https://picsum.photos/seed/m2/400/550' },
+                { title: '요리의 이유', price: 14100, img: 'https://picsum.photos/seed/m3/400/550' },
+                { title: '자기 돌봄의 기술', price: 13700, img: 'https://picsum.photos/seed/m4/400/550' },
+                { title: '그림으로 보는 역사', price: 16600, img: 'https://picsum.photos/seed/m5/400/550' },
+                { title: '초보 사진 교과서', price: 14000, img: 'https://picsum.photos/seed/m6/400/550' },
+                { title: '사랑은 기술이다', price: 12000, img: 'https://picsum.photos/seed/m7/400/550' },
+                { title: '경제의 쓸모', price: 15000, img: 'https://picsum.photos/seed/m8/400/550' },
+                { title: '해변의 과학자', price: 13800, img: 'https://picsum.photos/seed/m9/400/550' },
+                { title: '작가 인터뷰집', price: 12800, img: 'https://picsum.photos/seed/m10/400/550' },
+                { title: '몸과 마음', price: 13600, img: 'https://picsum.photos/seed/m11/400/550' },
+                { title: '빛나는 소설들', price: 14900, img: 'https://picsum.photos/seed/m12/400/550' }
+            ]
+        };
+
+        const grid = document.getElementById('grid-books');
+        const tabs = document.querySelectorAll('.tab');
+
+        function render(list) {
+            grid.innerHTML = list.map(item => `
+        <article class="book-card">
+          <img class="book-cover" src="${item.img}" alt="도서표지" loading="lazy" />
+          <div class="book-body">
+            <span class="book-title">${item.title}</span>
+            <div class="book-price">₩${item.price.toLocaleString()}</div>
+          </div>
+        </article>
+      `).join('');
+        }
+
+        tabs.forEach(btn => btn.addEventListener('click', (e) => {
+            tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+            const key = e.currentTarget.dataset.tab;
+            e.currentTarget.classList.add('active');
+            e.currentTarget.setAttribute('aria-selected', 'true');
+            render(DATA[key]);
+        }));
+
+        // 초기 렌더
+        render(DATA.featured);
+    </script>
+</body>
+
+</html>
