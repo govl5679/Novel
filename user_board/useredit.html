@@ -83,7 +83,7 @@
             <div class="mb-3 justify-content-center">
                 <div class="mb-2 me-4 col-1">
                     <select class="form-control border-secondary" type="select">
-                        <option value="free">자유게시판</option>
+                        <option value="free">유저 게시판</option>
                         <option value="recommend">작품 추천</option>
                         <option value="review">작품 리뷰</option>
                         <option value="fanart">팬아트</option>
@@ -98,31 +98,12 @@
                         placeholder="제목을 입력해주세요." id="importantCheck">
                 </div>
             </div>
-            <!-- 파일 첨부 
-            <div class="col-6 d-flex gap-4" id="fileAdd">
-                <div class="">
-                    <button class="btn btn-outline-primary" onclick="addFiles()">Add File</button>
-                    <input type="file" multiple id="files" style="display: none;" />
-                </div>
-                <div class="table-responsive" style="max-height: 300px;">
-                    <table class="table table-hover table-striped-columns text-center" id="table">
-                        <thead class="table-light" style="position: sticky; top: 0; border-collapse: separate;">
-                            <tr id="file-info">
-                                <th scope="col">File Name</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>-->
-            <!-- //파일 첨부 -->
-
 
             <!-- 글쓰기 본문 -->
-            <div class="mb-3">
-                <div class="form-floating">
-                    <textarea class="form-control border-secondary" id="postTextarea"></textarea>
-                </div>
-            </div>
+
+            <form method="post">
+                <textarea id="summernote" name="editordata"></textarea>
+            </form>
 
             <form method="post">
                 <textarea id="summernote" name="editordata"></textarea>
