@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device=width, initial-scale=1">
-    <title>default</title>
+    <title>북북노벨 | 웹소설 플랫폼</title>
 
     <!-- bootstrap v5.3 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
@@ -18,12 +18,295 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
         integrity="sha512-wJgJNTBBkLit7ymC6vvzM1EcSWeM9mmOu+1USHaRBbHkm6W9EgM0HY27+UtUaprntaYQJF75rc8gjxllKs5OIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
-        /* 사용자 정의 스타일 (주석) */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .nav-link {
+            font-weight: 500;
+        }
+
+        .banner {
+            height: 300px;
+            background: url("https://picsum.photos/1200/300") center/cover no-repeat;
+            border-radius: 15px;
+        }
+
+        .novel-card img {
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .novel-card .card-body {
+            padding: 0.8rem;
+        }
+
+        .ranking-badge {
+            background: #000;
+            color: #fff;
+            font-size: 0.8rem;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 6px;
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg d-flex flex-column fixed-top bg-white sticky-top">
+        <div class="container row py-3">
+            <div class="navbar-nav col-3">
+                <a class="navbar-brand fs-2 fw-bold" href="../home/home.html">
+                    <i class="bi bi-book me-2 fs-1 text-success"></i>북북노벨
+                </a>
+            </div>
+            <div class="navbar-nav col-6">
+                <form class="input-group" action="../home/search.html">
+                    <input type="text" class="form-control" placeholder="작가, 작품명" id="">
+                    <button class="btn btn-outline-success p-3" type="submit" id="search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="navbar-nav col-3 d-flex justify-content-end position-relative">
+                <a href="#" class="btn btn-link p-0" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-person-circle fs-2 text-dark"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end p-5 border rounded shadow-lg"
+                    style="width: 350px; transform: translateX(10px); background-color: white;">
+                    <div class="text-end mb-2">
+                        <button class="btn-close ms-2" type="button" aria-label="Close"
+                            data-bs-dismiss="dropdown"></button>
+                    </div>
+                    <div class="d-flex align-items-center mb-4 p-3 rounded-3" style="background-color: #f7f9fc;">
+                        <div class="me-3">
+                            <h6 class="fw-bold mb-0" style="font-size: 1.1rem;">지금 <a href="../auth/login.html">로그인</a>
+                                하고
+                            </h6>
+                            <small style="font-size: 0.9rem;">다양한 혜택 받아보세요.</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-around my-4 text-center" style="gap: 1rem;">
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-coin fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">코인충전</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-gift fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">이벤트</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-calendar-check fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">출석체크</small>
+                        </a>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../notice/list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">공지사항</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">결제 내역</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../user_board/fanart_list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">팬아트</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">1:1 문의하기</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-top col-12 border-success"></div>
+        <div class="container navbar-nav d-flex justify-content-start py-3 fs-5">
+            <a class="nav-link text-success me-2" href="../home/home.html">홈</a>
+            <a class="nav-link text-dark me-2" href="../home/ranking.html">랭킹</a>
+            <a class="nav-link text-dark me-2" href="../user_board/free_list.html">유저 게시판</a>
+            <a class="nav-link text-dark me-2" href="../notice/list.html">공지사항</a>
+        </div>
+    </nav>
+    <!-- //navbar -->
+
+    <!-- novel detail -->
+    <div class="container my-5 pt-5">
+        <div class="row">
+            <!-- 썸네일 -->
+            <div class="col-md-3">
+                <img src="9aeb5cee-ec75-463b-ae97-3a54ce940c93.png" alt="전생했더니 액체괴물" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- 작품 정보 -->
+            <div class="col-md-9">
+                <h2 class="fw-bold">전생했더니 액체괴물</h2>
+                <p class="text-muted mb-2">작가명 <strong>포풍저그</strong></p>
+                <p>
+                    조회 <strong>2,314,122</strong> · 추천 <strong>152,210</strong> · 인생픽 공개전
+                </p>
+
+                <div class="mb-3">
+                    <span class="badge bg-dark">#판타지</span>
+                    <span class="badge bg-secondary">#전생</span>
+                    <span class="badge bg-info text-dark">#괴물</span>
+                    <span class="badge bg-success">#개그</span>
+                    <span class="badge bg-warning text-dark">#성장물</span>
+                </div>
+
+                <div class="p-3 bg-light rounded">
+                    <p>
+                        눈을 뜨니, 나는 인간도 용사도 아닌 <strong>점성 없는 액체괴물</strong>이었다.<br>
+                        공격도 방어도 형편없고, 마을 사람들에게 밟히고, 모험가들에게 무시당하는 존재.<br><br>
+
+                        하지만 나에게는 단 하나의 특권이 있었다.<br>
+                        바로 "흡수"와 "진화".<br><br>
+
+                        약한 벌레부터 시작해서, 검과 마법, 심지어 영웅의 기억까지...<br>
+                        나는 모든 것을 삼키며, 최강의 존재로 진화해 나간다!
+                    </p>
+                </div>
+
+                <div class="mt-3">
+                    <i class="bi bi-heart-fill text-danger"></i> 20,532
+                    <span class="ms-3">
+                        <i class="bi bi-bell" id="alarmIcon" style="cursor:pointer;"></i>
+                        <span id="alarmCount">1,210</span>
+                    </span>
+                    <i class="bi bi-journal-text ms-3"></i> 회차 6
+                </div>
+
+                <div class="mt-4">
+                    <a href="#" class="btn btn-primary btn-lg">첫 화 무료보기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //novel detail -->
+
+    <!-- 회차리스트 -->
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="fw-bold">회차리스트</h4>
+            <button id="sortButton" class="btn btn-sm btn-outline-secondary">
+                첫화부터 ↓
+            </button>
+        </div>
+
+        <div id="episodeList">
+
+            <!-- 공지 -->
+            <div
+                class="p-3 mb-2 border rounded d-flex justify-content-between align-items-center episode-notice bg-warning-subtle">
+                <div>
+                    <span class="fw-bold">📢 팬아트를 받았습니다!!! (25.08.20)</span><br>
+                    <small class="text-muted">공지시간 08.06</small>
+                </div>
+                <div class="text-end small text-muted">
+                    <div><i class="bi bi-eye"></i> 10,357</div>
+                    <div><i class="bi bi-hand-thumbs-up"></i> 43</div>
+                    <div><i class="bi bi-chat"></i> 237</div>
+                </div>
+            </div>
+
+            <!-- 회차 (1~6) -->
+            <div class="p-3 border-bottom d-flex justify-content-between align-items-center episode-item">
+                <div>
+                    <span class="badge bg-primary me-2">무료</span>
+                    <span class="fw-bold">첫번째 (1)</span><br>
+                    <small class="text-muted">EP.1 · 25.07.05</small>
+                </div>
+                <div class="text-end small text-muted">
+                    <div><i class="bi bi-eye"></i> 3,155</div>
+                    <div><i class="bi bi-hand-thumbs-up"></i> 98</div>
+                    <div><i class="bi bi-chat"></i> 2,952</div>
+                </div>
+            </div>
+
+            <div class="p-3 border-bottom d-flex justify-content-between align-items-center episode-item">
+                <div>
+                    <span class="badge bg-primary me-2">무료</span>
+                    <span class="fw-bold">첫번째 (2)</span><br>
+                    <small class="text-muted">EP.2 · 25.07.05</small>
+                </div>
+                <div class="text-end small text-muted">
+                    <div><i class="bi bi-eye"></i> 3,911</div>
+                    <div><i class="bi bi-hand-thumbs-up"></i> 81</div>
+                    <div><i class="bi bi-chat"></i> 2,806</div>
+                </div>
+            </div>
+
+            <div class="p-3 border-bottom d-flex justify-content-between align-items-center episode-item">
+                <div>
+                    <span class="badge bg-primary me-2">무료</span>
+                    <span class="fw-bold">첫번째 (3)</span><br>
+                    <small class="text-muted">EP.3 · 25.07.06</small>
+                </div>
+                <div class="text-end small text-muted">
+                    <div><i class="bi bi-eye"></i> 4,402</div>
+                    <div><i class="bi bi-hand-thumbs-up"></i> 75</div>
+                    <div><i class="bi bi-chat"></i> 2,790</div>
+                </div>
+            </div>
+
+            <div class="p-3 border-bottom d-flex justify-content-between align-items-center episode-item">
+                <div>
+                    <span class="badge bg-primary me-2">무료</span>
+                    <span class="fw-bold">첫번째 (4)</span><br>
+                    <small class="text-muted">EP.4 · 25.07.07</small>
+                </div>
+                <div class="text-end small text-muted">
+                    <div><i class="bi bi-eye"></i> 4,801</div>
+                    <div><i class="bi bi-hand-thumbs-up"></i> 112</div>
+                    <div><i class="bi bi-chat"></i> 3,021</div>
+                </div>
+            </div>
+
+            <div class="p-3 border-bottom d-flex justify-content-between align-items-center episode-item">
+                <div>
+                    <span class="badge bg-primary me-2">무료</span>
+                    <span class="fw-bold">첫번째 (5)</span><br>
+                    <small class="text-muted">EP.5 · 25.07.08</small>
+                </div>
+                <div class="text-end small text-muted">
+                    <div><i class="bi bi-eye"></i> 5,122</div>
+                    <div><i class="bi bi-hand-thumbs-up"></i> 134</div>
+                    <div><i class="bi bi-chat"></i> 3,276</div>
+                </div>
+            </div>
+
+            <div class="p-3 border-bottom d-flex justify-content-between align-items-center episode-item">
+                <div>
+                    <span class="badge bg-success me-2">UP</span>
+                    <span class="fw-bold">첫번째 (6)</span><br>
+                    <small class="text-muted">EP.6 · 25.07.09</small>
+                </div>
+                <div class="text-end small text-muted">
+                    <div><i class="bi bi-eye"></i> 5,543</div>
+                    <div><i class="bi bi-hand-thumbs-up"></i> 147</div>
+                    <div><i class="bi bi-chat"></i> 3,501</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- //회차리스트 -->
 
     <!-- bootstrap v5.3 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"
@@ -42,8 +325,60 @@
 
     <!-- custom -->
     <script>
+        // 알림 아이콘 클릭 시 토글 기능
+        document.addEventListener("DOMContentLoaded", function () {
+            const alarmIcon = document.getElementById("alarmIcon");
+            const alarmCount = document.getElementById("alarmCount");
 
+            let isSubscribed = false; // 계정당 1회 기준, 기본은 미구독 상태
+            let baseCount = parseInt(alarmCount.innerText.replace(/,/g, "")); // 숫자 파싱
+
+            alarmIcon.addEventListener("click", function () {
+                if (!isSubscribed) {
+                    baseCount++;
+                    alarmCount.innerText = baseCount.toLocaleString();
+                    alarmIcon.classList.remove("bi-bell");
+                    alarmIcon.classList.add("bi-bell-fill", "text-warning");
+                    isSubscribed = true;
+                } else {
+                    baseCount--;
+                    alarmCount.innerText = baseCount.toLocaleString();
+                    alarmIcon.classList.remove("bi-bell-fill", "text-warning");
+                    alarmIcon.classList.add("bi-bell");
+                    isSubscribed = false;
+                }
+            });
+        });
     </script>
+
+    <script>
+        // 정렬 버튼 기능 (최신화순 / 첫화순)
+        document.addEventListener("DOMContentLoaded", function () {
+            const sortButton = document.getElementById("sortButton");
+            const episodeList = document.getElementById("episodeList");
+
+            let sortAsc = true; // 기본: 첫화부터
+
+            sortButton.addEventListener("click", function () {
+                const items = Array.from(episodeList.querySelectorAll(".episode-item"));
+                const notice = episodeList.querySelector(".episode-notice"); // 공지사항 고정
+
+                // 공지는 그대로 두고 회차만 뒤집음
+                const reversed = items.reverse();
+
+                // 기존 회차 제거
+                items.forEach(item => item.remove());
+
+                // 뒤집은 회차 다시 붙이기 (공지 밑에 붙임)
+                reversed.forEach(item => episodeList.appendChild(item));
+
+                // 버튼 텍스트 토글
+                sortAsc = !sortAsc;
+                sortButton.textContent = sortAsc ? "첫화부터 ↓" : "최신화부터 ↓";
+            });
+        });
+    </script>
+
 
 </body>
 
