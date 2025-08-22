@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
         integrity="sha512-wJgJNTBBkLit7ymC6vvzM1EcSWeM9mmOu+1USHaRBbHkm6W9EgM0HY27+UtUaprntaYQJF75rc8gjxllKs5OIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        
+
     <!-- summernote -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.css"
         integrity="sha512-rDHV59PgRefDUbMm2lSjvf0ZhXZy3wgROFyao0JxZPGho3oOuWejq/ELx0FOZJpgaE5QovVtRN65Y3rrb7JhdQ=="
@@ -48,6 +48,7 @@
             color: #027c08 !important;
             /* 노란색 같은 포인트 컬러 */
         }
+
         /* 툴바 배경색 */
         .note-toolbar {
             background-color: #ffffff !important;
@@ -110,88 +111,37 @@
                         <option value="review">작품 리뷰</option>
                         <option value="fanart">팬아트</option>
                         <option value="free">유저 게시판</option>
-                        <option value="recommend">작품 추천</option>
-                        <option value="review">작품 리뷰</option>
-                        <option value="fanart">팬아트</option>
                     </select>
                 </div>
-                <div class="d-flex gap-2">
-                    <input type="text" class="p-2 mt-1 form-control bg-light border-secondary" name="company"
-                        placeholder="제목을 입력해주세요." id="importantCheck">
-                </div>
-                <div class="d-flex gap-2">
-                    <input type="text" class="p-2 mt-1 form-control bg-light border-secondary" name="company"
-                        placeholder="제목을 입력해주세요." id="importantCheck">
-                </div>
             </div>
-            <!-- 파일 첨부 
-            <div class="col-6 d-flex gap-4" id="fileAdd">
-                <div class="">
-                    <button class="btn btn-outline-primary" onclick="addFiles()">Add File</button>
-                    <input type="file" multiple id="files" style="display: none;" />
-                </div>
-                <div class="table-responsive" style="max-height: 300px;">
-                    <table class="table table-hover table-striped-columns text-center" id="table">
-                        <thead class="table-light" style="position: sticky; top: 0; border-collapse: separate;">
-                            <tr id="file-info">
-                                <th scope="col">File Name</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>-->
-            <!-- //파일 첨부 -->
-
-            <!-- 파일 첨부 
-            <div class="col-6 d-flex gap-4" id="fileAdd">
-                <div class="">
-                    <button class="btn btn-outline-primary" onclick="addFiles()">Add File</button>
-                    <input type="file" multiple id="files" style="display: none;" />
-                </div>
-                <div class="table-responsive" style="max-height: 300px;">
-                    <table class="table table-hover table-striped-columns text-center" id="table">
-                        <thead class="table-light" style="position: sticky; top: 0; border-collapse: separate;">
-                            <tr id="file-info">
-                                <th scope="col">File Name</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>-->
-            <!-- //파일 첨부 -->
-
-
-            <!-- 글쓰기 본문 -->
-            <div class="mb-3">
-                <div class="form-floating">
-                    <textarea class="form-control border-secondary" id="postTextarea"></textarea>
-                </div>
+            <div class="d-flex gap-2">
+                <input type="text" class="p-2 mt-1 form-control bg-light border-secondary" name="company"
+                    placeholder="제목을 입력해주세요." id="importantCheck">
             </div>
+        </div>
 
+
+        <!-- 글쓰기 본문 -->
+        <div class="mt-3">
             <form method="post">
                 <textarea id="summernote" name="editordata"></textarea>
             </form>
-
-            <!-- 버튼 -->
-            <div class="mt-3 text-end">
-                <button type="button" class="btn btn-outline-warning me-3" id="cancleBtn">
-                    <i class="bi bi-pencil-fill me-1"></i>취소
-                </button>
-
-                <button type="button" class="btn btn-outline-dark" id="addBtn">
-                    <i class="bi bi-pencil-fill me-1"></i>작성 완료
-                </button>
-            </div>
-
         </div>
-        <!--입력부 끝-->
+
+        <!-- 버튼 -->
+        <div class="mt-3 text-end">
+            <button type="button" class="btn btn-outline-warning me-3" id="cancleBtn">
+                <i class="bi bi-pencil-fill me-1"></i>취소
+            </button>
+
+            <button type="button" class="btn btn-outline-dark" id="addBtn">
+                <i class="bi bi-pencil-fill me-1"></i>작성 완료
+            </button>
+        </div>
+
     </div>
-
-
-
-
-
-
+    <!--입력부 끝-->
+    </div>
 
 
 
@@ -210,13 +160,6 @@
         integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- summernote -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.js"
-        integrity="sha512-qTQLA91yGDLA06GBOdbT7nsrQY8tN6pJqjT16iTuk08RWbfYmUz/pQD3Gly1syoINyCFNsJh7A91LtrLIwODnw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/lang/summernote-ko-KR.min.js"
-        integrity="sha512-npFeJw8MO1QVbeFuD7rqVR1CpAbOnUMoYnZIxDbz58biKU52Unq7Av3cn+SZ2KD4yOLWj4bOcjIV1+d4aEXAyg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- summernote -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.js"
         integrity="sha512-qTQLA91yGDLA06GBOdbT7nsrQY8tN6pJqjT16iTuk08RWbfYmUz/pQD3Gly1syoINyCFNsJh7A91LtrLIwODnw=="
@@ -247,17 +190,11 @@
             switch (boardType) {
                 case 'free':
                     targetUrl = '../user_board/free_list.html';
-                    targetUrl = '../user_board/free_list.html';
                     break;
                 case 'fanart':
                     targetUrl = '../user_board/fanart_list.html';
-                    targetUrl = '../user_board/fanart_list.html';
                     break;
                 case 'review':
-                    targetUrl = '../user_board/review_list.html';
-                    break;
-                case 'recommend':
-                    targetUrl = '../user_board/review_list.html';
                     targetUrl = '../user_board/review_list.html';
                     break;
                 case 'recommend':
@@ -273,81 +210,6 @@
         });
 
 
-        // 툴바
-        $(document).ready(function () {
-            //여기 아래 부분
-            $('#summernote').summernote({
-                height: 300,                 // 에디터 높이
-                minHeight: null,             // 최소 높이
-                maxHeight: null,             // 최대 높이
-                focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-                lang: "ko-KR",					// 한글 설정
-                placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
-                dialogsInBody: true,
-                toolbar: [
-                    // [groupName, [list of button]]
-                    ['fontname', ['fontname']],
-                    ['fontsize', ['fontsize']],
-                    ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
-                    ['color', ['forecolor', 'backcolor']],
-                    ['table', ['table']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']],
-                    ['insert', ['picture', 'link', 'video']],
-                    ['view', ['fullscreen', 'help']]
-                ],
-                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
-                fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'],
-
-            });
-
-        });
-
-        $(document).ready(function () {
-            let currentPrefix = "";
-
-            // 셀렉트 박스 변경 시
-            $('select').on('change', function () {
-                let val = $(this).val();
-
-                switch (val) {
-                    case "recommend":
-                        currentPrefix = "[작품 추천] ";
-                        break;
-                    case "review":
-                        currentPrefix = "[작품 리뷰] ";
-                        break;
-                    case "fanart":
-                        currentPrefix = "[팬아트] ";
-                        break;
-                    default:
-                        currentPrefix = "";
-                }
-
-                const $importantCheck = $('#importantCheck');
-                $importantCheck.val(currentPrefix);
-
-                // 커서를 항상 접두사 뒤에 위치시킵니다.
-                $importantCheck[0].setSelectionRange(currentPrefix.length, currentPrefix.length);
-            });
-
-            // input 필드에 입력이 발생할 때마다
-            $('#importantCheck').on('input', function () {
-                const $this = $(this);
-                const currentVal = $this.val();
-
-                // 입력된 값이 접두사로 시작하지 않으면 (지워졌을 경우)
-                if (currentVal.indexOf(currentPrefix) !== 0) {
-                    // 접두사를 다시 채워 넣습니다.
-                    $this.val(currentPrefix + currentVal.substring(currentPrefix.length));
-                }
-
-                // 커서 위치를 항상 접두사 뒤로 고정
-                if (this.selectionStart < currentPrefix.length) {
-                    this.setSelectionRange(currentPrefix.length, currentPrefix.length);
-                }
-            });
-        });
         // 툴바
         $(document).ready(function () {
             //여기 아래 부분
