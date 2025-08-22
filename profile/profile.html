@@ -50,7 +50,9 @@
             </div>
             <!-- 프로필 -->
             <div class="navbar-nav col-1 d-flex justify-content-end">
-                <i class="bi bi-person-circle fs-2 ms-3"></i>
+                <a href="../profile/profile.html" class="text-muted">
+                    <i class="bi bi-person-circle fs-2 ms-3"></i>
+                </a>
             </div>
         </div>
         <div class="border-top col-12 border-success"></div>
@@ -65,31 +67,55 @@
 
     <div class="container">
         <div class="mt-3 mb-3">
-            <div class="row">
+            <div class="row justify-content-between">
                 <!-- 프로필 사진 -->
-                <div class="col-md-4 text-center">
+                <div class="col-lg-4 text-center">
                     <label for="profileUpload" style="cursor: pointer;">
                         <img id="profileImage" src="" alt="프로필 사진" class="d-none img-fluid rounded-circle shadow"
                             style="max-width: 100%; aspect-ratio: 1 / 1; object-fit: cover;">
-                        <i id="profileIcon" class="bi bi-person-circle text-success" style="font-size: 25rem; margin: 0; line-height: 1;"></i>
+                        <i id="profileIcon" class="bi bi-person-circle text-success"
+                            style="font-size: 25rem; margin: 0; line-height: 1;"></i>
                         <input type="file" id="profileUpload" accept="image/*" class="d-none">
                     </label>
                 </div>
 
                 <!-- 회원 정보 -->
-                <div class="col-md-8">
-                    <div class="card p-4 shadow-sm">
-                        <h2 class="mb-3"><strong>닉네임:</strong> 사용자닉네임</h2>
-                        <h2 class="mb-3"><strong>레벨:</strong> 12</h2>
-                        <h2 class="mb-3"><strong>포인트:</strong> 3450</h2>
-                        <h2 class="mb-3"><strong>이메일:</strong> user@email.com</h2>
-                        <h2 class="mb-3"><strong>회원번호:</strong> #2025001</h2>
+                <div class="col-lg-7">
+                    <div id="profileCard" class="card p-4 shadow-sm">
+                        <h2 class="mb-3"><strong>닉네임:</strong>&nbsp;<span id="displayNickname">장세령</span></h2>
+                        <h2 class="mb-3"><strong>레벨:</strong>&nbsp;12</h2>
+                        <h2 class="mb-3"><strong>코인:</strong>&nbsp;3450</h2>
+                        <h2 class="mb-3"><strong>이메일:</strong>&nbsp;<span
+                            id="displayEmail">sololeveling.naver.com</span></h2>
+                        <h2 class="mb-3"><strong>회원번호:</strong>&nbsp;#2025001</h2>
+                        <div class="text-end">
+                            <button id=editBtn class="btn btn-sm btn-outline-warning">수정</button>
+                        </div>
+                    </div>
+                    <div id="editForm" class="card p-4 shadow-sm d-none">
+                        <div class="mb-3">
+                            <h2><strong>닉네임</strong></h2>
+                            <input id="nickname" type="text" class="form-control" value="장세령">
+                        </div>
+                        <div class="mb-3">
+                            <h2><strong>이메일</strong></h2>
+                            <input id="email" type="email" class="form-control" value="sololeveling.naver.com">
+                        </div>
+                        <div class="mb-3">
+                            <h2><strong>비밀번호</strong></h2>
+                            <div class="d-flex">
+                                <input id="password" type="password" class="form-control" value="1q2w3e4r">
+                                <button id="togglePassword" type="button" class="btn btn-outline-secondary">
+                                    <i id="togglePasswordIcon" class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button id="saveBtn" class="btn btn-sm btn-outline-primary">저장</button>
+                            <button id="cancelBtn" class="btn btn-sm btn-outline-danger">취소</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="text-end">
-                <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">수정</button>
             </div>
             <div class="row row-cols-sm-1 row-cols-md-2 g-2">
                 <!-- 관심 작품 -->
@@ -473,6 +499,7 @@
 
     <!-- custom -->
     <script>
+        // 프로필 사진 변경
         const uploadInput = document.getElementById("profileUpload");
         const profileImg = document.getElementById("profileImage");
         const profileIcon = document.getElementById("profileIcon");
@@ -488,6 +515,83 @@
                     profileIcon.classList.add("d-none"); // 아이콘 숨기기
                 };
                 reader.readAsDataURL(file);
+            }
+        });
+
+        //회원 정보 변경
+        const profileCard = document.getElementById("profileCard");
+        const editBtn = document.getElementById("editBtn");
+        const editForm = document.getElementById("editForm");
+        const saveBtn = document.getElementById("saveBtn");
+        const cancelBtn = document.getElementById("cancelBtn");
+        const nickname = document.getElementById("nickname");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const displayNickname = document.getElementById("displayNickname");
+        const displayEmail = document.getElementById("displayEmail");
+
+        // 입력 값 저장
+        const originalData = {
+            nickname: nickname.value,
+            email: email.value,
+            password: password.value
+        };
+
+        // 수정 버튼 클릭 → 폼 보이기
+        editBtn.addEventListener("click", () => {
+            profileCard.classList.add("d-none"); // 프로필 카드 숨기기
+            editBtn.classList.add("d-none");     // 수정 버튼 숨기기
+            editForm.classList.remove("d-none"); // 수정 폼 보이기
+        });
+
+        // 저장 버튼 클릭 → 다시 비활성화
+        saveBtn.addEventListener("click", () => {
+            // 입력값 가져오기
+            const newNickname = nickname.value.trim();
+            const newEmail = email.value.trim();
+            const newPassword = password.value.trim();
+            // 닉네임이 비어 있지 않으면 저장
+            if (newNickname) {
+                displayNickname.textContent = newNickname;
+                originalData.nickname = newNickname;
+            }
+            // 이메일이 비어 있지 않으면 저장
+            if (newEmail) {
+                displayEmail.textContent = newEmail;
+                originalData.email = newEmail;
+            }
+            // 비밀번호가 비어 있지 않으면 저장
+            if (newPassword) {
+                originalData.password = newPassword; // 카드에 표시하지 않는 항목도 갱신
+            }
+            // 폼 숨기고 수정 버튼 보이기
+            profileCard.classList.remove("d-none");
+            editBtn.classList.remove("d-none");
+            editForm.classList.add("d-none");
+        });
+
+        // 취소 버튼 클릭 → 원래 값 복구
+        cancelBtn.addEventListener("click", () => {
+            nickname.value = originalData.nickname;
+            email.value = originalData.email;
+            profileCard.classList.remove("d-none");
+            editBtn.classList.remove("d-none");
+            editForm.classList.add("d-none");
+        });
+
+        // 비밀번호 토글
+        const togglePassword = document.getElementById("togglePassword");
+        const togglePasswordIcon = document.getElementById("togglePasswordIcon")
+
+        togglePassword.addEventListener("click", () => {
+            if (password.type === "password") {
+                password.type = "text";            // 비밀번호 보이기
+                togglePasswordIcon.classList.remove("bi-eye");
+                togglePasswordIcon.classList.add("bi-eye-slash"); // 아이콘 변경
+            } else {
+                password.type = "password";        // 비밀번호 숨기기
+                togglePasswordIcon.classList.remove("bi-eye-slash");
+                togglePasswordIcon.classList.add("bi-eye");      // 아이콘 변경
             }
         });
     </script>
