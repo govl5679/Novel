@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPortal - 통합 관리 시스템</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #2563eb;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+
+        .btn-outline:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 2px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 70px;
+            min-height: calc(100vh - 140px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Latest Notice */
+        .latest-notices {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .notice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .notice-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .notice-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
+        }
+
+        .notice-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .notice-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .notice-excerpt {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Auth Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .form-links {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .form-links a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 0 10px;
+        }
+
+        .form-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #2563eb;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 1rem;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .auth-buttons {
+                position: fixed;
+                top: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: white;
+                padding: 1rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s;
+            }
+
+            .nav-menu.active ~ .auth-buttons {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .notice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Page Styles */
+        .page-container {
+            padding: 2rem 0;
+            min-height: calc(100vh - 140px);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #666;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        /* Table Styles */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .card-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-content {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Search and Filter */
+        .search-filter {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-select {
+            min-width: 150px;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        /* Bookmark */
+        .bookmark-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .bookmark-btn.active {
+            color: #ffd700;
+        }
+
+        /* Calendar Styles */
+        .calendar-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-nav {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        .calendar-nav:hover {
+            background: #f8f9fa;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .calendar-day {
+            background: white;
+            padding: 1rem;
+            min-height: 100px;
+            cursor: pointer;
+            transition: background 0.3s;
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background: #f8f9fa;
+        }
+
+        .calendar-day.other-month {
+            background: #f8f9fa;
+            color: #ccc;
+        }
+
+        .calendar-day.today {
+            background: #e3f2fd;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .day-number {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .event {
+            background: #2563eb;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 2px;
+            cursor: pointer;
+        }
+
+        /* Show/Hide Pages */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1500;
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+
+        .notification.warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .d-flex { display: flex; }
+        .justify-between { justify-content: space-between; }
+        .align-center { align-items: center; }
+        .gap-1 { gap: 0.5rem; }
+        .gap-2 { gap: 1rem; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo" onclick="showPage('home')">MyPortal</a>
+
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#" onclick="showPage('home')">홈</a></li>
+                    <li><a href="#" onclick="showPage('notice')">공지사항</a></li>
+                    <li><a href="#" onclick="showPage('board')">Q&A</a></li>
+                    <li><a href="#" onclick="showPage('calendar')">일정관리</a></li>
+                    <li><a href="#" onclick="showPage('bookmark')">즐겨찾기</a></li>
+                </ul>
+            </nav>
+
+            <div class="auth-buttons" id="authButtons">
+                <a href="#" class="btn btn-outline" onclick="openModal('loginModal')">로그인</a>
+                <a href="#" class="btn btn-primary" onclick="openModal('registerModal')">회원가입</a>
+            </div>
+
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <a href="#" class="btn btn-outline" onclick="showPage('profile')">내 정보</a>
+                <a href="#" class="btn btn-primary" onclick="logout()">로그아웃</a>
+            </div>
+
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="container">
+                    <h1>통합 관리 시스템</h1>
+                    <p>효율적인 정보 관리와 소통을 위한 올인원 플랫폼</p>
+                    <a href="#" class="btn btn-primary" onclick="openModal('registerModal')">시작하기</a>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">주요 기능</h2>
+                    <div class="features-grid">
+                        <div class="feature-card" onclick="showPage('notice')">
+                            <div class="feature-icon">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <h3>공지사항</h3>
+                            <p>중요한 소식과 공지사항을 빠르게 확인하고 관리하세요</p>
+                        </div>
+                        <div class="feature-card" onclick="showPage('board')">
+                            <div class="feature-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <h3>Q&A 게시판</h3>
+                            <p>궁금한 점을 질문하고 답변을 받아보세요</p>
+                        </div>
+                        <div class="feature-card" onclick="showPage('calendar')">
+                            <div class="feature-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h3>일정관리</h3>
+                            <p>개인 일정을 체계적으로 관리하고 놓치지 마세요</p>
+                        </div>
+                        <div class="feature-card" onclick="showPage('bookmark')">
+                            <div class="feature-icon">
+                                <i class="fas fa-bookmark"></i>
+                            </div>
+                            <h3>즐겨찾기</h3>
+                            <p>중요한 글과 정보를 저장하고 쉽게 찾아보세요</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Latest Notices -->
+            <section class="latest-notices">
+                <div class="container">
+                    <h2 class="section-title">최신 공지사항</h2>
+                    <div class="notice-grid">
+                        <div class="notice-card">
+                            <div class="notice-date">2025.08.01</div>
+                            <div class="notice-title">시스템 점검 안내</div>
+                            <div class="notice-excerpt">시스템 안정성 향상을 위한 정기 점검이 예정되어 있습니다.</div>
+                            <a href="#" class="read-more" onclick="showPage('notice')">더보기</a>
+                        </div>
+                        <div class="notice-card">
+                            <div class="notice-date">2025.07.30</div>
+                            <div class="notice-title">새로운 기능 업데이트</div>
+                            <div class="notice-excerpt">사용자 편의성을 위한 새로운 기능들이 추가되었습니다.</div>
+                            <a href="#" class="read-more" onclick="showPage('notice')">더보기</a>
+                        </div>
+                        <div class="notice-card">
+                            <div class="notice-date">2025.07.28</div>
+                            <div class="notice-title">개인정보처리방침 개정</div>
+                            <div class="notice-excerpt">개인정보처리방침이 일부 개정되었습니다.</div>
+                            <a href="#" class="read-more" onclick="showPage('notice')">더보기</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Notice Page -->
+        <div id="notice" class="page">
+            <div class="container page-container">
+                <div class="page-header">
+                    <h1 class="page-title">공지사항</h1>
+                    <p class="page-subtitle">중요한 소식과 공지를 확인하세요</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="d-flex justify-between align-center mb-3">
+                        <div class="search-filter">
+                            <input type="text" class="form-control search-input" placeholder="제목으로 검색..." id="noticeSearch">
+                            <button class="btn btn-primary" onclick="searchNotices()">검색</button>
+                        </div>
+                        <button class="btn btn-primary" onclick="showNoticeForm()">글쓰기</button>
+                    </div>
+
+                    <div class="card-grid" id="noticeList">
+                        <div class="card">
+                            <div class="d-flex justify-between align-center mb-2">
+                                <div class="card-meta">2025.08.01 | 관리자</div>
+                                <button class="bookmark-btn" onclick="toggleBookmark(this, 'notice', 1)">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <div class="card-title">시스템 점검 안내</div>
+                            <div class="card-content">
+                                시스템 안정성 향상을 위한 정기 점검이 2025년 8월 5일 오전 2시부터 6시까지 진행될 예정입니다. 해당 시간 동안 서비스 이용에 불편을 드려 죄송합니다.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="d-flex justify-between align-center mb-2">
+                                <div class="card-meta">2025.07.30 | 관리자</div>
+                                <button class="bookmark-btn" onclick="toggleBookmark(this, 'notice', 2)">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <div class="card-title">새로운 기능 업데이트</div>
+                            <div class="card-content">
+                                사용자 편의성을 위한 새로운 기능들이 추가되었습니다. 주요 업데이트 내용을 확인해보세요.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="d-flex justify-between align-center mb-2">
+                                <div class="card-meta">2025.07.28 | 관리자</div>
+                                <button class="bookmark-btn" onclick="toggleBookmark(this, 'notice', 3)">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <div class="card-title">개인정보처리방침 개정</div>
+                            <div class="card-content">
+                                개인정보처리방침이 관련 법령 개정에 따라 일부 개정되었습니다. 변경된 내용을 확인해주세요.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Board (Q&A) Page -->
+        <div id="board" class="page">
+            <div class="container page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Q&A 게시판</h1>
+                    <p class="page-subtitle">궁금한 점을 질문하고 답변을 받아보세요</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="d-flex justify-between align-center mb-3">
+                        <div class="search-filter">
+                            <select class="filter-select" id="categoryFilter" onchange="filterBoard()">
+                                <option value="">전체 카테고리</option>
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                                <option value="js">JavaScript</option>
+                                <option value="jquery">jQuery</option>
+                                <option value="etc">기타</option>
+                            </select>
+                            <input type="text" class="form-control search-input" placeholder="제목으로 검색..." id="boardSearch">
+                            <button class="btn btn-primary" onclick="searchBoard()">검색</button>
+                        </div>
+                        <button class="btn btn-primary" onclick="showBoardForm()">질문하기</button>
+                    </div>
+
+                    <div class="card-grid" id="boardList">
+                        <div class="card">
+                            <div class="d-flex justify-between align-center mb-2">
+                                <div class="card-meta">
+                                    <span class="badge" style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">JavaScript</span>
+                                    <span style="margin-left: 10px;">2025.08.01 | user123</span>
+                                </div>
+                                <button class="bookmark-btn" onclick="toggleBookmark(this, 'board', 1)">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <div class="card-title">jQuery AJAX 요청이 작동하지 않습니다</div>
+                            <div class="card-content">
+                                jQuery로 AJAX 요청을 보내는데 서버에서 응답을 받지 못하고 있습니다. 어떤 부분을 확인해야 할까요?
+                            </div>
+                            <div class="d-flex justify-between align-center mt-2">
+                                <small class="text-muted">답변 2개</small>
+                                <button class="btn btn-outline" onclick="showBoardDetail(1)">상세보기</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="d-flex justify-between align-center mb-2">
+                                <div class="card-meta">
+                                    <span class="badge" style="background: #28a745; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">CSS</span>
+                                    <span style="margin-left: 10px;">2025.07.31 | webdev</span>
+                                </div>
+                                <button class="bookmark-btn" onclick="toggleBookmark(this, 'board', 2)">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <div class="card-title">반응형 웹에서 이미지 크기 조정</div>
+                            <div class="card-content">
+                                모바일과 데스크톱에서 이미지가 다르게 보입니다. 반응형으로 이미지 크기를 조정하는 가장 좋은 방법이 무엇인가요?
+                            </div>
+                            <div class="d-flex justify-between align-center mt-2">
+                                <small class="text-muted">답변 1개</small>
+                                <button class="btn btn-outline" onclick="showBoardDetail(2)">상세보기</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="d-flex justify-between align-center mb-2">
+                                <div class="card-meta">
+                                    <span class="badge" style="background: #ffc107; color: #333; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">HTML</span>
+                                    <span style="margin-left: 10px;">2025.07.30 | newbie</span>
+                                </div>
+                                <button class="bookmark-btn" onclick="toggleBookmark(this, 'board', 3)">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <div class="card-title">HTML5 시맨틱 태그 사용법</div>
+                            <div class="card-content">
+                                HTML5의 시맨틱 태그들을 어떻게 효과적으로 사용할 수 있을까요? 특히 SEO에 도움이 되는 방법을 알고 싶습니다.
+                            </div>
+                            <div class="d-flex justify-between align-center mt-2">
+                                <small class="text-muted">답변 3개</small>
+                                <button class="btn btn-outline" onclick="showBoardDetail(3)">상세보기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar Page -->
+        <div id="calendar" class="page">
+            <div class="container page-container">
+                <div class="page-header">
+                    <h1 class="page-title">일정관리</h1>
+                    <p class="page-subtitle">개인 일정을 체계적으로 관리하세요</p>
+                </div>
+
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" onclick="previousMonth()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h2 id="currentMonth">2025년 8월</h2>
+                        <button class="calendar-nav" onclick="nextMonth()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar days will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bookmark Page -->
+        <div id="bookmark" class="page">
+            <div class="container page-container">
+                <div class="page-header">
+                    <h1 class="page-title">즐겨찾기</h1>
+                    <p class="page-subtitle">저장한 중요한 글들을 모아보세요</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="search-filter mb-3">
+                        <select class="filter-select" id="bookmarkFilter" onchange="filterBookmarks()">
+                            <option value="">전체</option>
+                            <option value="notice">공지사항</option>
+                            <option value="board">Q&A</option>
+                        </select>
+                    </div>
+
+                    <div class="card-grid" id="bookmarkList">
+                        <div class="card">
+                            <div class="d-flex justify-between align-center mb-2">
+                                <div class="card-meta">
+                                    <span class="badge" style="background: #dc3545; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">공지사항</span>
+                                    <span style="margin-left: 10px;">2025.08.01</span>
+                                </div>
+                                <button class="bookmark-btn active" onclick="toggleBookmark(this, 'notice', 1)">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <div class="card-title">시스템 점검 안내</div>
+                            <div class="card-content">
+                                시스템 안정성 향상을 위한 정기 점검이 진행될 예정입니다.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="d-flex justify-between align-center mb-2">
+                                <div class="card-meta">
+                                    <span class="badge" style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">Q&A</span>
+                                    <span style="margin-left: 10px;">2025.08.01</span>
+                                </div>
+                                <button class="bookmark-btn active" onclick="toggleBookmark(this, 'board', 1)">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <div class="card-title">jQuery AJAX 요청이 작동하지 않습니다</div>
+                            <div class="card-content">
+                                jQuery로 AJAX 요청을 보내는데 서버에서 응답을 받지 못하고 있습니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile" class="page">
+            <div class="container page-container">
+                <div class="page-header">
+                    <h1 class="page-title">개인정보 관리</h1>
+                    <p class="page-subtitle">계정 정보를 관리하고 설정을 변경하세요</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 250px 1fr; gap: 2rem;">
+                    <div class="sidebar">
+                        <ul class="sidebar-menu">
+                            <li><a href="#" class="active" onclick="showProfileSection('view')">프로필 보기</a></li>
+                            <li><a href="#" onclick="showProfileSection('edit')">정보 수정</a></li>
+                            <li><a href="#" onclick="showProfileSection('password')">비밀번호 변경</a></li>
+                            <li><a href="#" onclick="showProfileSection('delete')">회원탈퇴</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card">
+                        <!-- Profile View -->
+                        <div id="profileView" class="profile-section">
+                            <h3 class="mb-3">내 정보</h3>
+                            <div class="form-group">
+                                <label>이름</label>
+                                <p>홍길동</p>
+                            </div>
+                            <div class="form-group">
+                                <label>이메일</label>
+                                <p>user@example.com</p>
+                            </div>
+                            <div class="form-group">
+                                <label>가입일</label>
+                                <p>2025.07.15</p>
+                            </div>
+                            <div class="form-group">
+                                <label>마지막 로그인</label>
+                                <p>2025.08.04 10:30</p>
+                            </div>
+                        </div>
+
+                        <!-- Profile Edit -->
+                        <div id="profileEdit" class="profile-section" style="display: none;">
+                            <h3 class="mb-3">정보 수정</h3>
+                            <form onsubmit="updateProfile(event)">
+                                <div class="form-group">
+                                    <label>이름</label>
+                                    <input type="text" class="form-control" value="홍길동" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>이메일</label>
+                                    <input type="email" class="form-control" value="user@example.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>전화번호</label>
+                                    <input type="tel" class="form-control" placeholder="010-0000-0000">
+                                </div>
+                                <button type="submit" class="btn btn-primary">수정하기</button>
+                            </form>
+                        </div>
+
+                        <!-- Password Change -->
+                        <div id="profilePassword" class="profile-section" style="display: none;">
+                            <h3 class="mb-3">비밀번호 변경</h3>
+                            <form onsubmit="changePassword(event)">
+                                <div class="form-group">
+                                    <label>현재 비밀번호</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>새 비밀번호</label>
+                                    <input type="password" class="form-control" id="newPassword" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>새 비밀번호 확인</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">변경하기</button>
+                            </form>
+                        </div>
+
+                        <!-- Account Delete -->
+                        <div id="profileDelete" class="profile-section" style="display: none;">
+                            <h3 class="mb-3">회원탈퇴</h3>
+                            <div class="alert" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 1rem; border-radius: 6px; margin-bottom: 2rem;">
+                                <strong>주의!</strong> 회원탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.
+                            </div>
+                            <form onsubmit="deleteAccount(event)">
+                                <div class="form-group">
+                                    <label>탈퇴 사유</label>
+                                    <select class="form-control" required>
+                                        <option value="">선택해주세요</option>
+                                        <option value="불편">서비스 이용 불편</option>
+                                        <option value="기타">기타</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>비밀번호 확인</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn" style="background: #dc3545; color: white;">탈퇴하기</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">로그인</h3>
+                <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <form onsubmit="login(event)">
+                <div class="form-group">
+                    <label>이메일</label>
+                    <input type="email" class="form-control" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>비밀번호</label>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">로그인</button>
+            </form>
+            <div class="form-links">
+                <a href="#" onclick="openModal('findIdModal')">아이디 찾기</a>
+                <a href="#" onclick="openModal('findPasswordModal')">비밀번호 찾기</a>
+                <a href="#" onclick="openModal('registerModal')">회원가입</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">회원가입</h3>
+                <button class="close-btn" onclick="closeModal('registerModal')">&times;</button>
+            </div>
+            <form onsubmit="register(event)">
+                <div class="form-group">
+                    <label>이름</label>
+                    <input type="text" class="form-control" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label>이메일</label>
+                    <input type="email" class="form-control" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>비밀번호</label>
+                    <input type="password" class="form-control" id="registerPassword" required minlength="8">
+                    <small class="error-message">비밀번호는 8자 이상이어야 합니다.</small>
+                </div>
+                <div class="form-group">
+                    <label>비밀번호 확인</label>
+                    <input type="password" class="form-control" id="registerConfirmPassword" required>
+                    <small class="error-message">비밀번호가 일치하지 않습니다.</small>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">회원가입</button>
+            </form>
+            <div class="form-links">
+                <a href="#" onclick="openModal('loginModal')">이미 계정이 있으신가요?</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Find ID Modal -->
+    <div id="findIdModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">아이디 찾기</h3>
+                <button class="close-btn" onclick="closeModal('findIdModal')">&times;</button>
+            </div>
+            <form onsubmit="findId(event)">
+                <div class="form-group">
+                    <label>이름</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>가입시 사용한 이메일</label>
+                    <input type="email" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">아이디 찾기</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Find Password Modal -->
+    <div id="findPasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">비밀번호 찾기</h3>
+                <button class="close-btn" onclick="closeModal('findPasswordModal')">&times;</button>
+            </div>
+            <form onsubmit="findPassword(event)">
+                <div class="form-group">
+                    <label>이메일</label>
+                    <input type="email" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">임시 비밀번호 발송</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="eventModalTitle">일정 등록</h3>
+                <button class="close-btn" onclick="closeModal('eventModal')">&times;</button>
+            </div>
+            <form onsubmit="saveEvent(event)">
+                <div class="form-group">
+                    <label>제목</label>
+                    <input type="text" class="form-control" id="eventTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>날짜</label>
+                    <input type="date" class="form-control" id="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label>시간</label>
+                    <input type="time" class="form-control" id="eventTime">
+                </div>
+                <div class="form-group">
+                    <label>내용</label>
+                    <textarea class="form-control" id="eventContent" rows="3"></textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">저장</button>
+                    <button type="button" class="btn btn-outline" onclick="closeModal('eventModal')">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>MyPortal</h4>
+                    <p>효율적인 정보 관리와 소통을 위한 플랫폼</p>
+                </div>
+                <div class="footer-section">
+                    <h4>문의하기</h4>
+                    <p>이메일: support@myportal.com</p>
+                    <p>전화: 02-1234-5678</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <p><a href="#" onclick="showPage('notice')">공지사항</a></p>
+                    <p><a href="#" onclick="showPage('board')">Q&A</a></p>
+                    <p><a href="#" onclick="showPage('calendar')">일정관리</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyPortal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery and JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Global variables
+        let currentUser = null;
+        let currentDate = new Date();
+        let events = {};
+        let bookmarks = {
+            notice: [],
+            board: []
+        };
+
+        // Initialize
+        $(document).ready(function() {
+            generateCalendar();
+            loadBookmarks();
+        });
+
+        // Navigation
+        function showPage(pageId) {
+            $('.page').removeClass('active');
+            $('#' + pageId).addClass('active');
+
+            // Close mobile menu
+            $('#navMenu').removeClass('active');
+        }
+
+        function toggleMenu() {
+            $('#navMenu').toggleClass('active');
+        }
+
+        // Modal functions
+        function openModal(modalId) {
+            $('#' + modalId).show();
+        }
+
+        function closeModal(modalId) {
+            $('#' + modalId).hide();
+        }
+
+        // Click outside modal to close
+        $(document).on('click', '.modal', function(e) {
+            if (e.target === this) {
+                $(this).hide();
+            }
+        });
+
+        // Authentication
+        function login(event) {
+            event.preventDefault();
+
+            const email = $('#loginEmail').val();
+            const password = $('#loginPassword').val();
+
+            // Simple validation for demo
+            if (email && password) {
+                currentUser = {
+                    name: '홍길동',
+                    email: email
+                };
+
+                $('#authButtons').hide();
+                $('#userMenu').show();
+                closeModal('loginModal');
+                showNotification('로그인되었습니다.', 'success');
+            } else {
+                showNotification('이메일과 비밀번호를 입력해주세요.', 'error');
+            }
+        }
+
+        function register(event) {
+            event.preventDefault();
+
+            const name = $('#registerName').val();
+            const email = $('#registerEmail').val();
+            const password = $('#registerPassword').val();
+            const confirmPassword = $('#registerConfirmPassword').val();
+
+            // Validation
+            if (password.length < 8) {
+                showNotification('비밀번호는 8자 이상이어야 합니다.', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showNotification('비밀번호가 일치하지 않습니다.', 'error');
+                return;
+            }
+
+            // Registration success
+            closeModal('registerModal');
+            showNotification('회원가입이 완료되었습니다. 로그인해주세요.', 'success');
+        }
+
+        function logout() {
+            currentUser = null;
+            $('#authButtons').show();
+            $('#userMenu').hide();
+            showPage('home');
+            showNotification('로그아웃되었습니다.', 'success');
+        }
+
+        function findId(event) {
+            event.preventDefault();
+            closeModal('findIdModal');
+            showNotification('등록된 이메일로 아이디가 전송되었습니다.', 'success');
+        }
+
+        function findPassword(event) {
+            event.preventDefault();
+            closeModal('findPasswordModal');
+            showNotification('임시 비밀번호가 이메일로 전송되었습니다.', 'success');
+        }
+
+        // Profile management
+        function showProfileSection(section) {
+            $('.profile-section').hide();
+            $('#profile' + section.charAt(0).toUpperCase() + section.slice(1)).show();
+
+            $('.sidebar-menu a').removeClass('active');
+            event.target.classList.add('active');
+        }
+
+        function updateProfile(event) {
+            event.preventDefault();
+            showNotification('프로필이 업데이트되었습니다.', 'success');
+        }
+
+        function changePassword(event) {
+            event.preventDefault();
+
+            const newPassword = $('#newPassword').val();
+            const confirmPassword = $('#confirmPassword').val();
+
+            if (newPassword !== confirmPassword) {
+                showNotification('새 비밀번호가 일치하지 않습니다.', 'error');
+                return;
+            }
+
+            showNotification('비밀번호가 변경되었습니다.', 'success');
+        }
+
+        function deleteAccount(event) {
+            event.preventDefault();
+
+            if (confirm('정말로 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+                showNotification('회원탈퇴가 처리되었습니다.', 'success');
+                setTimeout(() => {
+                    logout();
+                }, 2000);
+            }
+        }
+
+        // Notice functions
+        function searchNotices() {
+            const searchTerm = $('#noticeSearch').val().toLowerCase();
+            // In a real application, this would make an API call
+            showNotification('검색 기능은 서버 연동 후 구현됩니다.', 'warning');
+        }
+
+        function showNoticeForm() {
+            if (!currentUser) {
+                showNotification('로그인이 필요합니다.', 'error');
+                openModal('loginModal');
+                return;
+            }
+
+            // In a real application, this would show a form modal
+            showNotification('글쓰기 기능은 서버 연동 후 구현됩니다.', 'warning');
+        }
+
+        // Board functions
+        function filterBoard() {
+            const category = $('#categoryFilter').val();
+            // In a real application, this would filter the board list
+            showNotification('필터 기능은 서버 연동 후 구현됩니다.', 'warning');
+        }
+
+        function searchBoard() {
+            const searchTerm = $('#boardSearch').val().toLowerCase();
+            // In a real application, this would make an API call
+            showNotification('검색 기능은 서버 연동 후 구현됩니다.', 'warning');
+        }
+
+        function showBoardForm() {
+            if (!currentUser) {
+                showNotification('로그인이 필요합니다.', 'error');
+                openModal('loginModal');
+                return;
+            }
+
+            showNotification('질문하기 기능은 서버 연동 후 구현됩니다.', 'warning');
+        }
+
+        function showBoardDetail(id) {
+            showNotification('상세보기 기능은 서버 연동 후 구현됩니다.', 'warning');
+        }
+
+        // Bookmark functions
+        function toggleBookmark(button, type, id) {
+            if (!currentUser) {
+                showNotification('로그인이 필요합니다.', 'error');
+                openModal('loginModal');
+                return;
+            }
+
+            const isBookmarked = $(button).hasClass('active');
+
+            if (isBookmarked) {
+                $(button).removeClass('active');
+                bookmarks[type] = bookmarks[type].filter(item => item !== id);
+                showNotification('즐겨찾기에서 제거되었습니다.', 'success');
+            } else {
+                $(button).addClass('active');
+                bookmarks[type].push(id);
+                showNotification('즐겨찾기에 추가되었습니다.', 'success');
+            }
+
+            saveBookmarks();
+        }
+
+        function filterBookmarks() {
+            const filter = $('#bookmarkFilter').val();
+            // In a real application, this would filter the bookmark list
+            showNotification('필터 기능은 서버 연동 후 구현됩니다.', 'warning');
+        }
+
+        function loadBookmarks() {
+            // Load bookmarks from localStorage (demo purpose)
+            const saved = localStorage.getItem('bookmarks');
+            if (saved) {
+                bookmarks = JSON.parse(saved);
+            }
+        }
+
+        function saveBookmarks() {
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        }
+
+        // Calendar functions
+        function generateCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            $('#currentMonth').text(`${year}년 ${month + 1}월`);
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+            let calendarHTML = '';
+
+            // Week header
+            const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
+            weekDays.forEach(day => {
+                calendarHTML += `<div class="calendar-day" style="background: #2563eb; color: white; font-weight: 600; text-align: center; padding: 0.5rem;">${day}</div>`;
+            });
+
+            // Calendar days
+            const currentDateObj = new Date();
+            let date = new Date(startDate);
+
+            for (let i = 0; i < 42; i++) { // 6 weeks
+                const dayNum = date.getDate();
+                const isCurrentMonth = date.getMonth() === month;
+                const isToday = date.toDateString() === currentDateObj.toDateString();
+                const dateStr = date.toISOString().split('T')[0];
+
+                let dayClass = 'calendar-day';
+                if (!isCurrentMonth) dayClass += ' other-month';
+                if (isToday) dayClass += ' today';
+
+                let eventsHTML = '';
+                if (events[dateStr]) {
+                    events[dateStr].forEach(event => {
+                        eventsHTML += `<div class="event" onclick="showEventDetail('${dateStr}', '${event.title}')">${event.title}</div>`;
+                    });
+                }
+
+                calendarHTML += `
+                    <div class="${dayClass}" onclick="addEvent('${dateStr}')">
+                        <div class="day-number">${dayNum}</div>
+                        ${eventsHTML}
+                    </div>
+                `;
+
+                date.setDate(date.getDate() + 1);
+            }
+
+            $('#calendarGrid').html(calendarHTML);
+        }
+
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            generateCalendar();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            generateCalendar();
+        }
+
+        function addEvent(dateStr) {
+            if (!currentUser) {
+                showNotification('로그인이 필요합니다.', 'error');
+                openModal('loginModal');
+                return;
+            }
+
+            $('#eventDate').val(dateStr);
+            $('#eventTitle').val('');
+            $('#eventTime').val('');
+            $('#eventContent').val('');
+            $('#eventModalTitle').text('일정 등록');
+            openModal('eventModal');
+        }
+
+        function saveEvent(event) {
+            event.preventDefault();
+
+            const dateStr = $('#eventDate').val();
+            const title = $('#eventTitle').val();
+            const time = $('#eventTime').val();
+            const content = $('#eventContent').val();
+
+            if (!events[dateStr]) {
+                events[dateStr] = [];
+            }
+
+            events[dateStr].push({
+                title: title,
+                time: time,
+                content: content
+            });
+
+            generateCalendar();
+            closeModal('eventModal');
+            showNotification('일정이 등록되었습니다.', 'success');
+        }
+
+        function showEventDetail(dateStr, title) {
+            const event = events[dateStr].find(e => e.title === title);
+            if (event) {
+                alert(`일정: ${event.title}\n시간: ${event.time}\n내용: ${event.content}`);
+                // In a real application, this would show a detailed modal with edit/delete options
+            }
+        }
+
+        // Notification function
+        function showNotification(message, type = 'success') {
+            const notification = $('#notification');
+            notification.removeClass('error warning').addClass(type);
+            notification.text(message).show();
+
+            setTimeout(() => {
+                notification.hide();
+            }, 3000);
+        }
+
+        // Form validation
+        $('#registerPassword').on('input', function() {
+            const password = $(this).val();
+            const errorMsg = $(this).siblings('.error-message');
+
+            if (password.length < 8) {
+                errorMsg.show();
+            } else {
+                errorMsg.hide();
+            }
+        });
+
+        $('#registerConfirmPassword').on('input', function() {
+            const password = $('#registerPassword').val();
+            const confirmPassword = $(this).val();
+            const errorMsg = $(this).siblings('.error-message');
+
+            if (password !== confirmPassword) {
+                errorMsg.show();
+            } else {
+                errorMsg.hide();
+            }
+        });
+
+        // Responsive handling
+        $(window).resize(function() {
+            if ($(window).width() > 768) {
+                $('#navMenu').removeClass('active');
+            }
+        });
+
+        // Prevent form submission on demo
+        $('form').on('submit', function(e) {
+            // Only prevent if it's not handled by specific functions
+            if (!$(this).hasClass('handled')) {
+                e.preventDefault();
+            }
+        });
+
+        // Handle clicks outside modals
+        $(document).on('click', function(e) {
+            if ($(e.target).hasClass('modal')) {
+                $(e.target).hide();
+            }
+        });
+
+        // Search functionality with Enter key
+        $('#noticeSearch, #boardSearch').on('keypress', function(e) {
+            if (e.which === 13) {
+                if ($(this).attr('id') === 'noticeSearch') {
+                    searchNotices();
+                } else {
+                    searchBoard();
+                }
+            }
+        });
+
+        // Auto-resize textareas
+        $('textarea').on('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Smooth scrolling for anchor links
+        $('a[href^="#"]').on('click', function(e) {
+            e.preventDefault();
+            const target = $(this.getAttribute('href'));
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 70
+                }, 500);
+            }
+        });
+
+        // Loading states for buttons
+        $('.btn').on('click', function() {
+            const btn = $(this);
+            const originalText = btn.text();
+
+            if (!btn.hasClass('no-loading')) {
+                btn.prop('disabled', true).text('처리중...');
+
+                setTimeout(() => {
+                    btn.prop('disabled', false).text(originalText);
+                }, 1000);
+            }
+        });
+
+        // Image lazy loading (for future use)
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // Initialize lazy loading if images exist
+        if (document.querySelectorAll('img[data-src]').length > 0) {
+            lazyLoadImages();
+        }
+
+        // Dark mode toggle (future feature)
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Accessibility improvements
+        $(document).on('keydown', function(e) {
+            // ESC key closes modals
+            if (e.keyCode === 27) {
+                $('.modal:visible').hide();
+            }
+
+            // Tab navigation for modals
+            if (e.keyCode === 9 && $('.modal:visible').length > 0) {
+                const modal = $('.modal:visible');
+                const focusableElements = modal.find('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                const firstElement = focusableElements.first();
+                const lastElement = focusableElements.last();
+
+                if (e.shiftKey) {
+                    if (document.activeElement === firstElement[0]) {
+                        lastElement.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === lastElement[0]) {
+                        firstElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            }
+        });
+
+        // Focus management for accessibility
+        function openModal(modalId) {
+            $('#' + modalId).show();
+            $('#' + modalId).find('input, button').first().focus();
+        }
+
+        // Print functionality
+        function printPage() {
+            window.print();
+        }
+
+        // Export functionality (demo)
+        function exportData(type) {
+            showNotification(`${type} 내보내기 기능은 서버 연동 후 구현됩니다.`, 'warning');
+        }
+
+        // Help system
+        function showHelp(topic) {
+            const helpMessages = {
+                bookmark: '즐겨찾기 기능을 사용하여 중요한 글을 저장하고 관리할 수 있습니다.',
+                calendar: '캘린더에서 날짜를 클릭하여 일정을 등록하고 관리할 수 있습니다.',
+                board: 'Q&A 게시판에서 질문을 올리고 답변을 받을 수 있습니다.',
+                notice: '공지사항에서 최신 소식과 중요한 정보를 확인할 수 있습니다.'
+            };
+
+            if (helpMessages[topic]) {
+                showNotification(helpMessages[topic], 'info');
+            }
+        }
+
+        // Statistics (for admin - demo)
+        function getStats() {
+            return {
+                totalUsers: 1250,
+                totalNotices: 45,
+                totalQuestions: 823,
+                totalEvents: 156
+            };
+        }
+
+        // Real-time updates simulation
+        function simulateRealTimeUpdates() {
+            // This would typically connect to WebSocket or use Server-Sent Events
+            setInterval(() => {
+                // Simulate new notification
+                if (Math.random() > 0.99) {
+                    showNotification('새로운 공지사항이 등록되었습니다.', 'info');
+                }
+            }, 10000);
+        }
+
+        // Initialize real-time updates simulation
+        simulateRealTimeUpdates();
+
+        // Performance monitoring
+        function logPerformance() {
+            if (window.performance && window.performance.timing) {
+                const timing = window.performance.timing;
+                const loadTime = timing.loadEventEnd - timing.navigationStart;
+                console.log(`Page load time: ${loadTime}ms`);
+            }
+        }
+
+        // Log performance on load
+        window.addEventListener('load', logPerformance);
+
+        // Error handling
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript Error:', e.error);
+            showNotification('오류가 발생했습니다. 페이지를 새로고침해주세요.', 'error');
+        });
+
+        // Service Worker registration (for PWA features)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // In a real application, you would register a service worker here
+                console.log('Service Worker support detected');
+            });
+        }
+
+        // Touch gesture support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+
+            // Horizontal swipe detection
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    // Swipe right
+                    console.log('Swipe right detected');
+                } else {
+                    // Swipe left
+                    console.log('Swipe left detected');
+                }
+            }
+        });
+
+        // Infinite scroll implementation (for future use)
+        function initInfiniteScroll(container, loadFunction) {
+            $(container).on('scroll', function() {
+                const scrollTop = $(this).scrollTop();
+                const scrollHeight = $(this)[0].scrollHeight;
+                const height = $(this).height();
+
+                if (scrollTop + height >= scrollHeight - 100) {
+                    loadFunction();
+                }
+            });
+        }
+
+        // Debounce function for search
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Apply debounce to search functions
+        const debouncedSearchNotices = debounce(searchNotices, 300);
+        const debouncedSearchBoard = debounce(searchBoard, 300);
+
+        $('#noticeSearch').on('input', debouncedSearchNotices);
+        $('#boardSearch').on('input', debouncedSearchBoard);
+
+        // Local storage management
+        function saveToLocalStorage(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+            } catch (error) {
+                console.error('Failed to save to localStorage:', error);
+            }
+        }
+
+        function loadFromLocalStorage(key) {
+            try {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : null;
+            } catch (error) {
+                console.error('Failed to load from localStorage:', error);
+                return null;
+            }
+        }
+
+        // Theme management
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            saveToLocalStorage('theme', theme);
+        }
+
+        // Load saved theme
+        const savedTheme = loadFromLocalStorage('theme');
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        }
+
+        // Initialize tooltips (for future use)
+        function initTooltips() {
+            $('[data-tooltip]').hover(
+                function() {
+                    const tooltip = $('<div class="tooltip">' + $(this).data('tooltip') + '</div>');
+                    $('body').append(tooltip);
+                    tooltip.css({
+                        position: 'absolute',
+                        top: $(this).offset().top - tooltip.outerHeight() - 5,
+                        left: $(this).offset().left + ($(this).outerWidth() / 2) - (tooltip.outerWidth() / 2),
+                        background: '#333',
+                        color: '#fff',
+                        padding: '5px 10px',
+                        borderRadius: '4px',
+                        fontSize: '12px',
+                        zIndex: 1000
+                    });
+                },
+                function() {
+                    $('.tooltip').remove();
+                }
+            );
+        }
+
+        // Initialize all components
+        function init() {
+            generateCalendar();
+            loadBookmarks();
+            initTooltips();
+
+            // Focus first input in modals when opened
+            $('.modal').on('shown', function() {
+                $(this).find('input:first').focus();
+            });
+
+            console.log('MyPortal initialized successfully');
+        }
+
+        // Call init when document is ready
+        $(document).ready(init);
+    </script>
+</body>
+</html>

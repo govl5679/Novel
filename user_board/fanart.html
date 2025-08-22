@@ -29,30 +29,30 @@
             transition: all 0.3s ease;
             min-width: 80px;
         }
-        
+
         .board-vote button:hover {
             background-color: #e8f5e8;
             transform: translateY(-2px);
         }
-        
+
         .board-vote button.recommended {
             background-color: #28a745;
             color: white;
         }
-        
+
         .board-vote button.recommended:hover {
             background-color: #1e7e34;
         }
-        
+
         .board-vote-none {
             font-size: 24px;
             color: #28a745;
         }
-        
+
         .board-vote button.recommended .board-vote-none {
             color: white;
         }
-        
+
         .board-done {
             display: flex;
             flex-direction: column;
@@ -60,23 +60,23 @@
             padding: 15px;
             min-width: 80px;
         }
-        
+
         .board-done div {
             font-size: 24px;
             color: #6c757d;
         }
-        
+
         .sub-btns {
             border: 1px solid #dee2e6;
             border-radius: 10px;
             padding: 20px;
             margin: 20px 0;
         }
-        
+
         .count-animation {
             animation: countUp 0.5s ease-out;
         }
-        
+
         @keyframes countUp {
             0% {
                 transform: scale(1);
@@ -91,7 +91,7 @@
                 color: inherit;
             }
         }
-        
+
         .toast-success {
             background-color: #d4edda !important;
             color: #155724 !important;
@@ -198,17 +198,17 @@
         $(document).ready(function() {
             // 현재 페이지 ID 가져오기
             const pageId = $('body').data('page-id') || 'fanart/view_1';
-            
+
             // 기본 데이터 설정 (서버에서 가져올 데이터)
             const defaultData = {
                 recommendCount: 1,
                 viewCount: 100,
                 hasRecommended: false
             };
-            
+
             // 페이지별 데이터를 메모리에 저장하는 객체
             let pageData = {};
-            
+
             // 페이지 데이터 초기화
             function initPageData() {
                 if (!pageData[pageId]) {
@@ -216,34 +216,34 @@
                 }
                 return pageData[pageId];
             }
-            
+
             // 조회수 증가 함수
             function increaseViewCount() {
                 const data = initPageData();
                 data.viewCount++;
                 updateViewDisplay();
-                
+
                 // 조회수 증가 애니메이션
                 $('#view-count').addClass('count-animation');
                 setTimeout(() => {
                     $('#view-count').removeClass('count-animation');
                 }, 500);
-                
+
                 console.log(`[${pageId}] 조회수 증가: ${data.viewCount}`);
             }
-            
+
             // 추천 수 증가 함수
             function toggleRecommend() {
                 const data = initPageData();
-                
+
                 if (data.hasRecommended) {
                     // 이미 추천한 경우 취소
                     data.recommendCount--;
                     data.hasRecommended = false;
-                    
+
                     $('#recommend-btn').removeClass('recommended');
                     $('#recommend-btn p').text('추천하기');
-                    
+
                     $.toast({
                         heading: '추천 취소',
                         text: '추천을 취소했습니다.',
@@ -255,10 +255,10 @@
                     // 추천하기
                     data.recommendCount++;
                     data.hasRecommended = true;
-                    
+
                     $('#recommend-btn').addClass('recommended');
                     $('#recommend-btn p').text('추천완료');
-                    
+
                     $.toast({
                         heading: '추천 완료',
                         text: '게시물을 추천했습니다!',
@@ -267,30 +267,30 @@
                         hideAfter: 2000
                     });
                 }
-                
+
                 updateRecommendDisplay();
-                
+
                 // 추천 수 변경 애니메이션
                 $('#recommend-count').addClass('count-animation');
                 setTimeout(() => {
                     $('#recommend-count').removeClass('count-animation');
                 }, 500);
-                
+
                 console.log(`[${pageId}] 추천 ${data.hasRecommended ? '완료' : '취소'}: ${data.recommendCount}`);
             }
-            
+
             // 추천 수 표시 업데이트
             function updateRecommendDisplay() {
                 const data = pageData[pageId];
                 $('#recommend-count').text(data.recommendCount);
             }
-            
+
             // 조회수 표시 업데이트
             function updateViewDisplay() {
                 const data = pageData[pageId];
                 $('#view-count').text(data.viewCount);
             }
-            
+
             // 추천 상태 UI 업데이트
             function updateRecommendUI() {
                 const data = pageData[pageId];
@@ -302,23 +302,23 @@
                     $('#recommend-btn p').text('추천하기');
                 }
             }
-            
+
             // 페이지 로드 시 실행
             function onPageLoad() {
                 console.log(`페이지 로드: ${pageId}`);
-                
+
                 // 데이터 초기화
                 initPageData();
 
-                updateViewDisplay();  
-                
+                updateViewDisplay();
+
                 // 조회수 증가
                 increaseViewCount();
-                
+
                 // UI 업데이트
                 updateRecommendDisplay();
                 updateRecommendUI();
-                
+
                 // 페이지 로드 알림 (선택사항)
                 $.toast({
                     heading: '페이지 로드',
@@ -328,23 +328,23 @@
                     hideAfter: 1500
                 });
             }
-            
+
             // 추천 버튼 클릭 이벤트
             $('#recommend-btn').click(function() {
                 toggleRecommend();
             });
-            
+
             // 페이지 데이터 저장 함수 (실제로는 서버에 전송)
             function savePageData() {
                 // 실제 구현에서는 AJAX로 서버에 데이터 전송
                 console.log(`[${pageId}] 데이터 저장:`, pageData[pageId]);
             }
-            
+
             // 페이지 떠날 때 데이터 저장
             $(window).on('beforeunload', function() {
                 savePageData();
             });
-            
+
             // 디버그 정보 표시 함수
             function showDebugInfo() {
                 console.log('=== 페이지 데이터 ===');
@@ -352,7 +352,7 @@
                 console.log('저장된 데이터:', pageData);
                 console.log('현재 페이지 데이터:', pageData[pageId]);
             }
-            
+
             // 디버그 키보드 단축키 (Ctrl + D)
             $(document).keydown(function(e) {
                 if (e.ctrlKey && e.which === 68) {
@@ -360,13 +360,13 @@
                     showDebugInfo();
                 }
             });
-            
+
             // 추천 버튼 더블클릭 방지
             $('#recommend-btn').on('dblclick', function(e) {
                 e.preventDefault();
                 return false;
             });
-            
+
             // 페이지 로드 시 초기화 실행
             onPageLoad();
         });

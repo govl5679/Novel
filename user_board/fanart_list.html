@@ -257,7 +257,7 @@
             <div class="card m-2">
                 <div class="card-body">
                     <a href="${card.link}">
-                        <img src="${card.image}" alt="${card.title}" width="100%" 
+                        <img src="${card.image}" alt="${card.title}" width="100%"
                              onerror="this.src='https://via.placeholder.com/300x200?text=이미지+없음'">
                     </a>
                 </div>
@@ -406,7 +406,7 @@
                         } else if (category === 'author') {
                             return card.author.toLowerCase().includes(searchTerm);
                         } else if (category === 'comment') {
-                            // 댓글 검색은 실제로는 서버에서 처리해야 하지만, 
+                            // 댓글 검색은 실제로는 서버에서 처리해야 하지만,
                             // 여기서는 제목과 작성자에서 검색하도록 함
                             return card.title.toLowerCase().includes(searchTerm) ||
                                 card.author.toLowerCase().includes(searchTerm);
