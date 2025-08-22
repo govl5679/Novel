@@ -90,7 +90,7 @@ body {
 
 /* Main Content Styles */
 .main-container {
-    padding-top: 2rem;
+    padding-top: 100px; /* 네비게이션과 충분히 떨어지게 */
     padding-bottom: 2rem;
     min-height: calc(100vh - 76px);
 }
