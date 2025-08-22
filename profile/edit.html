@@ -75,41 +75,40 @@
                 <!-- 회원 정보 -->
                 <div class="col-lg-7">
                     <div id="profileCard" class="card p-4 shadow-sm">
-                        <div class="d-flex justify-content-between">
-                            <h2 class="mb-3"><strong>닉네임:</strong>&nbsp;<span id="displayNickname">장세령</span></h2>
-                            <button class="btn btn-sm btn-outline-warning align-self-center">수정</button>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <h2 class="mb-3"><strong>이메일:</strong>&nbsp;<span id="displayEmail">sololeveling.naver.com</span></h2>
-                            <button class="btn btn-sm btn-outline-warning align-self-center">수정</button>
+                        <h2 class="mb-3"><strong>닉네임:</strong>&nbsp;<span id="displayNickname">장세령</span></h2>
+                        <h2 class="mb-3"><strong>이메일:</strong>&nbsp;<span
+                            id="displayEmail">sololeveling.naver.com</span></h2>
+                        <div class="text-end">
+                            <button id="editBtn" class="btn btn-sm btn-outline-warning align-self-center">수정</button>
                         </div>
                     </div>
-                    <div id="editForm" class="card p-4 shadow-sm d-none">
-                        <div class="mb-3">
-                            <h2><strong>닉네임</strong></h2>
-                            <input id="nickname" type="text" class="form-control" value="장세령">
+                </div>
+                <div id="editForm" class="card p-4 shadow-sm d-none">
+                    <div class="mb-3">
+                        <h2><strong>닉네임</strong></h2>
+                        <input id="nickname" type="text" class="form-control" value="장세령">
+                    </div>
+                    <div class="mb-3">
+                        <h2><strong>이메일</strong></h2>
+                        <input id="email" type="email" class="form-control" value="sololeveling.naver.com">
+                    </div>
+                    <div class="mb-3">
+                        <h2><strong>비밀번호</strong></h2>
+                        <div class="d-flex">
+                            <input id="password" type="password" class="form-control" value="1q2w3e4r">
+                            <button id="togglePassword" type="button" class="btn btn-outline-secondary">
+                                <i id="togglePasswordIcon" class="bi bi-eye"></i>
+                            </button>
                         </div>
-                        <div class="mb-3">
-                            <h2><strong>이메일</strong></h2>
-                            <input id="email" type="email" class="form-control" value="sololeveling.naver.com">
-                        </div>
-                        <div class="mb-3">
-                            <h2><strong>비밀번호</strong></h2>
-                            <div class="d-flex">
-                                <input id="password" type="password" class="form-control" value="1q2w3e4r">
-                                <button id="togglePassword" type="button" class="btn btn-outline-secondary">
-                                    <i id="togglePasswordIcon" class="bi bi-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="text-end">
-                            <button id="saveBtn" class="btn btn-sm btn-outline-primary">저장</button>
-                            <button id="cancelBtn" class="btn btn-sm btn-outline-danger">취소</button>
-                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button id="saveBtn" class="btn btn-sm btn-outline-primary">저장</button>
+                        <button id="cancelBtn" class="btn btn-sm btn-outline-danger">취소</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- bootstrap v5.3 -->
@@ -149,8 +148,8 @@
         });
 
         //회원 정보 변경
-        const profileCard = document.getElementById("profileCard");
-        const editBtn = document.getElementById("editBtn");
+        const nicknameEdit = document.getElementById("nicknameEdit");
+        const emailEdit = document.getElementById("emailEdit")
         const editForm = document.getElementById("editForm");
         const saveBtn = document.getElementById("saveBtn");
         const cancelBtn = document.getElementById("cancelBtn");
