@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - 북북노벨</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #1B8E49;
+            --primary-hover: #0052a3;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --danger-color: #dc3545;
+            --warning-color: #fd7e14;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --border-color: #dee2e6;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            --glow-color: rgba(27, 142, 73, 0.4);
+            --ink-color: rgba(27, 142, 73, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #1B8E49;
+            --primary-hover: #3380ff;
+            --light-gray: #1a1d23;
+            --medium-gray: #2d3338;
+            --border-color: #3d4349;
+            --text-primary: #f8f9fa;
+            --text-secondary: #adb5bd;
+            --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+            --glow-color: rgba(27, 142, 73, 0.6);
+            --ink-color: rgba(27, 142, 73, 0.2);
+        }
+
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 배경 애니메이션 */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite linear;
+        }
+
+        .floating-element:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+
+        .floating-element:nth-child(2) {
+            left: 30%;
+            animation-delay: 5s;
+            animation-duration: 30s;
+        }
+
+        .floating-element:nth-child(3) {
+            left: 60%;
+            animation-delay: 10s;
+            animation-duration: 22s;
+        }
+
+        .floating-element:nth-child(4) {
+            left: 80%;
+            animation-delay: 15s;
+            animation-duration: 28s;
+        }
+
+        .floating-element:nth-child(5) {
+            left: 45%;
+            animation-delay: 8s;
+            animation-duration: 24s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.3;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .ink-drops {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ink-drop {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, var(--ink-color) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: inkSpread 15s infinite;
+            opacity: 0;
+        }
+
+        .ink-drop:nth-child(1) {
+            top: 20%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .ink-drop:nth-child(2) {
+            top: 60%;
+            right: 20%;
+            animation-delay: 8s;
+        }
+
+        .ink-drop:nth-child(3) {
+            bottom: 30%;
+            left: 70%;
+            animation-delay: 16s;
+        }
+
+        @keyframes inkSpread {
+
+            0%,
+            90% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        .parallax-patterns {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .pattern-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 30%, var(--primary-color) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, var(--primary-color) 1px, transparent 1px);
+            background-size: 80px 80px, 120px 120px;
+            opacity: 0.05;
+        }
+
+        .layer-1 {
+            animation: patternMove1 40s infinite linear;
+        }
+
+        .layer-2 {
+            animation: patternMove2 50s infinite linear reverse;
+        }
+
+        .layer-3 {
+            animation: patternMove3 60s infinite linear;
+        }
+
+        @keyframes patternMove1 {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+
+            100% {
+                transform: translateX(-80px) translateY(-80px);
+            }
+        }
+
+        @keyframes patternMove2 {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+
+            100% {
+                transform: translateX(120px) translateY(-120px);
+            }
+        }
+
+        @keyframes patternMove3 {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+
+            100% {
+                transform: translateX(-60px) translateY(60px);
+            }
+        }
+
+        /* 캐릭터 실루엣 */
+        .character-silhouette {
+            position: fixed;
+            top: 50%;
+            right: 5%;
+            transform: translateY(-50%);
+            z-index: 1;
+            opacity: 0.6;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .character-path {
+            transition: all 0.5s ease;
+        }
+
+        /* NavBar Styles */
+        .navbar {
+            background-color: var(--medium-gray) !important;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 0;
+            box-shadow: var(--shadow-sm);
+            backdrop-filter: blur(10px);
+        }
+
+        .literary-brand {
+            font-family: 'Noto Serif KR', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary-color) !important;
+            text-shadow: 0 0 10px var(--glow-color);
+            animation: brandGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes brandGlow {
+            0% {
+                text-shadow: 0 0 10px var(--glow-color);
+            }
+
+            100% {
+                text-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color);
+            }
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle,
+        .lang-dropdown .dropdown-toggle {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover,
+        .lang-dropdown .dropdown-toggle:hover {
+            background-color: var(--light-gray);
+            color: var(--primary-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .dropdown-menu {
+            background-color: var(--medium-gray);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown-item {
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--light-gray);
+            color: var(--primary-color);
+        }
+
+        /* Main Content Styles */
+        .main-container {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            min-height: calc(100vh - 76px);
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1.5rem;
+            box-shadow: var(--shadow-md), 0 0 30px rgba(27, 142, 73, 0.1);
+            padding: 3rem 2.5rem;
+            width: 100%;
+            max-width: 460px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(27, 142, 73, 0.1);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(27, 142, 73, 0.05), transparent);
+            animation: cardShimmer 8s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes cardShimmer {
+
+            0%,
+            100% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            50% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        /* 홀로그램 효과 */
+        .auth-card.hologram-mode {
+            transform: perspective(1000px) rotateX(5deg) rotateY(2deg);
+            box-shadow:
+                0 0 50px rgba(27, 142, 73, 0.3),
+                inset 0 0 50px rgba(27, 142, 73, 0.1);
+        }
+
+        /* 시네마틱 페이드인 애니메이션 */
+        .cinematic-entrance {
+            animation: cinematicFadeIn 1.5s ease-out;
+        }
+
+        @keyframes cinematicFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.8);
+                filter: blur(10px);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: translateY(25px) scale(0.9);
+                filter: blur(5px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        [data-theme="dark"] .auth-card {
+            background: rgba(45, 51, 56, 0.95);
+            border: 1px solid var(--border-color);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .typing-container {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .typing-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .animated-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--text-primary), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleShine 4s ease-in-out infinite;
+        }
+
+        @keyframes titleShine {
+
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                filter: brightness(1.3);
+            }
+        }
+
+        .auth-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .literary-label {
+            font-family: 'Noto Serif KR', serif;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.7rem;
+            font-size: 0.95rem;
+            display: block;
+        }
+
+        .literary-input-wrapper {
+            position: relative;
+        }
+
+        .literary-input {
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1rem 1.2rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: var(--light-gray);
+            color: var(--text-primary);
+            font-family: 'Noto Serif KR', serif;
+            width: 100%;
+        }
+
+        .literary-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem var(--glow-color),
+                0 0 20px var(--glow-color);
+            background-color: white;
+            transform: translateY(-2px) perspective(1000px) rotateX(1deg);
+            outline: none;
+        }
+
+        [data-theme="dark"] .literary-input:focus {
+            background-color: var(--light-gray);
+        }
+
+        .literary-input.is-invalid {
+            border-color: var(--danger-color);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        .writing-effect {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+
+        .literary-input:focus+.writing-effect,
+        .input-group .literary-input:focus+.password-toggle+.writing-effect {
+            width: 100%;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            z-index: 10;
+            padding: 0.25rem;
+            transition: all 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .invalid-feedback {
+            font-size: 0.875rem;
+            color: var(--danger-color);
+            margin-top: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .literary-input.is-invalid~.invalid-feedback {
+            opacity: 1;
+        }
+
+        /* Button Styles */
+        .literary-button {
+            background: linear-gradient(135deg, var(--primary-color), #2a9d5f);
+            border: none;
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            font-family: 'Noto Serif KR', serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(27, 142, 73, 0.3);
+            color: white;
+        }
+
+        .literary-button:hover {
+            transform: translateY(-3px) perspective(1000px) rotateX(-5deg);
+            box-shadow: 0 8px 25px rgba(27, 142, 73, 0.4);
+        }
+
+        .literary-button:active {
+            transform: translateY(-1px);
+        }
+
+        .literary-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .brush-text {
+            display: inline-block;
+            opacity: 0;
+            animation: brushStroke 0.8s ease-out forwards;
+        }
+
+        .brush-text:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .brush-text:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .brush-text:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .brush-text:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .brush-text:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .brush-text:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes brushStroke {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) rotate(5deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        .book-flip-effect {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .literary-button:hover .book-flip-effect {
+            left: 100%;
+        }
+
+        /* 홀로그램 로딩 효과 */
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hologram-loader {
+            width: 30px;
+            height: 30px;
+            position: relative;
+        }
+
+        .holo-ring {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: holoSpin 1.5s linear infinite;
+        }
+
+        .holo-ring:nth-child(1) {
+            width: 20px;
+            height: 20px;
+            top: 5px;
+            left: 5px;
+            animation-delay: 0s;
+        }
+
+        .holo-ring:nth-child(2) {
+            width: 25px;
+            height: 25px;
+            top: 2.5px;
+            left: 2.5px;
+            animation-delay: 0.5s;
+        }
+
+        .holo-ring:nth-child(3) {
+            width: 30px;
+            height: 30px;
+            top: 0;
+            left: 0;
+            animation-delay: 1s;
+        }
+
+        @keyframes holoSpin {
+            0% {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1.2);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: rotate(360deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Checkbox Styles */
+        .literary-checkbox {
+            margin: 1.5rem 0;
+        }
+
+        .literary-checkbox .form-check-input {
+            border: 2px solid var(--border-color);
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+        }
+
+        .literary-checkbox .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .literary-checkbox .form-check-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        /* Links */
+        .auth-links {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .auth-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Noto Serif KR', serif;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+            position: relative;
+        }
+
+        .auth-links a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 8px var(--glow-color);
+            transform: perspective(1000px) rotateX(-2deg);
+        }
+
+        .auth-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 50%;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .auth-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* 소설 티저 */
+        .novel-teaser {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(27, 142, 73, 0.05), rgba(27, 142, 73, 0.1));
+            border-radius: 1rem;
+            border: 1px solid rgba(27, 142, 73, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .novel-teaser::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: teaserShine 4s infinite;
+        }
+
+        @keyframes teaserShine {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .teaser-icon {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .teaser-icon i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            animation: bookFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes bookFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-5px) rotate(5deg);
+            }
+        }
+
+        .teaser-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        .teaser-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            text-align: center;
+            margin: 0;
+            font-style: italic;
+            font-family: 'Noto Serif KR', serif;
+            line-height: 1.6;
+        }
+
+        .teaser-author {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: right;
+            margin-top: 0.5rem;
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        .teaser-author::before {
+            content: '- ';
+        }
+
+        /* Toast Styles */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1050;
+        }
+
+        .toast {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-md);
+            min-width: 300px;
+            backdrop-filter: blur(10px);
+        }
+
+        .toast.error {
+            background-color: var(--danger-color);
+        }
+
+        .toast.warning {
+            background-color: var(--warning-color);
+        }
+
+        .toast.info {
+            background-color: var(--primary-color);
+        }
+
+        /* 랜덤 테마 색상 변수 */
+        .theme-emerald {
+            --primary-color: #10b981;
+            --glow-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .theme-sapphire {
+            --primary-color: #3b82f6;
+            --glow-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .theme-amethyst {
+            --primary-color: #8b5cf6;
+            --glow-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .theme-ruby {
+            --primary-color: #ef4444;
+            --glow-color: rgba(239, 68, 68, 0.4);
+        }
+
+        .theme-amber {
+            --primary-color: #f59e0b;
+            --glow-color: rgba(245, 158, 11, 0.4);
+        }
+
+        .theme-amber {
+            --primary-color: #5600c0;
+            --glow-color: rgba(37, 0, 184, 0.4);
+        }
+
+        .theme-amber {
+            --primary-color: #ff0000;
+            --glow-color: rgba(0, 0, 225, 0.4);
+        }
+
+        /* 3D 텍스트 효과 */
+        .text-3d {
+            transform: perspective(1000px) rotateX(15deg);
+            text-shadow:
+                0 1px 0 #ccc,
+                0 2px 0 #c9c9c9,
+                0 3px 0 #bbb,
+                0 4px 0 #b9b9b9,
+                0 5px 0 #aaa,
+                0 6px 1px rgba(0, 0, 0, .1),
+                0 0 5px rgba(0, 0, 0, .1),
+                0 1px 3px rgba(0, 0, 0, .3),
+                0 3px 5px rgba(0, 0, 0, .2),
+                0 5px 10px rgba(0, 0, 0, .25);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .character-silhouette {
+                display: none;
+            }
+
+            .floating-element {
+                width: 4px;
+                height: 4px;
+            }
+
+            .ink-drop {
+                width: 25px;
+                height: 25px;
+            }
+
+            .pattern-layer {
+                background-size: 40px 40px, 60px 60px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .auth-card {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+                border-radius: 1rem;
+            }
+
+            .animated-title {
+                font-size: 1.7rem;
+            }
+
+            .nav-controls {
+                gap: 0.5rem;
+            }
+
+            .literary-brand {
+                font-size: 1.5rem;
+            }
+
+            .typing-container {
+                height: 35px;
+            }
+
+            .typing-text {
+                font-size: 1rem;
+            }
+
+            .literary-input {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+
+            .literary-button {
+                padding: 0.8rem 1.2rem;
+                font-size: 1rem;
+            }
+
+            .novel-teaser {
+                padding: 1.2rem;
+                margin-top: 1.5rem;
+            }
+
+            .teaser-text {
+                font-size: 0.85rem;
+            }
+
+            /* 모바일에서 애니메이션 최적화 */
+            .floating-element {
+                animation-duration: 30s;
+            }
+
+            .ink-drop {
+                animation-duration: 20s;
+            }
+
+            .pattern-layer {
+                opacity: 0.03;
+            }
+
+            .auth-card::before {
+                animation: none;
+            }
+
+            .novel-teaser::before {
+                animation: none;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .main-container {
+                padding: 1rem 0.5rem;
+            }
+
+            .auth-card {
+                padding: 1.5rem 1rem;
+                margin: 0.5rem;
+            }
+
+            .brush-text {
+                font-size: 0.9rem;
+            }
+
+            .novel-teaser {
+                padding: 1rem;
+            }
+        }
+
+        /* 접근성 개선 */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .floating-element,
+            .ink-drop,
+            .pattern-layer {
+                animation: none;
+            }
+
+            .auth-card::before,
+            .novel-teaser::before {
+                animation: none;
+            }
+        }
+
+        /* 다크모드에서의 추가 스타일링 */
+        [data-theme="dark"] .novel-teaser {
+            background: linear-gradient(135deg, rgba(27, 142, 73, 0.1), rgba(27, 142, 73, 0.15));
+            border: 1px solid rgba(27, 142, 73, 0.3);
+        }
+
+        [data-theme="dark"] .literary-button {
+            box-shadow: 0 4px 15px rgba(27, 142, 73, 0.4);
+        }
+
+        [data-theme="dark"] .literary-button:hover {
+            box-shadow: 0 8px 25px rgba(27, 142, 73, 0.5);
+        }
+
+        /* 커서 상호작용 */
+        .literary-input,
+        .literary-button,
+        .auth-links a,
+        .theme-toggle,
+        .password-toggle {
+            cursor: pointer;
+        }
+
+        .literary-input:focus {
+            cursor: text;
+        }
+
+        .literary-button:hover {
+            cursor: pointer;
+        }
+
+        /* 스크롤바 스타일링 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-hover);
+        }
+
+        /* 포커스 표시 개선 */
+        .literary-input:focus,
+        .literary-button:focus,
+        .form-check-input:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* 로딩 상태에서의 추가 스타일 */
+        .literary-button:disabled .brush-text {
+            opacity: 0.6;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 페이지 로드 시네마틱 효과 */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), #2a9d5f);
+            z-index: 9999;
+            animation: pageTransition 2s ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes pageTransition {
+            0% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(-200%);
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+    <!-- 시네마틱 페이지 전환 효과 -->
+    <div class="page-transition"></div>
+
+    <!-- 배경 애니메이션 -->
+    <div class="background-animation">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="ink-drops">
+            <div class="ink-drop"></div>
+            <div class="ink-drop"></div>
+            <div class="ink-drop"></div>
+        </div>
+        <div class="parallax-patterns">
+            <div class="pattern-layer layer-1"></div>
+            <div class="pattern-layer layer-2"></div>
+            <div class="pattern-layer layer-3"></div>
+        </div>
+    </div>
+
+    <!-- 인터랙티브 캐릭터 실루엣 -->
+    <div class="character-silhouette" id="characterSilhouette">
+        <svg width="200" height="300" viewBox="0 0 200 300">
+            <defs>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                    <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+            <path
+                d="M100 50 C120 45, 140 65, 135 85 L130 120 C128 140, 125 160, 120 180 L115 220 C110 240, 108 260, 105 280 L95 280 C92 260, 90 240, 85 220 L80 180 C75 160, 72 140, 70 120 L65 85 C60 65, 80 45, 100 50 Z"
+                fill="var(--primary-color)" opacity="0.3" filter="url(#glow)" class="character-path" />
+        </svg>
+    </div>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand literary-brand" href="#" data-lang="site_name">북북노벨</a>
+
+            <div class="nav-controls">
+                <div class="dropdown lang-dropdown">
+                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe"></i>
+                        <span class="ms-1 d-none d-sm-inline" data-lang="current_lang">한국어</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" data-lang-code="ko">한국어</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang-code="ja">日本語</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang-code="en">English</a></li>
+                    </ul>
+                </div>
+
+                <button class="theme-toggle" type="button" aria-label="테마 변경">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="toast-container"></div>
+
+    <div class="main-container">
+        <div class="container">
+            <div class="row justify-content-center align-items-center min-vh-100">
+                <div class="col-lg-4 col-md-6">
+                    <div class="auth-card cinematic-entrance">
+                        <div class="auth-header">
+                            <!-- 타이핑 효과 -->
+                            <div class="typing-container">
+                                <h2 class="typing-text" id="typingText"></h2>
+                            </div>
+                            <h1 class="animated-title" data-lang="login_title">로그인</h1>
+                            <p class="auth-subtitle" data-lang="login_subtitle">계정에 로그인하여 서비스를 이용하세요</p>
+                        </div>
+
+                        <form id="loginForm" novalidate>
+                            <div class="form-group">
+                                <label for="userId" class="form-label literary-label" data-lang="username_label">주인공의
+                                    이름</label>
+                                <div class="literary-input-wrapper">
+                                    <input type="text" class="form-control literary-input" id="userId" name="userId"
+                                        placeholder="주인공의 이름을 써주세요" data-lang-placeholder="username_placeholder"
+                                        autocomplete="username" required>
+                                    <div class="writing-effect"></div>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="form-label literary-label" data-lang="password_label">비밀의
+                                    열쇠</label>
+                                <div class="input-group literary-input-wrapper">
+                                    <input type="password" class="form-control literary-input" id="password"
+                                        name="password" placeholder="비밀의 열쇠를 입력하세요"
+                                        data-lang-placeholder="password_placeholder" autocomplete="current-password"
+                                        required>
+                                    <button type="button" class="password-toggle" aria-label="비밀번호 보기/숨기기">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <div class="writing-effect"></div>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="form-check literary-checkbox">
+                                <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe">
+                                <label class="form-check-label" for="rememberMe" data-lang="remember_me">
+                                    이야기를 기억하기
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 literary-button" id="loginBtn">
+                                <span class="btn-text" data-lang="login_button">이야기 시작</span>
+                                <div class="loading-spinner hidden">
+                                    <div class="hologram-loader">
+                                        <div class="holo-ring"></div>
+                                        <div class="holo-ring"></div>
+                                        <div class="holo-ring"></div>
+                                    </div>
+                                </div>
+                                <div class="book-flip-effect"></div>
+                            </button>
+                        </form>
+
+                        <div class="auth-links">
+                            <a href="#" onclick="navigateToPage('find_userid')" data-lang="find_username">잊혀진 이름 찾기</a>
+                            <span class="text-muted">|</span>
+                            <a href="#" onclick="navigateToPage('find_password')" data-lang="find_password">잃어버린 열쇠
+                                찾기</a>
+                            <span class="text-muted">|</span>
+                            <br>
+                            <a href="#" onclick="navigateToPage('signup')" data-lang="sign_up">새로운 이야기 시작</a>
+                        </div>
+
+                        <!-- 동적 추천 소설 티저 -->
+                        <div class="novel-teaser">
+                            <div class="teaser-icon">
+                                <i class="fas fa-feather-alt"></i>
+                            </div>
+                            <div class="teaser-content">
+                                <span class="teaser-label" data-lang="daily_recommendation">오늘의 추천</span>
+                                <p class="teaser-text" id="novelTeaser"></p>
+                                <div class="teaser-author" id="teaserAuthor"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 다국어 지원
+        const translations = {
+            ko: {
+                site_name: '북북노벨',
+                current_lang: '한국어',
+                login_title: '로그인',
+                login_subtitle: '계정에 로그인하여 서비스를 이용하세요',
+                username_label: '주인공의 이름',
+                password_label: '비밀의 열쇠',
+                username_placeholder: '주인공의 이름을 써주세요',
+                password_placeholder: '비밀의 열쇠를 입력하세요',
+                remember_me: '이야기를 기억하기',
+                login_button: '이야기 시작',
+                find_username: '잊혀진 이름 찾기',
+                find_password: '잃어버린 열쇠 찾기',
+                sign_up: '새로운 이야기 시작',
+                daily_recommendation: '오늘의 추천',
+                error_empty_username: '주인공의 이름을 입력해주세요',
+                error_empty_password: '비밀의 열쇠를 입력해주세요',
+                error_invalid_username: '존재하지 않는 주인공입니다',
+                error_invalid_password: '잘못된 열쇠입니다',
+                error_account_locked: '시도 횟수를 초과했습니다. 5분 후 다시 시도해주세요',
+                success_login: '이야기가 시작됩니다!',
+                remaining_time: '남은 시간: ',
+                typing_messages: [
+                    '이야기가 시작됩니다...',
+                    '새로운 모험이 기다리고 있어요...',
+                    '당신만의 세계로 떠나볼까요?',
+                    '무한한 상상의 세계가 열립니다...',
+                    '오늘은 어떤 이야기를 만나볼까요?'
+                ]
+            },
+            ja: {
+                site_name: '북북노벨',
+                current_lang: '日本語',
+                login_title: 'ログイン',
+                login_subtitle: 'アカウントにログインしてサービスをご利用ください',
+                username_label: '主人公の名前',
+                password_label: '秘密の鍵',
+                username_placeholder: '主人公の名前を入力してください',
+                password_placeholder: '秘密の鍵を入力してください',
+                remember_me: '物語を記憶する',
+                login_button: '物語開始',
+                find_username: '忘れられた名前を探す',
+                find_password: '失くした鍵を探す',
+                sign_up: '新しい物語を始める',
+                daily_recommendation: '今日のおすすめ',
+                error_empty_username: '主人公の名前を入力してください',
+                error_empty_password: '秘密の鍵を入力してください',
+                error_invalid_username: '存在しない主人公です',
+                error_invalid_password: '間違った鍵です',
+                error_account_locked: '試行回数を超過しました。5分後に再試行してください',
+                success_login: '物語が始まります！',
+                remaining_time: '残り時間: ',
+                typing_messages: [
+                    '物語が始まります...',
+                    '新しい冒険が待っています...',
+                    'あなただけの世界へ出発しましょう',
+                    '無限の想像の世界が開きます...',
+                    '今日はどんな物語に出会いましょうか？'
+                ]
+            },
+            en: {
+                site_name: '북북노벨',
+                current_lang: 'English',
+                login_title: 'Sign In',
+                login_subtitle: 'Sign in to your account to use our services',
+                username_label: 'Hero\'s Name',
+                password_label: 'Secret Key',
+                username_placeholder: 'Enter the hero\'s name',
+                password_placeholder: 'Enter your secret key',
+                remember_me: 'Remember the story',
+                login_button: 'Begin Story',
+                find_username: 'Find Forgotten Name',
+                find_password: 'Find Lost Key',
+                sign_up: 'Start New Story',
+                daily_recommendation: 'Today\'s Pick',
+                error_empty_username: 'Please enter the hero\'s name',
+                error_empty_password: 'Please enter your secret key',
+                error_invalid_username: 'Hero does not exist',
+                error_invalid_password: 'Wrong key',
+                error_account_locked: 'Too many attempts. Please try again in 5 minutes',
+                success_login: 'Your story begins!',
+                remaining_time: 'Time remaining: ',
+                typing_messages: [
+                    'Your story begins...',
+                    'A new adventure awaits...',
+                    'Shall we journey to your world?',
+                    'An infinite world of imagination opens...',
+                    'What story will you discover today?'
+                ]
+            }
+        };
+
+        // 소설 티저 데이터
+        const novelTeasers = [
+            {
+                ko: { text: '"그 날, 나는 평범한 학생에서 마법사가 되었다."', author: '마법의 시작' },
+                ja: { text: '"その日、私は平凡な学生から魔法使いになった。"', author: '魔法の始まり' },
+                en: { text: '"That day, I changed from an ordinary student to a wizard."', author: 'Beginning of Magic' }
+            },
+            {
+                ko: { text: '"시간을 되돌릴 수 있다면, 너를 다시 만날 수 있을까?"', author: '시간의 약속' },
+                ja: { text: '"時間を戻すことができるなら、君にまた会えるだろうか？"', author: '時間の約束' },
+                en: { text: '"If I could turn back time, could I meet you again?"', author: 'Promise of Time' }
+            },
+            {
+                ko: { text: '"그림자 속에서 속삭이는 목소리가 나를 부르고 있었다."', author: '어둠의 소명' },
+                ja: { text: '"影の中でささやく声が私を呼んでいた。"', author: '闇の召命' },
+                en: { text: '"A voice whispering from the shadows was calling me."', author: 'Call of Darkness' }
+            },
+            {
+                ko: { text: '"사랑은 가장 강력한 마법이자, 가장 위험한 저주였다."', author: '금지된 감정' },
+                ja: { text: '"愛は最も強力な魔法であり、最も危険な呪いだった。"', author: '禁じられた感情' },
+                en: { text: '"Love was the most powerful magic and the most dangerous curse."', author: 'Forbidden Feelings' }
+            },
+            {
+                ko: { text: '"별이 떨어지는 밤, 운명이 바뀌기 시작했다."', author: '별빛 운명' },
+                ja: { text: '"星が落ちる夜、運命が変わり始めた。"', author: '星光運命' },
+                en: { text: '"On the night stars fell, destiny began to change."', author: 'Starlight Destiny' }
+            }
+        ];
+
+        // 랜덤 테마 색상
+        const colorThemes = [
+            { name: 'emerald', primary: '#10b981', glow: 'rgba(16, 185, 129, 0.4)' },
+            { name: 'sapphire', primary: '#3b82f6', glow: 'rgba(59, 130, 246, 0.4)' },
+            { name: 'amethyst', primary: '#8b5cf6', glow: 'rgba(139, 92, 246, 0.4)' },
+            { name: 'ruby', primary: '#ef4444', glow: 'rgba(239, 68, 68, 0.4)' },
+            { name: 'amber', primary: '#f59e0b', glow: 'rgba(245, 158, 11, 0.4)' },
+            { name: 'default', primary: '#1B8E49', glow: 'rgba(27, 142, 73, 0.4)' }
+        ];
+
+        // 전역 변수
+        let currentLang = localStorage.getItem('preferred_language') || 'ko';
+        let currentTheme = localStorage.getItem('preferred_theme') || 'light';
+        let loginAttempts = parseInt(localStorage.getItem('login_attempts') || '0');
+        let lockoutTime = parseInt(localStorage.getItem('lockout_time') || '0');
+        let lockoutTimer = null;
+        let typingTimer = null;
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', function () {
+            // 페이지 전환 효과 제거
+            setTimeout(() => {
+                const pageTransition = document.querySelector('.page-transition');
+                if (pageTransition) {
+                    pageTransition.style.display = 'none';
+                }
+            }, 2000);
+
+            applyRandomColorTheme();
+            initializeTheme();
+            initializeLanguage();
+            initializeLoginForm();
+            initializeAnimations();
+            checkLockoutStatus();
+            restorePasswordToggleState();
+            startTypingAnimation();
+            showRandomNovelTeaser();
+            initializeCharacterInteraction();
+            initializeHologramEffects();
+        });
+
+        // 랜덤 테마 색상 적용
+        function applyRandomColorTheme() {
+            const randomTheme = colorThemes[Math.floor(Math.random() * colorThemes.length)];
+            document.documentElement.style.setProperty('--primary-color', randomTheme.primary);
+            document.documentElement.style.setProperty('--glow-color', randomTheme.glow);
+
+            console.log(`🎨 랜덤 테마 적용: ${randomTheme.name}`);
+        }
+
+        // 홀로그램 효과 초기화
+        function initializeHologramEffects() {
+            // 입력 시 3D 효과
+            document.querySelectorAll('.literary-input').forEach(input => {
+                input.addEventListener('input', function (e) {
+                    // 홀로그램 글자 효과
+                    const value = this.value;
+                    if (value) {
+                        this.style.transform = 'translateY(-2px) perspective(1000px) rotateX(2deg)';
+                        this.style.textShadow = '0 0 10px var(--glow-color)';
+                    } else {
+                        this.style.transform = '';
+                        this.style.textShadow = '';
+                    }
+                });
+            });
+
+            // 폼 제출시 홀로그램 모드
+            document.getElementById('loginForm').addEventListener('submit', function (e) {
+                const authCard = document.querySelector('.auth-card');
+                authCard.classList.add('hologram-mode');
+
+                setTimeout(() => {
+                    authCard.classList.remove('hologram-mode');
+                }, 3000);
+            });
+        }
+
+        // 테마 초기화
+        function initializeTheme() {
+            document.body.setAttribute('data-theme', currentTheme);
+            updateThemeIcon();
+            document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
+        }
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('preferred_theme', currentTheme);
+            updateThemeIcon();
+
+            // 테마 변경시 캐릭터 실루엣 색상 업데이트
+            updateCharacterSilhouette();
+        }
+
+        function updateThemeIcon() {
+            const icon = document.getElementById('theme-icon');
+            icon.className = currentTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        // 캐릭터 상호작용 초기화
+        function initializeCharacterInteraction() {
+            const silhouette = document.getElementById('characterSilhouette');
+            if (!silhouette) return;
+
+            const characterPath = silhouette.querySelector('.character-path');
+            if (!characterPath) return;
+
+            document.addEventListener('mousemove', function (e) {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+
+                const rotateX = (mouseY - 0.5) * 10;
+                const rotateY = (mouseX - 0.5) * 10;
+                const scale = 1 + (mouseX + mouseY) * 0.05;
+
+                silhouette.style.transform = `translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+
+                // 마우스 위치에 따라 투명도 변경
+                const opacity = 0.3 + (mouseX + mouseY) * 0.2;
+                characterPath.style.opacity = Math.min(opacity, 0.8);
+            });
+        }
+
+        function updateCharacterSilhouette() {
+            const characterPath = document.querySelector('.character-path');
+            if (characterPath) {
+                characterPath.style.fill = 'var(--primary-color)';
+            }
+        }
+
+        // 다국어 초기화
+        function initializeLanguage() {
+            updateLanguageText();
+            document.querySelectorAll('[data-lang-code]').forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const langCode = this.getAttribute('data-lang-code');
+                    changeLanguage(langCode);
+                });
+            });
+        }
+
+        function changeLanguage(langCode) {
+            currentLang = langCode;
+            localStorage.setItem('preferred_language', langCode);
+            updateLanguageText();
+            showRandomNovelTeaser(); // 언어 변경시 추천 소설도 업데이트
+            startTypingAnimation();
+        }
+
+        function updateLanguageText() {
+            const texts = translations[currentLang];
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (texts[key]) {
+                    if (key === 'login_button') {
+                        updateBrushButtonText(element, texts[key]);
+                    } else {
+                        element.textContent = texts[key];
+                    }
+                }
+            });
+            document.querySelectorAll('[data-lang-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-lang-placeholder');
+                if (texts[key]) {
+                    element.placeholder = texts[key];
+                }
+            });
+        }
+
+        function updateBrushButtonText(element, text) {
+            const spans = Array.from(text).map(char => `<span class="brush-text">${char}</span>`).join('');
+            element.innerHTML = spans;
+
+            setTimeout(() => {
+                element.querySelectorAll('.brush-text').forEach((span, index) => {
+                    span.style.animationDelay = `${index * 0.1 + 0.1}s`;
+                });
+            }, 100);
+        }
+
+        // 타이핑 애니메이션
+        function startTypingAnimation() {
+            const typingText = document.getElementById('typingText');
+            if (!typingText) return;
+
+            const messages = translations[currentLang].typing_messages;
+            let currentMessageIndex = 0;
+            let currentCharIndex = 0;
+            let isDeleting = false;
+
+            function typeMessage() {
+                const currentMessage = messages[currentMessageIndex];
+
+                if (!isDeleting) {
+                    typingText.textContent = currentMessage.substring(0, currentCharIndex + 1);
+                    currentCharIndex++;
+
+                    if (currentCharIndex === currentMessage.length) {
+                        setTimeout(() => {
+                            isDeleting = true;
+                        }, 2000);
+                    }
+                } else {
+                    typingText.textContent = currentMessage.substring(0, currentCharIndex - 1);
+                    currentCharIndex--;
+
+                    if (currentCharIndex === 0) {
+                        isDeleting = false;
+                        currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+                    }
+                }
+
+                const typingSpeed = isDeleting ? 50 : 100;
+                typingTimer = setTimeout(typeMessage, typingSpeed);
+            }
+
+            if (typingTimer) clearTimeout(typingTimer);
+            currentCharIndex = 0;
+            isDeleting = false;
+            typeMessage();
+        }
+
+        // 소설 티저 표시
+        function showRandomNovelTeaser() {
+            const randomTeaser = novelTeasers[Math.floor(Math.random() * novelTeasers.length)];
+            const teaserData = randomTeaser[currentLang];
+
+            const teaserText = document.getElementById('novelTeaser');
+            const teaserAuthor = document.getElementById('teaserAuthor');
+
+            if (!teaserText || !teaserAuthor) return;
+
+            // 시네마틱 페이드 아웃
+            teaserText.style.opacity = '0';
+            teaserAuthor.style.opacity = '0';
+            teaserText.style.transform = 'translateY(10px)';
+            teaserAuthor.style.transform = 'translateY(10px)';
+
+            setTimeout(() => {
+                teaserText.textContent = teaserData.text;
+                teaserAuthor.textContent = teaserData.author;
+
+                // 시네마틱 페이드 인
+                teaserText.style.opacity = '1';
+                teaserAuthor.style.opacity = '1';
+                teaserText.style.transform = 'translateY(0)';
+                teaserAuthor.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        // 애니메이션 초기화
+        function initializeAnimations() {
+            // 소설 티저 주기적 변경
+            setInterval(showRandomNovelTeaser, 15000);
+
+            // 입력 필드 글자 애니메이션
+            document.querySelectorAll('.literary-input').forEach(input => {
+                input.addEventListener('input', function (e) {
+                    const writingEffect = this.parentNode.querySelector('.writing-effect');
+                    if (writingEffect) {
+                        writingEffect.style.width = '100%';
+                        setTimeout(() => {
+                            writingEffect.style.width = '0';
+                        }, 1000);
+                    }
+
+                    // 홀로그램 타이핑 사운드 효과 (시각적으로만)
+                    this.style.transform = 'translateY(-1px) perspective(1000px) rotateX(1deg)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(0)';
+                    }, 150);
+                });
+            });
+        }
+
+        // 로그인 폼 초기화
+        function initializeLoginForm() {
+            const form = document.getElementById('loginForm');
+            const passwordToggle = document.querySelector('.password-toggle');
+            const passwordInput = document.getElementById('password');
+
+            // 비밀번호 토글 기능
+            passwordToggle.addEventListener('click', function () {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                this.querySelector('i').className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+                localStorage.setItem('password_visible', type === 'text');
+            });
+
+            // 엔터 키 처리
+            form.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    form.querySelector('button[type="submit"]').click();
+                }
+            });
+
+            // 폼 제출 처리
+            form.addEventListener('submit', handleLogin);
+
+            // 실시간 유효성 검사
+            document.getElementById('userId').addEventListener('input', clearFieldError);
+            document.getElementById('password').addEventListener('input', clearFieldError);
+        }
+
+        function restorePasswordToggleState() {
+            const isVisible = localStorage.getItem('password_visible') === 'true';
+            if (isVisible) {
+                const passwordInput = document.getElementById('password');
+                const passwordToggle = document.querySelector('.password-toggle');
+                passwordInput.type = 'text';
+                passwordToggle.querySelector('i').className = 'fas fa-eye-slash';
+            }
+        }
+
+        // 잠금 상태 확인
+        function checkLockoutStatus() {
+            if (lockoutTime > Date.now()) {
+                startLockoutTimer();
+            } else {
+                localStorage.removeItem('login_attempts');
+                localStorage.removeItem('lockout_time');
+                loginAttempts = 0;
+                lockoutTime = 0;
+            }
+        }
+
+        function startLockoutTimer() {
+            const loginBtn = document.getElementById('loginBtn');
+            const btnText = loginBtn.querySelector('.btn-text');
+
+            loginBtn.disabled = true;
+
+            function updateTimer() {
+                const remaining = Math.ceil((lockoutTime - Date.now()) / 1000);
+                if (remaining <= 0) {
+                    loginBtn.disabled = false;
+                    updateBrushButtonText(btnText, translations[currentLang].login_button);
+                    localStorage.removeItem('login_attempts');
+                    localStorage.removeItem('lockout_time');
+                    loginAttempts = 0;
+                    lockoutTime = 0;
+                    clearInterval(lockoutTimer);
+                } else {
+                    const minutes = Math.floor(remaining / 60);
+                    const seconds = remaining % 60;
+                    btnText.innerHTML = `${translations[currentLang].remaining_time}${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }
+
+            updateTimer();
+            lockoutTimer = setInterval(updateTimer, 1000);
+        }
+
+        // 로그인 처리
+        function handleLogin(e) {
+            e.preventDefault();
+
+            if (lockoutTime > Date.now()) {
+                return;
+            }
+
+            const formData = new FormData(e.target);
+            const userId = formData.get('userId').trim();
+            const password = formData.get('password').trim();
+
+            // 유효성 검사
+            let isValid = true;
+
+            if (!userId) {
+                showFieldError('userId', translations[currentLang].error_empty_username);
+                isValid = false;
+            }
+
+            if (!password) {
+                showFieldError('password', translations[currentLang].error_empty_password);
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // 시네마틱 로딩 상태 표시
+            showLoading(true);
+
+            // 홀로그램 효과와 함께 버튼 로딩
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.classList.add('loading');
+
+            // 실제 로그인 검증 (더미 로직)
+            setTimeout(() => {
+                if (userId === 'admin' && password === 'password123') {
+                    // 로그인 성공
+                    loginAttempts = 0;
+                    localStorage.removeItem('login_attempts');
+                    localStorage.removeItem('lockout_time');
+
+                    showToast(translations[currentLang].success_login, 'success');
+
+                    // 시네마틱 성공 애니메이션 효과
+                    const authCard = document.querySelector('.auth-card');
+                    authCard.style.transform = 'perspective(1000px) rotateY(5deg) scale(1.05)';
+                    authCard.style.boxShadow = '0 15px 40px var(--glow-color), 0 0 50px var(--glow-color)';
+
+                    // 3D 텍스트 효과 적용
+                    document.querySelectorAll('.auth-header h1, .auth-header p').forEach(el => {
+                        el.classList.add('text-3d');
+                    });
+
+                    setTimeout(() => {
+                        authCard.style.transform = 'scale(1)';
+                        authCard.style.boxShadow = '';
+                    }, 2000);
+
+                    // 로그인 유지 체크박스 처리
+                    if (formData.get('rememberMe')) {
+                        localStorage.setItem('remember_login', 'true');
+                    }
+
+                    setTimeout(() => {
+                        console.log('로그인 성공 - 메인 페이지로 이동');
+                        showToast('메인 페이지로 이동합니다...', 'info');
+
+                        // 새로운 랜덤 테마 적용 (다음 로그인을 위해)
+                        applyRandomColorTheme();
+                    }, 2000);
+
+                } else {
+                    // 로그인 실패
+                    loginAttempts++;
+                    localStorage.setItem('login_attempts', loginAttempts.toString());
+
+                    // 시네마틱 실패 애니메이션
+                    const authCard = document.querySelector('.auth-card');
+                    authCard.style.animation = 'shake 0.5s ease-in-out';
+                    authCard.style.filter = 'hue-rotate(180deg)';
+
+                    setTimeout(() => {
+                        authCard.style.animation = '';
+                        authCard.style.filter = '';
+                    }, 500);
+
+                    if (loginAttempts >= 5) {
+                        // 계정 잠금
+                        lockoutTime = Date.now() + (5 * 60 * 1000); // 5분
+                        localStorage.setItem('lockout_time', lockoutTime.toString());
+                        showToast(translations[currentLang].error_account_locked, 'error');
+                        startLockoutTimer();
+                    } else {
+                        // 일반적인 로그인 실패
+                        if (userId !== 'admin') {
+                            showFieldError('userId', translations[currentLang].error_invalid_username);
+                        } else {
+                            showFieldError('password', translations[currentLang].error_invalid_password);
+                        }
+
+                        // 남은 시도 횟수 알림
+                        const remainingAttempts = 5 - loginAttempts;
+                        showToast(`남은 시도 횟수: ${remainingAttempts}회`, 'warning');
+                    }
+                }
+
+                showLoading(false);
+                loginBtn.classList.remove('loading');
+            }, 2000);
+        }
+
+        function showLoading(show) {
+            const loginBtn = document.getElementById('loginBtn');
+            const btnText = loginBtn.querySelector('.btn-text');
+            const spinner = loginBtn.querySelector('.loading-spinner');
+
+            if (show) {
+                loginBtn.disabled = true;
+                btnText.classList.add('hidden');
+                spinner.classList.remove('hidden');
+            } else {
+                loginBtn.disabled = false;
+                btnText.classList.remove('hidden');
+                spinner.classList.add('hidden');
+            }
+        }
+
+        function showFieldError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const feedback = field.closest('.form-group').querySelector('.invalid-feedback');
+
+            field.classList.add('is-invalid');
+            feedback.textContent = message;
+
+            // 홀로그램 에러 효과
+            field.style.animation = 'shake 0.5s ease-in-out';
+            field.style.boxShadow = '0 0 15px var(--danger-color)';
+
+            setTimeout(() => {
+                field.style.animation = '';
+                field.style.boxShadow = '';
+            }, 500);
+
+            // 에러 메시지 시네마틱 페이드인
+            feedback.style.opacity = '1';
+            feedback.style.transform = 'translateY(0)';
+        }
+
+        function clearFieldError() {
+            this.classList.remove('is-invalid');
+            const feedback = this.closest('.form-group').querySelector('.invalid-feedback');
+            if (feedback) {
+                feedback.style.opacity = '0';
+                feedback.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    feedback.textContent = '';
+                }, 300);
+            }
+
+            // 포커스시 홀로그램 글로우 효과 강화
+            this.style.boxShadow = '0 0 0 0.2rem var(--glow-color), 0 0 20px var(--glow-color)';
+        }
+
+        // 토스트 메시지
+        function showToast(message, type = 'success') {
+            const container = document.querySelector('.toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type} show`;
+
+            const iconClass = {
+                'success': 'fa-check-circle',
+                'error': 'fa-exclamation-circle',
+                'warning': 'fa-exclamation-triangle',
+                'info': 'fa-info-circle'
+            }[type] || 'fa-info-circle';
+
+            toast.innerHTML = `
+                <div class="toast-body d-flex align-items-center">
+                    <i class="fas ${iconClass} me-2"></i>
+                    ${message}
+                </div>
+            `;
+
+            // 홀로그램 토스트 애니메이션 효과
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(-20px) perspective(1000px) rotateX(10deg)';
+            container.appendChild(toast);
+
+            // 시네마틱 페이드인 애니메이션
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateY(0) perspective(1000px) rotateX(0deg)';
+                toast.style.transition = 'all 0.3s ease';
+            }, 10);
+
+            // 자동 제거
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px) perspective(1000px) rotateX(-10deg)';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.remove();
+                    }
+                }, 300);
+            }, 5000);
+        }
+
+        // 페이지 네비게이션
+        function navigateToPage(page) {
+            console.log(`Navigate to: ${page}.html`);
+
+            // 시네마틱 네비게이션 애니메이션 효과
+            const authCard = document.querySelector('.auth-card');
+            authCard.style.transform = 'perspective(1000px) rotateY(-15deg) scale(0.95)';
+            authCard.style.opacity = '0.8';
+            authCard.style.filter = 'blur(2px)';
+
+            showToast(`${page} 페이지로 이동합니다`, 'info');
+
+            setTimeout(() => {
+                authCard.style.transform = 'perspective(1000px) rotateY(0deg) scale(1)';
+                authCard.style.opacity = '1';
+                authCard.style.filter = 'blur(0)';
+            }, 300);
+        }
+
+        // 반응형 최적화
+        function optimizeForMobile() {
+            const isMobile = window.innerWidth <= 768;
+            const floatingElements = document.querySelectorAll('.floating-element');
+            const inkDrops = document.querySelectorAll('.ink-drop');
+            const patternLayers = document.querySelectorAll('.pattern-layer');
+
+            if (isMobile) {
+                // 모바일에서 애니메이션 최적화
+                floatingElements.forEach(el => {
+                    el.style.animationDuration = '30s';
+                });
+                inkDrops.forEach(el => {
+                    el.style.animationDuration = '20s';
+                });
+                patternLayers.forEach(el => {
+                    el.style.opacity = '0.03';
+                });
+            } else {
+                // 데스크톱에서 원래 설정 복원
+                floatingElements.forEach((el, index) => {
+                    const durations = ['25s', '30s', '22s', '28s', '24s'];
+                    el.style.animationDuration = durations[index] || '25s';
+                });
+                inkDrops.forEach(el => {
+                    el.style.animationDuration = '15s';
+                });
+                patternLayers.forEach(el => {
+                    el.style.opacity = '0.05';
+                });
+            }
+        }
+
+        // 창 크기 변경시 최적화
+        window.addEventListener('resize', function () {
+            optimizeForMobile();
+        });
+
+        // 초기 모바일 최적화
+        optimizeForMobile();
+
+        // 사용자 활동 감지 및 절전 모드
+        let userActivityTimer;
+        let isIdle = false;
+
+        function resetUserActivity() {
+            clearTimeout(userActivityTimer);
+            if (isIdle) {
+                // 절전 모드에서 복귀
+                document.body.classList.remove('idle-mode');
+                isIdle = false;
+            }
+
+            userActivityTimer = setTimeout(() => {
+                // 5분간 비활성 상태시 절전 모드
+                document.body.classList.add('idle-mode');
+                isIdle = true;
+            }, 300000); // 5분
+        }
+
+        // 사용자 활동 이벤트 리스너
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+            document.addEventListener(event, resetUserActivity, true);
+        });
+
+        // 접근성 개선
+        function enhanceAccessibility() {
+            // 포커스 가능한 요소들에 대한 키보드 네비게이션 개선
+            const focusableElements = document.querySelectorAll(
+                'input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])'
+            );
+
+            focusableElements.forEach((element, index) => {
+                element.addEventListener('focus', function () {
+                    this.style.boxShadow = '0 0 0 3px var(--glow-color)';
+                });
+
+                element.addEventListener('blur', function () {
+                    this.style.boxShadow = '';
+                });
+            });
+
+            // 스크린 리더를 위한 추가 정보
+            document.getElementById('userId').setAttribute('aria-describedby', 'username-help');
+            document.getElementById('password').setAttribute('aria-describedby', 'password-help');
+        }
+
+        // 접근성 개선 초기화
+        enhanceAccessibility();
+
+        // 페이지 언로드시 정리
+        window.addEventListener('beforeunload', function () {
+            if (typingTimer) clearTimeout(typingTimer);
+            if (lockoutTimer) clearInterval(lockoutTimer);
+            if (userActivityTimer) clearTimeout(userActivityTimer);
+        });
+
+        // 개발자 도구용 디버그 정보
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('🌟 북북노벨 로그인 시스템');
+            console.log('테스트 계정: admin / password123');
+            console.log('현재 언어:', currentLang);
+            console.log('현재 테마:', currentTheme);
+        }
+    </script>
+</body>
+
+</html>
