@@ -23,9 +23,9 @@ class ThemeManager {
 
     updateThemeIcon() {
         const icon = document.getElementById('theme-icon');
-        if (icon) {
-            icon.className = this.currentTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
-        }
+        icon.className = (document.body.getAttribute('data-theme') === 'light')
+            ? 'bi bi-sun-fill'
+            : 'bi bi-moon-fill';
     }
 
     getCurrentTheme() {

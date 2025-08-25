@@ -103,7 +103,9 @@ function toggleTheme() {
 
 function updateThemeIcon() {
     const icon = document.getElementById('theme-icon');
-    icon.className = currentTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+    icon.className = (document.body.getAttribute('data-theme') === 'light')
+        ? 'bi bi-sun-fill'
+        : 'bi bi-moon-fill';
 }
 
 // 다국어 초기화

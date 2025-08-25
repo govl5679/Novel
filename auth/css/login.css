@@ -92,7 +92,7 @@ body {
 
 /* Main Content Styles */
 .main-container {
-    padding-top: 2rem;
+    padding-top: 7rem;
     padding-bottom: 2rem;
     min-height: calc(100vh - 76px);
     display: flex;
@@ -320,4 +320,10 @@ body {
 
 .hidden {
     display: none !important;
+}
+
+.theme-toggle #theme-icon {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    vertical-align: middle;
 }
