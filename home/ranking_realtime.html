@@ -1,0 +1,532 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device=width, initial-scale=1">
+    <title>랭킹 실시간 | 북북노벨</title>
+
+    <!-- bootstrap v5.3 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
+        integrity="sha512-fw7f+TcMjTb7bpbLJZlP8g2Y4XcCyFZW8uy8HsRZsH/SwbMw0plKHFHr99DN3l04VsYNwvzicUX/6qurvIxbxw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- bootstrap icons 1.13.1 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- jquery toast plugin v1.3.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
+        integrity="sha512-wJgJNTBBkLit7ymC6vvzM1EcSWeM9mmOu+1USHaRBbHkm6W9EgM0HY27+UtUaprntaYQJF75rc8gjxllKs5OIQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .nav-link {
+            font-weight: 500;
+        }
+
+        .banner {
+            height: 300px;
+            background: url("https://picsum.photos/1200/300") center/cover no-repeat;
+            border-radius: 15px;
+        }
+
+        .novel-card img {
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .novel-card .card-body {
+            padding: 0.8rem;
+        }
+
+        .ranking-badge {
+            background: #000;
+            color: #fff;
+            font-size: 0.8rem;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 6px;
+        }
+
+        #ranking-category .nav-link.active {
+            background-color: var(--bs-success);
+        }
+
+        #ranking-category .nav-link:not(.active) {
+            color: var(--bs-dark);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg d-flex flex-column fixed-top bg-white sticky-top">
+        <div class="container row py-3">
+            <div class="navbar-nav col-3">
+                <a class="navbar-brand fs-2 fw-bold" href="../home/home.html">
+                    <i class="bi bi-book me-2 fs-1 text-success"></i>북북노벨
+                </a>
+            </div>
+            <div class="navbar-nav col-6">
+                <form class="input-group" action="../home/search.html">
+                    <input type="text" class="form-control" placeholder="작가, 작품명" id="">
+                    <button class="btn btn-outline-success p-3" type="submit" id="search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="navbar-nav col-3 d-flex justify-content-end position-relative">
+                <a href="#" class="btn btn-link p-0" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-person-circle fs-2 text-dark"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end p-5 border rounded shadow-lg"
+                    style="width: 350px; transform: translateX(10px); background-color: white;">
+                    <div class="text-end mb-2">
+                        <button class="btn-close ms-2" type="button" aria-label="Close"
+                            data-bs-dismiss="dropdown"></button>
+                    </div>
+                    <div class="d-flex align-items-center mb-4 p-3 rounded-3" style="background-color: #f7f9fc;">
+                        <div class="me-3">
+                            <h6 class="fw-bold mb-0" style="font-size: 1.1rem;">지금 <a href="../auth/login.html">로그인</a>
+                                하고
+                            </h6>
+                            <small style="font-size: 0.9rem;">다양한 혜택 받아보세요.</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-around my-4 text-center" style="gap: 1rem;">
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-coin fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">코인충전</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-gift fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">이벤트</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-calendar-check fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">출석체크</small>
+                        </a>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../notice/list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">공지사항</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">결제 내역</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../user_board/fanart_list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">팬아트</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">1:1 문의하기</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-top col-12 border-success"></div>
+        <div class="container navbar-nav d-flex justify-content-start py-3 fs-5">
+            <a class="nav-link text-dark me-2" href="../home/home.html">홈</a>
+            <a class="nav-link text-success me-2" href="../home/ranking.html">랭킹</a>
+            <a class="nav-link text-dark me-2" href="../user_board/free_list.html">유저 게시판</a>
+            <a class="nav-link text-dark me-2" href="../notice/list.html">공지사항</a>
+        </div>
+    </nav>
+    <!-- navbar -->
+
+    <!--본문-->
+    <div class="container-xl">
+        <!-- 카테고리 -->
+        <div class="mt-3 p-3">
+            <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-body-tertiary rounded-5 shadow-sm"
+                id="ranking-category">
+                <li class="nav-item">
+                    <a class="nav-link rounded-5" href="ranking.html">전체</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active rounded-5" href="ranking_realtime.html">실시간</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-5" href="ranking_new.html">신작</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-5" href="ranking_completed.html">완결</a>
+                </li>
+            </ul>
+        </div>
+        <!-- //카테고리 -->
+
+        <!-- 장르 -->
+        <div class="mt-3 p-3" id="genre-filter-container">
+            <div class="d-flex flex-wrap gap-2">
+                <button type="button" class="btn btn-success rounded-pill genre-btn" data-genre="전체">전체</button>
+                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
+                    data-genre="판타지">판타지</button>
+                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
+                    data-genre="무협">무협</button>
+                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
+                    data-genre="로맨스">로맨스</button>
+                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
+                    data-genre="현대">현대</button>
+                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
+                    data-genre="SF">SF</button>
+                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
+                    data-genre="스포츠">스포츠</button>
+                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
+                    data-genre="기타">기타</button>
+            </div>
+        </div>
+        <!-- //장르 -->
+
+        <!--콘텐츠묶음-->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="novel-list-container">
+            <!-- 카드 1 -->
+            <div class="col novel-card" data-genre="판타지">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/601" class="img-fluid rounded-start" alt="전생했더니 액체괴물">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <span class="ranking-badge">1</span>
+                                    <a href="../novel/list.html"
+                                        class="text-decoration-none text-body stretched-link">전생했더니 액체괴물</a>
+                                </h5>
+                                <p class="card-text text-muted small">포풍저그</p>
+                                <p class="card-text">눈을 뜨니, 나는 인간도 용사도 아닌 점성 없는 액체괴물이었다.</p>
+                                <p class="card-text"><small class="text-primary">#판타지</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 2 -->
+            <div class="col novel-card" data-genre="무협">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/602" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">2</span>화산의 흑풍</h5>
+                                <p class="card-text text-muted small">김무협</p>
+                                <p class="card-text">화산의 정상에서, 마교의 그림자가 드리운다. 나는 검을 들 수밖에 없었다.</p>
+                                <p class="card-text"><small class="text-primary">#무협</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 3 -->
+            <div class="col novel-card" data-genre="로맨스">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/603" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">3</span>위장결혼의 대가</h5>
+                                <p class="card-text text-muted small">로맨티카</p>
+                                <p class="card-text">1년간의 계약 결혼, 하지만 그의 집착이 시작되었다.</p>
+                                <p class="card-text"><small class="text-primary">#로맨스</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 4 -->
+            <div class="col novel-card" data-genre="현대">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/604" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">4</span>재벌의 페르소나</h5>
+                                <p class="card-text text-muted small">도시인</p>
+                                <p class="card-text">재벌인 걸 숨기고 탑배우가 되기로 했다. 쉽지 않다.</p>
+                                <p class="card-text"><small class="text-primary">#현대</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 5 -->
+            <div class="col novel-card" data-genre="SF">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/605" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">5</span>종언의 방주</h5>
+                                <p class="card-text text-muted small">우주인</p>
+                                <p class="card-text">인류의 마지막 희망을 싣고, 미지의 우주로 떠난다.</p>
+                                <p class="card-text"><small class="text-primary">#SF</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 6 -->
+            <div class="col novel-card" data-genre="스포츠">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/606" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">6</span>코트의 지배자</h5>
+                                <p class="card-text text-muted small">강슬램</p>
+                                <p class="card-text">천재 농구선수의 성장 스토리. 전국 제패를 향하여!</p>
+                                <p class="card-text"><small class="text-primary">#스포츠</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 7 -->
+            <div class="col novel-card" data-genre="판타지">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/607" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">7</span>영혼의 지배자로 회귀</h5>
+                                <p class="card-text text-muted small">레벨업</p>
+                                <p class="card-text">죽음의 순간, 과거로 돌아왔다. 이번엔 군주가 되겠다.</p>
+                                <p class="card-text"><small class="text-primary">#판타지</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 8 -->
+            <div class="col novel-card" data-genre="무협">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/608" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">8</span>마교의 막내사부</h5>
+                                <p class="card-text text-muted small">마교교주</p>
+                                <p class="card-text">천마의 제자가 된 소년, 강호를 뒤흔들다.</p>
+                                <p class="card-text"><small class="text-primary">#무협</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 9 -->
+            <div class="col novel-card" data-genre="로맨스">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/609" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">9</span>황태자의 시크릿 레시피</h5>
+                                <p class="card-text text-muted small">달콤살벌</p>
+                                <p class="card-text">까칠한 황태자의 마음을 녹이는 달콤한 디저트 로맨스.</p>
+                                <p class="card-text"><small class="text-primary">#로맨스</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 10 -->
+            <div class="col novel-card" data-genre="현대">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/610" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">10</span>잿더미 속에서 귀환</h5>
+                                <p class="card-text text-muted small">고인물</p>
+                                <p class="card-text">죽어서 들어간 납골당, 그곳에서 모든 것이 다시 시작되었다.</p>
+                                <p class="card-text"><small class="text-primary">#현대</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 11 -->
+            <div class="col novel-card" data-genre="SF">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/611" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">11</span>우주 유랑 가이드</h5>
+                                <p class="card-text text-muted small">더글라스</p>
+                                <p class="card-text">은하계의 끝에서 끝까지, 수건 한 장 들고 떠나는 여행.</p>
+                                <p class="card-text"><small class="text-primary">#SF</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 12 -->
+            <div class="col novel-card" data-genre="스포츠">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/612" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">12</span>마운드의 지배자</h5>
+                                <p class="card-text text-muted small">야구왕</p>
+                                <p class="card-text">포기를 모르는 소년의 뜨거운 마운드 위 이야기.</p>
+                                <p class="card-text"><small class="text-primary">#스포츠</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 13 -->
+            <div class="col novel-card" data-genre="기타">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/613" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">13</span>각성자들의 후견인</h5>
+                                <p class="card-text text-muted small">육성마스터</p>
+                                <p class="card-text">망해버린 F급 헌터, S급 동생들 덕에 인생 역전?</p>
+                                <p class="card-text"><small class="text-primary">#기타</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 14 -->
+            <div class="col novel-card" data-genre="판타지">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/614" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">14</span>고룡의 계약자</h5>
+                                <p class="card-text text-muted small">용기사</p>
+                                <p class="card-text">고대 드래곤의 힘을 이어받은 소년의 모험.</p>
+                                <p class="card-text"><small class="text-primary">#판타지</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 15 -->
+            <div class="col novel-card" data-genre="로맨스">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/615" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="ranking-badge">15</span>악녀의 회귀</h5>
+                                <p class="card-text text-muted small">회귀전문</p>
+                                <p class="card-text">배신당한 악녀의 화려한 복수극과 새로운 사랑.</p>
+                                <p class="card-text"><small class="text-primary">#로맨스</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--//콘텐츠묶음-->
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white py-4 mt-5">
+            <div class="container text-center">
+                <p class="mb-0">© 2025 북북노벨 | 웹소설 플랫폼</p>
+            </div>
+        </footer>
+        <!-- //Footer -->
+
+        <!-- bootstrap v5.3 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"
+            integrity="sha512-Tc0i+vRogmX4NN7tuLbQfBxa8JkfUSAxSFVzmU31nVdHyiHElPPy2cWfFacmCJKw0VqovrzKhdd2TSTMdAxp2g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <!-- jquery v3.7.1 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <!-- jquery toast plugin v1.3.2 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
+            integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <!-- custom -->
+        <script>
+            $(document).ready(function () {
+                // 장르 필터링 로직
+                $('.genre-btn').on('click', function () {
+                    const selectedGenre = $(this).data('genre');
+
+                    // 버튼 활성 상태 업데이트
+                    $('.genre-btn').removeClass('btn-success').addClass('btn-outline-secondary');
+                    $(this).removeClass('btn-outline-secondary').addClass('btn-success');
+
+                    // 카드 필터링
+                    if (selectedGenre === '전체') {
+                        $('.novel-card').show();
+                    } else {
+                        $('.novel-card').hide();
+                        $('.novel-card[data-genre="' + selectedGenre + '"]').show();
+                    }
+
+                    // 순위 재계산
+                    let visibleRank = 1;
+                    $('.novel-card:visible').each(function () {
+                        $(this).find('.ranking-badge').text(visibleRank);
+                        visibleRank++;
+                    });
+                });
+            });
+        </script>
+
+</body>
+
+</html>
