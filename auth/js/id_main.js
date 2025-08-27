@@ -23,12 +23,25 @@ class FindUsernameApp {
             this.themeManager = new ThemeManager();
             this.languageManager = new LanguageManager();
             this.toastManager = new ToastManager();
-            this.formManager = new FormManager(this.languageManager, this.toastManager);
 
-            console.log('Find Username App initialized successfully');
+            const pageType = this.getPageType();
+            if (pageType === 'find' || pageType === 'login' || pageType === 'register') {
+                this.formManager = new FormManager(this.languageManager, this.toastManager);
+            }
+
+            console.log('App initialized successfully');
         } catch (error) {
-            console.error('Error initializing Find Username App:', error);
+            console.error('Error initializing App:', error);
         }
+    }
+
+    getPageType() {
+        const pathname = window.location.pathname;
+        if (pathname.includes('register_page')) return 'register';
+        if (pathname.includes('termsofuse')) return 'terms';
+        if (pathname.includes('login')) return 'login';
+        if (pathname.includes('find_userid') || pathname.includes('find_password')) return 'find';
+        return 'unknown';
     }
 
     // 외부에서 접근할 수 있는 메서드들

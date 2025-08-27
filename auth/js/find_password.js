@@ -17,7 +17,8 @@ const translations = {
         try_again: '다시 시도',
         error_username_required: '아이디를 입력해주세요',
         error_username_not_found: '등록되지 않은 아이디입니다',
-        toast_password_sent: '임시 비밀번호가 발급되어 이메일로 전송되었습니다'
+        toast_password_sent: '임시 비밀번호가 발급되어 이메일로 전송되었습니다',
+        toast_password_reissued: '임시 비밀번호가 재발급되었습니다'
     },
     ja: {
         site_name: '북북노벨',
@@ -62,6 +63,7 @@ const translations = {
 // 전역 변수
 let currentLang = localStorage.getItem('preferred_language') || 'ko';
 let currentTheme = localStorage.getItem('preferred_theme') || 'light';
+let lastUserId = '';
 
 // 초기화
 document.addEventListener('DOMContentLoaded', function() {
@@ -182,6 +184,7 @@ function handleFindPassword(e) {
 
         if (registeredUsers.includes(userId.toLowerCase())) {
             // 임시 비밀번호 전송 성공
+            lastUserId = userId; // 사용자 ID 저장
             showToast(translations[currentLang].toast_password_sent, 'success');
 
             setTimeout(() => {
@@ -285,8 +288,31 @@ function showToast(message, type = 'success') {
     }, 5000);
 }
 
-// 페이지 네비게이션 (더미 함수)
+// 페이지 네비게이션
 function navigateToPage(page) {
-    console.log(`Navigate to: ${page}.html`);
-    showToast(`${page} 페이지로 이동합니다`, 'info');
+    window.location.href = `./${page}.html`;
 }
+
+// 다시 시도 처리
+function handleRetry() {
+    showLoading(true);
+
+    // 비밀번호 찾기 재시도 (더미 로직)
+    setTimeout(() => {
+        showToast(translations[currentLang].toast_password_reissued, 'success');
+        showLoading(false);
+    }, 2000);
+}
+
+// 성공 상태의 버튼에 이벤트 리스너 추가
+document.addEventListener('DOMContentLoaded', function() {
+    const loginBtn = document.querySelector('#successState .btn-primary');
+    const retryBtn = document.querySelector('#successState .btn-outline-primary');
+
+    loginBtn.addEventListener('click', () => {
+        // 로그인 페이지로 이동
+        navigateToPage('login');
+    });
+
+    retryBtn.addEventListener('click', handleRetry);
+});
