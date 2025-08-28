@@ -352,6 +352,14 @@
         </div>
         <!--본문끝-->
 
+        <!-- Footer -->
+        <footer class="bg-dark text-white py-4 mt-5">
+            <div class="container text-center">
+                <p class="mb-0">© 2025 북북노벨 | 웹소설 플랫폼</p>
+            </div>
+        </footer>
+        <!-- //Footer -->
+
         <!-- bootstrap v5.3 -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"
             integrity="sha512-Tc0i+vRogmX4NN7tuLbQfBxa8JkfUSAxSFVzmU31nVdHyiHElPPy2cWfFacmCJKw0VqovrzKhdd2TSTMdAxp2g=="
@@ -828,11 +836,11 @@
                     $('#search-term').val('');
                     $('#category').val('title');
                     removeHighlight();
-                    
+
                     // 베스트글 필터도 초기화
                     showBestOnly = false;
                     $('#filter-best').removeClass('btn-secondary').addClass('btn-outline-secondary');
-                    
+
                     filterByTab(currentTab); // 현재 탭에 맞게 다시 필터링
 
                     $.toast({
@@ -847,7 +855,7 @@
                 // 베스트글 필터 토글
                 function toggleBestFilter() {
                     showBestOnly = !showBestOnly;
-                    
+
                     if (showBestOnly) {
                         $('#filter-best').removeClass('btn-outline-secondary').addClass('btn-secondary');
                     } else {
