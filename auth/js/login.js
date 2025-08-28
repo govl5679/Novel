@@ -75,6 +75,9 @@ let loginAttempts = parseInt(localStorage.getItem('login_attempts') || '0');
 let lockoutTime = parseInt(localStorage.getItem('lockout_time') || '0');
 let lockoutTimer = null;
 
+// 로그인 성공 후 이동할 URL
+const redirectAfterLogin = '/dashboard.html'; // 원하는 경로로 수정
+
 // 초기화
 document.addEventListener('DOMContentLoaded', function () {
     initializeTheme();
@@ -100,7 +103,9 @@ function toggleTheme() {
 
 function updateThemeIcon() {
     const icon = document.getElementById('theme-icon');
-    icon.className = currentTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+    icon.className = (document.body.getAttribute('data-theme') === 'light')
+        ? 'bi bi-sun-fill'
+        : 'bi bi-moon-fill';
 }
 
 // 다국어 초기화
@@ -263,7 +268,7 @@ function handleLogin(e) {
 
             setTimeout(() => {
                 // 실제 애플리케이션에서는 대시보드로 리다이렉트
-                console.log('로그인 성공 - 메인 페이지로 이동');
+                window.location.href = ("./home/home.hlml");
             }, 1500);
 
         } else {

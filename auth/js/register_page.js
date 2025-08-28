@@ -138,67 +138,9 @@ let validationState = {
 
 // 초기화
 document.addEventListener('DOMContentLoaded', function () {
-    initializeTheme();
-    initializeLanguage();
     initializeForm();
     restoreFormData();
 });
-
-// 테마 관련 함수
-function initializeTheme() {
-    document.body.setAttribute('data-theme', currentTheme);
-    updateThemeIcon();
-    document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
-}
-
-function toggleTheme() {
-    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-    document.body.setAttribute('data-theme', currentTheme);
-    localStorage.setItem('preferred_theme', currentTheme);
-    updateThemeIcon();
-}
-
-function updateThemeIcon() {
-    const icon = document.getElementById('theme-icon');
-    icon.className = currentTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
-}
-
-// 다국어 관련 함수
-function initializeLanguage() {
-    updateLanguageText();
-
-    document.querySelectorAll('[data-lang-code]').forEach(item => {
-        item.addEventListener('click', function (e) {
-            e.preventDefault();
-            const langCode = this.getAttribute('data-lang-code');
-            changeLanguage(langCode);
-        });
-    });
-}
-
-function changeLanguage(langCode) {
-    currentLang = langCode;
-    localStorage.setItem('preferred_language', langCode);
-    updateLanguageText();
-}
-
-function updateLanguageText() {
-    const texts = translations[currentLang];
-
-    document.querySelectorAll('[data-lang]').forEach(element => {
-        const key = element.getAttribute('data-lang');
-        if (texts[key]) {
-            element.textContent = texts[key];
-        }
-    });
-
-    document.querySelectorAll('[data-lang-placeholder]').forEach(element => {
-        const key = element.getAttribute('data-lang-placeholder');
-        if (texts[key]) {
-            element.placeholder = texts[key];
-        }
-    });
-}
 
 // 폼 관련 함수
 function initializeForm() {

@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>약관 동의 - 북북노벨</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap v5.3 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
+        integrity="sha512-fw7f+TcMjTb7bpbLJZlP8g2Y4XcCyFZW8uy8HsRZsH/SwbMw0plKHFHr99DN3l04VsYNwvzicUX/6qurvIxbxw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap Icons 1.13.1 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- jQuery Toast Plugin v1.3.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
+        integrity="sha512-wJgJNTBBkLit7ymC6vvzM1EcSWeM9mmOu+1USHaRBbHkm6W9EgM0HY27+UtUaprntaYQJF75rc8gjxllKs5OIQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="css/common.css" rel="stylesheet">
     <link href="css/termsofuse.css" rel="stylesheet">
 </head>
+
 <body data-theme="light">
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" data-lang="site_name">북북노벨</a>
-
             <div class="nav-controls">
-                <!-- Language Dropdown -->
                 <div class="dropdown lang-dropdown">
                     <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-globe"></i>
+                        <i class="bi bi-globe"></i>
                         <span class="ms-1 d-none d-sm-inline" data-lang="current_lang">한국어</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -30,10 +36,8 @@
                         <li><a class="dropdown-item" href="#" data-lang-code="en">English</a></li>
                     </ul>
                 </div>
-
-                <!-- Theme Toggle -->
                 <button class="theme-toggle" type="button" aria-label="테마 변경">
-                    <i class="fas fa-sun" id="theme-icon"></i>
+                    <i class="bi bi-sun-fill" id="theme-icon"></i>
                 </button>
             </div>
         </div>
@@ -81,7 +85,8 @@
                                             <span class="required-badge" data-lang="required">필수</span>
                                         </label>
                                     </div>
-                                    <button type="button" class="view-details" data-terms="service" data-lang="view_details">
+                                    <button type="button" class="view-details" data-terms="service"
+                                        data-lang="view_details">
                                         자세히 보기
                                     </button>
                                 </div>
@@ -97,7 +102,8 @@
                                             <span class="required-badge" data-lang="required">필수</span>
                                         </label>
                                     </div>
-                                    <button type="button" class="view-details" data-terms="privacy" data-lang="view_details">
+                                    <button type="button" class="view-details" data-terms="privacy"
+                                        data-lang="view_details">
                                         자세히 보기
                                     </button>
                                 </div>
@@ -126,7 +132,8 @@
                                             <span class="optional-badge" data-lang="optional">선택</span>
                                         </label>
                                     </div>
-                                    <button type="button" class="view-details" data-terms="marketing" data-lang="view_details">
+                                    <button type="button" class="view-details" data-terms="marketing"
+                                        data-lang="view_details">
                                         자세히 보기
                                     </button>
                                 </div>
@@ -142,7 +149,8 @@
                                             <span class="optional-badge" data-lang="optional">선택</span>
                                         </label>
                                     </div>
-                                    <button type="button" class="view-details" data-terms="event" data-lang="view_details">
+                                    <button type="button" class="view-details" data-terms="event"
+                                        data-lang="view_details">
                                         자세히 보기
                                     </button>
                                 </div>
@@ -177,14 +185,27 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-lang="close">닫기</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        data-lang="close">닫기</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
+        integrity="sha512-zlWWyZq71UMApbYbMwYGGatWnQFUmNbYw8EckDkoTrGHhpdC8bVR9FJKtHGIxPXx/neSYEcPQdANMcrOBkrXow=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="js/id_main.js"></script>
+    <script src="js/id_theme.js"></script>
+    <script src="js/id_Language.js"></script>
+    <script src="js/id_toast.js"></script>
     <script src="js/termsofuse.js"></script>
 </body>
+
 </html>
