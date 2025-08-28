@@ -55,40 +55,104 @@
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success sticky-top flex-column">
-        <div class="container-fluid container-xl">
-            <div class="">
-                <a class="navbar-brand fs-2"><i class="bi bi-book me-2"></i>북북노벨</a>
-                <div class="navbar-nav">
-                    <a class="nav-link text-white" href="../home/home.html">자유</a>
-                    <a class="nav-link text-white" href="../home/ranking.html">랭킹</a>
-                    <a class="nav-link text-white" href="../user_board/free_list.html">유저 게시판</a>
+    <nav class="navbar navbar-expand-lg d-flex flex-column fixed-top bg-white sticky-top">
+        <div class="container row py-3">
+            <div class="navbar-nav col-3">
+                <a class="navbar-brand fs-2 fw-bold" href="../home/home.html">
+                    <i class="bi bi-book me-2 fs-1 text-success"></i>북북노벨
+                </a>
+            </div>
+            <div class="navbar-nav col-6">
+                <form class="input-group" action="../home/search.html">
+                    <input type="text" class="form-control" placeholder="작가, 작품명" id="">
+                    <button class="btn btn-outline-success p-3" type="submit" id="search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="navbar-nav col-3 d-flex justify-content-end position-relative">
+                <a href="#" class="btn btn-link p-0" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-person-circle fs-2 text-dark"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end p-5 border rounded shadow-lg"
+                    style="width: 350px; transform: translateX(10px); background-color: white;">
+                    <div class="text-end mb-2">
+                        <button class="btn-close ms-2" type="button" aria-label="Close"
+                            data-bs-dismiss="dropdown"></button>
+                    </div>
+                    <div class="d-flex align-items-center mb-4 p-3 rounded-3" style="background-color: #f7f9fc;">
+                        <div class="me-3">
+                            <h6 class="fw-bold mb-0" style="font-size: 1.1rem;">지금 <a href="../auth/login.html">로그인</a>
+                                하고
+                            </h6>
+                            <small style="font-size: 0.9rem;">다양한 혜택 받아보세요.</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-around my-4 text-center" style="gap: 1rem;">
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-coin fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">코인충전</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-gift fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">이벤트</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-calendar-check fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">출석체크</small>
+                        </a>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../notice/list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">공지사항</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">결제 내역</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../user_board/fanart_list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">팬아트</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">1:1 문의하기</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-light" type="submit">Search</button>
-            </form>
-
+        </div>
+        <div class="border-top col-12 border-success"></div>
+        <div class="container navbar-nav d-flex justify-content-start py-3 fs-5">
+            <a class="nav-link text-success me-2" href="../home/home.html">홈</a>
+            <a class="nav-link text-dark me-2" href="../home/ranking.html">랭킹</a>
+            <a class="nav-link text-dark me-2" href="../user_board/free_list.html">유저 게시판</a>
+            <a class="nav-link text-dark me-2" href="../notice/list.html">공지사항</a>
         </div>
     </nav>
-    <!-- navbar -->
+    <!-- //navbar -->
 
     <div class="container-sm">
         <!-- 입력부 -->
         <div class="mt-3">
-            <div class="ms-1 mt-3 py-3">
+            <div class="border-bottom ms-1 mt-3 py-3">
                 <span class="fs-1 fw-bold">글쓰기</span>
             </div>
 
             <!-- 제목 입력 -->
             <div class="mb-3 justify-content-center">
-                <div class="mb-2 me-4 col-1">
-                    <select class="form-control border-secondary" type="select">
+                <div class="mb-2 me-4 col-2">
+                    <select class="form-control border-secondary mt-3 text-center" type="select">
                         <option value="recommend">작품 추천</option>
                         <option value="review">작품 리뷰</option>
                         <option value="fanart">팬아트</option>
-                        <option value="free">유저 게시판</option>
+                        <option value="free">유저게시판</option>
                     </select>
                 </div>
             </div>
@@ -155,10 +219,6 @@
             }
         });
 
-        document.getElementById('addBtn').addEventListener('click', function () {
-            location.href = '../notice/read.html';
-            alert('수정이 완료되었습니다.');
-        });
 
         $('#addBtn').on('click', function () {
             let boardType = $('select').val(); // 선택된 값 가져오기
@@ -173,10 +233,10 @@
                     targetUrl = '../user_board/fanart_list.html';
                     break;
                 case 'review':
-                    targetUrl = '../user_board/review_list.html';
+                    targetUrl = '../user_board/free_list.html';
                     break;
                 case 'recommend':
-                    targetUrl = '../user_board/review_list.html';
+                    targetUrl = '../user_board/free_list.html';
                     break;
                 default:
                     targetUrl = '../notice/read.html'; // 기본 페이지

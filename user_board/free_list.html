@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device=width, initial-scale=1">
     <title>유저 게시판 목록 | 북북노벨</title>
- 
+
     <!-- bootstrap v5.3 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
         integrity="sha512-fw7f+TcMjTb7bpbLJZlP8g2Y4XcCyFZW8uy8HsRZsH/SwbMw0plKHFHr99DN3l04VsYNwvzicUX/6qurvIxbxw=="
@@ -24,83 +24,224 @@
             background-color: yellow;
             font-weight: bold;
         }
-        
+
         .no-results {
             text-align: center;
             padding: 50px;
             color: #666;
             font-size: 18px;
         }
-        
+
         .page-info {
             color: #666;
             font-size: 14px;
         }
-        
+
         .table tbody tr {
             cursor: pointer;
             transition: background-color 0.2s ease;
         }
-        
+
         .table tbody tr:hover {
             background-color: #f8f9fa;
         }
-        
+
         .pagination .page-link {
             color: #6c757d;
             border: 1px solid #dee2e6;
         }
-        
+
         .pagination .page-item.active .page-link {
             background-color: #343a40;
             border-color: #343a40;
             color: white;
         }
-        
+
         .pagination .page-link:hover {
             background-color: #e9ecef;
         }
-        
+
         .table-container {
             min-height: 500px;
         }
-        
+
         .post-row {
             display: table-row;
         }
-        
+
         .post-row.hidden {
             display: none !important;
+        }
+
+        .count-animation {
+            animation: countUp 0.5s ease-out;
+        }
+
+        @keyframes countUp {
+            0% {
+                transform: scale(1);
+                color: inherit;
+            }
+
+            50% {
+                transform: scale(1.3);
+                color: #28a745;
+            }
+
+            100% {
+                transform: scale(1);
+                color: inherit;
+            }
+        }
+
+        .toast-success {
+            background-color: #d4edda !important;
+            color: #155724 !important;
+        }
+
+        .nav-tabs .nav-link {
+            font-size: 1.2rem;
+            /* 글씨 크기 키우기 */
+            padding: 15px 24px;
+            /* 상하 12px, 좌우 24px 여백 */
+        }
+
+        /* 탭 기본 색상 */
+        .nav-tabs .nav-link {
+            color: #555;
+            /* 글자 색상 */
+            background-color: #f8f9fa;
+            /* 배경색 */
+            border: 1px solid #dee2e6;
+        }
+
+        /* 탭 hover 색상 */
+        .nav-tabs .nav-link:hover {
+            color: #000;
+            background-color: #159726;
+        }
+
+        /* 활성화된 탭 (클릭된 탭) 색상 */
+        .nav-tabs .nav-link.active {
+            color: #fff;
+            /* 글자색 */
+            background-color: #159726;
+            /* 파란색 배경 */
+            border-color: #159726 #159726 #fff;
+            /* 활성화 시 테두리 */
+        }
+
+        .best-badge {
+            font-size: 0.8em;
+            padding: 4px 8px;
+            border-radius: 12px;
+            margin-right: 8px;
+            background-color: #ff6b6b;
+            color: white;
+            font-weight: bold;
+        }
+
+        .sort-buttons {
+            margin-bottom: 15px;
+        }
+
+        .sort-buttons .btn {
+            margin-right: 8px;
         }
     </style>
 </head>
 
-<body>
-     <!-- navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success sticky-top flex-column">
-        <div class="container-fluid container-xl">
-            <div class="">
-                <a class="navbar-brand fs-2"><i class="bi bi-book me-2"></i>북북노벨</a>
-                <div class="navbar-nav">
-                    <a class="nav-link text-white" href="../home/home.html">자유</a>
-                    <a class="nav-link text-white" href="../home/ranking.html">랭킹</a>
-                    <a class="nav-link text-white" href="../user_board/free_list.html">유저 게시판</a>
+<body data-page-id="fanart/view_1">>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg d-flex flex-column fixed-top bg-white sticky-top">
+        <div class="container row py-3">
+            <div class="navbar-nav col-3">
+                <a class="navbar-brand fs-2 fw-bold" href="../home/home.html">
+                    <i class="bi bi-book me-2 fs-1 text-success"></i>북북노벨
+                </a>
+            </div>
+            <div class="navbar-nav col-6">
+                <form class="input-group" action="../home/search.html">
+                    <input type="text" class="form-control" placeholder="작가, 작품명" id="">
+                    <button class="btn btn-outline-success p-3" type="submit" id="search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="navbar-nav col-3 d-flex justify-content-end position-relative">
+                <a href="#" class="btn btn-link p-0" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-person-circle fs-2 text-dark"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end p-5 border rounded shadow-lg"
+                    style="width: 350px; transform: translateX(10px); background-color: white;">
+                    <div class="text-end mb-2">
+                        <button class="btn-close ms-2" type="button" aria-label="Close"
+                            data-bs-dismiss="dropdown"></button>
+                    </div>
+                    <div class="d-flex align-items-center mb-4 p-3 rounded-3" style="background-color: #f7f9fc;">
+                        <div class="me-3">
+                            <h6 class="fw-bold mb-0" style="font-size: 1.1rem;">지금 <a href="../auth/login.html">로그인</a>
+                                하고
+                            </h6>
+                            <small style="font-size: 0.9rem;">다양한 혜택 받아보세요.</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-around my-4 text-center" style="gap: 1rem;">
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-coin fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">코인충전</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-gift fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">이벤트</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-calendar-check fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">출석체크</small>
+                        </a>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../notice/list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">공지사항</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">결제 내역</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../user_board/fanart_list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">팬아트</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">1:1 문의하기</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-light" type="submit">Search</button>
-            </form>
+        </div>
+        <div class="border-top col-12 border-success"></div>
+        <div class="container navbar-nav d-flex justify-content-start py-3 fs-5">
+            <a class="nav-link text-success me-2" href="../home/home.html">홈</a>
+            <a class="nav-link text-dark me-2" href="../home/ranking.html">랭킹</a>
+            <a class="nav-link text-dark me-2" href="../user_board/free_list.html">유저 게시판</a>
+            <a class="nav-link text-dark me-2" href="../notice/list.html">공지사항</a>
         </div>
     </nav>
-    <!-- navbar -->
+    <!-- //navbar -->
 
     <!--본문-->
     <div class="container-sm">
         <div class="container-sm mt-3 py-4 border-bottom border-dark border-3">
             <span class="fs-1 fw-bold">유저 게시판</span>
         </div>
-        
+
         <!-- 검색 -->
         <div class="container text-end mt-2">
             <div class="d-flex justify-content-end">
@@ -132,9 +273,9 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- 검색 결과 정보 -->
-        <div class="container mt-2">
+        <div class="container mt-2 mb-3">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="page-info" id="result-info">
                     전체 <span id="total-count">0</span>개의 게시물이 있습니다.
@@ -144,485 +285,702 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- 게시판 -->
         <div class="container-sm table-container">
+            <!-- 탭 메뉴 -->
+            <ul class="nav nav-tabs" id="boardTabs">
+                <li class="nav-item">
+                    <button class="nav-link active" data-tab="all">전체</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-tab="free">자유게시판</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-tab="review">작품리뷰</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-tab="promotion">작품홍보</button>
+                </li>
+            </ul>
+
+            <!-- 정렬 버튼 -->
+            <div class="sort-buttons mt-3">
+                <button type="button" class="btn btn-outline-secondary" id="sort-likes">추천수 순</button>
+                <button type="button" class="btn btn-outline-secondary" id="sort-date">등록일 순</button>
+                <button type="button" class="btn btn-outline-danger" id="filter-best">베스트글</button>
+            </div>
+
             <table class="table table-hover mt-3">
                 <thead>
                     <tr class="border-top text-center table-light">
-                        <th class="border-start border-end col-8">제목</th>
+                        <th class="border-start border-end col-1">번호</th>
+                        <th class="border-start border-end col-7">제목</th>
                         <th class="border-start border-end col-2">작성자</th>
                         <th class="border-start border-end col-1">등록일</th>
                         <th class="border-start border-end col-1">추천수</th>
                     </tr>
                 </thead>
-                <tbody class="align-middle fs-5 fw-bold" id="importantList">
-                    <!-- 베스트 게시물들이 동적으로 생성됩니다 -->
-                </tbody>
-                <tbody class="align-middle fs-5" id="noticeList">
-                    <!-- 일반 게시물들이 동적으로 생성됩니다 -->
+                <tbody class="align-middle fs-5" id="postList">
+                    <!-- 게시물들이 동적으로 생성됩니다 -->
                 </tbody>
             </table>
-            
+
             <!-- 검색 결과 없음 메시지 -->
             <div id="no-results" class="no-results" style="display: none;">
                 <i class="bi bi-search" style="font-size: 48px; color: #ccc;"></i>
                 <p>검색 결과가 없습니다.</p>
                 <p>다른 검색어로 시도해보세요.</p>
             </div>
+
+            <!-- 게시판끝 -->
+
+            <!--글쓰기버튼-->
+            <div class="mt-3 text-end">
+                <button type="button" class="btn btn-outline-dark" id="addButton"
+                    onclick="location.href='useredit.html'">
+                    <i class="bi bi-pencil-fill me-1"></i>글쓰기
+                </button>
+            </div>
+
+            <!-- 페이지네이션 -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center" id="pagination">
+                    <!-- 페이지 버튼들이 동적으로 생성됩니다 -->
+                </ul>
+            </nav>
         </div>
-        <!-- 게시판끝 -->
-        
-        <!--글쓰기버튼-->
-        <div class="mt-3 text-end">
-            <button type="button" class="btn btn-outline-dark" id="addButton" onclick="location.href='useredit.html'">
-                <i class="bi bi-pencil-fill me-1"></i>글쓰기
-            </button>
-        </div>
+        <!--본문끝-->
 
-        <!-- 페이지네이션 -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center" id="pagination">
-                <!-- 페이지 버튼들이 동적으로 생성됩니다 -->
-            </ul>
-        </nav>
-    </div>
-    <!--본문끝-->
+        <!-- bootstrap v5.3 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"
+            integrity="sha512-Tc0i+vRogmX4NN7tuLbQfBxa8JkfUSAxSFVzmU31nVdHyiHElPPy2cWfFacmCJKw0VqovrzKhdd2TSTMdAxp2g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- bootstrap v5.3 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"
-        integrity="sha512-Tc0i+vRogmX4NN7tuLbQfBxa8JkfUSAxSFVzmU31nVdHyiHElPPy2cWfFacmCJKw0VqovrzKhdd2TSTMdAxp2g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- jquery v3.7.1 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- jquery v3.7.1 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- jquery toast plugin v1.3.2 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
+            integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- jquery toast plugin v1.3.2 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
-        integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- custom -->
+        <script>
+            // 현재 페이지 ID 가져오기
+            const pageId = $('body').data('page-id') || 'fanart/view_1';
 
-    <!-- custom -->
-    <script>
-        $(document).ready(function() {
-            // 게시물 데이터 (실제로는 서버에서 가져올 데이터)
-            let allPosts = [
-                {
-                    id: 1,
-                    title: "쟤내 회사 망했데 ㅋㅋ",
-                    author: "zㅣ존멸망",
-                    date: "25.07.04",
-                    likes: 10,
-                    isBest: true,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 2,
-                    title: "사실 뻥임",
-                    author: "뻥장수",
-                    date: "25.07.04",
-                    likes: 2,
-                    isBest: false,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 3,
-                    title: "나혼렙",
-                    author: "날씨조아",
-                    date: "25.07.05",
-                    likes: 5,
-                    isBest: false,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 4,
-                    title: "죽사헌",
-                    author: "배고파요",
-                    date: "25.07.05",
-                    likes: 3,
-                    isBest: false,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 5,
-                    title: "전독시",
-                    author: "개발자123",
-                    date: "25.07.06",
-                    likes: 8,
-                    isBest: false,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 6,
-                    title: "픽미업",
-                    author: "주말러버",
-                    date: "25.07.06",
-                    likes: 4,
-                    isBest: false,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 7,
-                    title: "만렙회귀샬라샬라",
-                    author: "카페인중독",
-                    date: "25.07.07",
-                    likes: 6,
-                    isBest: false,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 8,
-                    title: "웹소설 top10",
-                    author: "영화매니아",
-                    date: "25.07.07",
-                    likes: 12,
-                    isBest: true,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 9,
-                    title: "웹소설 추천 부탁드려요",
-                    author: "독서왕",
-                    date: "25.07.08",
-                    likes: 7,
-                    isBest: false,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 10,
-                    title: "노벨피아 이대로 괜찮은가",
-                    author: "헬스초보",
-                    date: "25.07.08",
-                    likes: 9,
-                    isBest: false,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 11,
-                    title: "일본vs한국 웹소설",
-                    author: "여행러",
-                    date: "25.07.09",
-                    likes: 11,
-                    isBest: false,
-                    link: "../user_board/free.html"
-                },
-                {
-                    id: 12,
-                    title: "저는 러브코미디가 좋아요",
-                    author: "취미탐험가",
-                    date: "25.07.09",
-                    likes: 3,
-                    isBest: false,
-                    link: "../user_board/free.html"
+            $(document).ready(function () {
+                // 게시물 데이터 (실제로는 서버에서 가져올 데이터)
+                let allPosts = [
+                    {
+                        id: 1,
+                        title: "쟤내 회사 망했데 ㅋㅋ",
+                        author: "zㅣ존멸망",
+                        date: "25.07.04",
+                        dateValue: new Date("2025-07-04"),
+                        likes: 20,
+                        category: "free",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 2,
+                        title: "사실 뻥임",
+                        author: "뻥장수",
+                        date: "25.07.04",
+                        dateValue: new Date("2025-07-04"),
+                        likes: 2,
+                        category: "free",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 3,
+                        title: "나혼렙 리뷰",
+                        author: "날씨조아",
+                        date: "25.07.05",
+                        dateValue: new Date("2025-07-05"),
+                        likes: 18,
+                        category: "review",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 4,
+                        title: "죽사헌",
+                        author: "배고파요",
+                        date: "25.07.05",
+                        dateValue: new Date("2025-07-05"),
+                        likes: 3,
+                        category: "free",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 5,
+                        title: "전독시 작품 홍보",
+                        author: "개발자123",
+                        date: "25.07.06",
+                        dateValue: new Date("2025-07-06"),
+                        likes: 25,
+                        category: "promotion",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 6,
+                        title: "픽미업",
+                        author: "주말러버",
+                        date: "25.07.06",
+                        dateValue: new Date("2025-07-06"),
+                        likes: 4,
+                        category: "free",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 7,
+                        title: "만렙회귀 리뷰",
+                        author: "카페인중독",
+                        date: "25.07.07",
+                        dateValue: new Date("2025-07-07"),
+                        likes: 16,
+                        category: "review",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 8,
+                        title: "웹소설 top10",
+                        author: "영화매니아",
+                        date: "25.07.07",
+                        dateValue: new Date("2025-07-07"),
+                        likes: 12,
+                        category: "free",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 9,
+                        title: "웹소설 추천 부탁드려요",
+                        author: "독서왕",
+                        date: "25.07.08",
+                        dateValue: new Date("2025-07-08"),
+                        likes: 7,
+                        category: "free",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 10,
+                        title: "노벨피아 이대로 괜찮은가",
+                        author: "헬스초보",
+                        date: "25.07.08",
+                        dateValue: new Date("2025-07-08"),
+                        likes: 9,
+                        category: "free",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 11,
+                        title: "일본vs한국 웹소설",
+                        author: "여행러",
+                        date: "25.07.09",
+                        dateValue: new Date("2025-07-09"),
+                        likes: 11,
+                        category: "free",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 12,
+                        title: "저는 러브코미디가 좋아요",
+                        author: "취미탐험가",
+                        date: "25.07.09",
+                        dateValue: new Date("2025-07-09"),
+                        likes: 3,
+                        category: "free",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 13,
+                        title: "신작 홍보합니다!",
+                        author: "신인작가",
+                        date: "25.07.10",
+                        dateValue: new Date("2025-07-10"),
+                        likes: 22,
+                        category: "promotion",
+                        link: "../user_board/free.html"
+                    },
+                    {
+                        id: 14,
+                        title: "최고의 판타지 소설 리뷰",
+                        author: "리뷰어",
+                        date: "25.07.11",
+                        dateValue: new Date("2025-07-11"),
+                        likes: 30,
+                        category: "review",
+                        link: "../user_board/free.html"
+                    }
+                ];
+
+                let filteredPosts = [...allPosts]; // 필터링된 게시물 배열
+                let currentPage = 1; // 현재 페이지
+                let itemsPerPage = 10; // 페이지당 아이템 수
+                let currentTab = "all"; // 현재 선택된 탭
+                let currentSort = "date"; // 현재 정렬 방식 (date 또는 likes)
+                let showBestOnly = false; // 베스트글만 보기 여부
+
+                // 베스트 게시물 판별 함수 (추천수 15 이상)
+                function isBestPost(post) {
+                    return post.likes >= 15;
                 }
-            ];
-            
-            let filteredPosts = [...allPosts]; // 필터링된 게시물 배열
-            let currentPage = 1; // 현재 페이지
-            let itemsPerPage = 10; // 페이지당 아이템 수
-            
-            // 테이블 행 HTML 생성 함수
-            function createRowHTML(post) {
-                const bestBadge = post.isBest ? 
-                    '<span class="border border-0 bg-primary-subtle rounded px-3 py-2 text-primary me-1">베스트</span>' : 
-                    '';
-                
-                return `
-                    <tr class="post-row" data-id="${post.id}" data-title="${post.title.toLowerCase()}" data-author="${post.author.toLowerCase()}">
-                        <td class="px-4 py-4 post-title">
-                            ${bestBadge}<span class="title-text">${post.title}</span>
-                        </td>
-                        <td class="text-center post-author">${post.author}</td>
-                        <td class="text-center">${post.date}</td>
-                        <td class="text-center">${post.likes}</td>
-                    </tr>
-                `;
-            }
-            
-            // 모든 게시물 렌더링
-            function renderAllPosts() {
-                const importantList = $('#importantList');
-                const noticeList = $('#noticeList');
-                
-                importantList.empty();
-                noticeList.empty();
-                
-                filteredPosts.forEach(post => {
-                    const rowHTML = createRowHTML(post);
-                    if (post.isBest) {
-                        importantList.append(rowHTML);
+
+                /// 테이블 행 HTML 생성 함수
+                function createRowHTML(post) {
+                    // 전체 탭에서 추천수 15 이상일 때 베스트 배지 표시
+                    const bestBadge = (currentTab === "all" && isBestPost(post)) ?
+                        '<span class="best-badge">베스트</span>' : '';
+
+                    // 말머리 설정
+                    let prefix = '';
+                    if (post.category === 'review') {
+                        prefix = '[작품리뷰] ';
+                    } else if (post.category === 'promotion') {
+                        prefix = '[작품홍보] ';
+                    }
+
+                    return `
+                    <tr class="post-row" data-id="${post.id}" data-title="${post.title.toLowerCase()}" data-author="${post.author.toLowerCase()}" data-category="${post.category}">
+                    <td class="text-center">${post.id}</td>
+                    <td class="px-4 py-4 post-title">
+                    ${bestBadge}<span class="title-text">${prefix}${post.title}</span>
+                    </td>
+                    <td class="text-center post-author">${post.author}</td>
+                    <td class="text-center">${post.date}</td>
+                    <td class="text-center">${post.likes}</td>
+                     </tr> `;
+                }
+
+                // 탭별 게시물 필터링
+                function filterByTab(tab) {
+                    currentTab = tab;
+
+                    if (tab === "all") {
+                        filteredPosts = [...allPosts];
                     } else {
-                        noticeList.append(rowHTML);
+                        filteredPosts = allPosts.filter(post => post.category === tab);
                     }
-                });
-                
-                // 행 클릭 이벤트 추가
-                $('.post-row').click(function() {
-                    const postId = $(this).data('id');
-                    const post = allPosts.find(p => p.id === postId);
-                    if (post && post.link) {
-                        location.href = post.link;
+
+                    // 베스트글 필터가 활성화되어 있다면 추가 필터링
+                    if (showBestOnly) {
+                        applyBestFilter();
                     }
-                });
-                
-                updateResultInfo();
-                renderPagination();
-                showPage(1);
-            }
-            
-            // 페이지네이션 렌더링
-            function renderPagination() {
-                const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
-                const pagination = $('#pagination');
-                pagination.empty();
-                
-                if (totalPages <= 1) {
-                    pagination.hide();
-                    return;
+
+                    // 검색어가 있다면 추가로 필터링
+                    const searchTerm = $('#search-term').val().trim();
+                    if (searchTerm) {
+                        applySearch();
+                    } else {
+                        sortPosts();
+                        renderAllPosts();
+                    }
                 }
-                
-                pagination.show();
-                
-                // 처음 페이지 버튼
-                pagination.append(`
+
+                // 베스트글 필터 적용
+                function applyBestFilter() {
+                    if (showBestOnly) {
+                        // 현재 필터된 게시물 중에서 베스트 게시물만 필터링
+                        filteredPosts = filteredPosts.filter(post => isBestPost(post));
+                    }
+                }
+
+                // 정렬 적용
+                function sortPosts() {
+                    if (currentSort === "likes") {
+                        filteredPosts.sort((a, b) => b.likes - a.likes);
+                    } else {
+                        filteredPosts.sort((a, b) => b.dateValue - a.dateValue);
+                    }
+                }
+
+                // 모든 게시물 렌더링
+                function renderAllPosts() {
+                    const postList = $('#postList');
+                    postList.empty();
+
+                    filteredPosts.forEach(post => {
+                        const rowHTML = createRowHTML(post);
+                        postList.append(rowHTML);
+                    });
+
+                    // 행 클릭 이벤트 추가
+                    $('.post-row').click(function () {
+                        const postId = $(this).data('id');
+                        const post = allPosts.find(p => p.id === postId);
+                        if (post && post.link) {
+                            location.href = post.link;
+                        }
+                    });
+
+                    updateResultInfo();
+                    renderPagination();
+                    showPage(1);
+                }
+
+                // 페이지네이션 렌더링
+                function renderPagination() {
+                    const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+                    const pagination = $('#pagination');
+                    pagination.empty();
+
+                    if (totalPages <= 1) {
+                        pagination.hide();
+                        return;
+                    }
+
+                    pagination.show();
+
+                    // 처음 페이지 버튼
+                    pagination.append(`
                     <li class="page-item ${currentPage <= 1 ? 'disabled' : ''}">
                         <a class="page-link" href="#" id="first-page" aria-label="First">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                 `);
-                
-                // 이전 페이지 버튼
-                pagination.append(`
+
+                    // 이전 페이지 버튼
+                    pagination.append(`
                     <li class="page-item ${currentPage <= 1 ? 'disabled' : ''}">
                         <a class="page-link" href="#" id="prev-page" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                 `);
-                
-                // 페이지 번호 버튼들
-                const startPage = Math.max(1, currentPage - 2);
-                const endPage = Math.min(totalPages, currentPage + 2);
-                
-                for (let i = startPage; i <= endPage; i++) {
-                    const activeClass = i === currentPage ? 'active' : '';
-                    pagination.append(`
+
+                    // 페이지 번호 버튼들
+                    const startPage = Math.max(1, currentPage - 2);
+                    const endPage = Math.min(totalPages, currentPage + 2);
+
+                    for (let i = startPage; i <= endPage; i++) {
+                        const activeClass = i === currentPage ? 'active' : '';
+                        pagination.append(`
                         <li class="page-item ${activeClass}">
                             <a class="page-link page-num" href="#" data-page="${i}">${i}</a>
                         </li>
                     `);
-                }
-                
-                // 다음 페이지 버튼
-                pagination.append(`
+                    }
+
+                    // 다음 페이지 버튼
+                    pagination.append(`
                     <li class="page-item ${currentPage >= totalPages ? 'disabled' : ''}">
                         <a class="page-link" href="#" id="next-page" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                 `);
-                
-                // 마지막 페이지 버튼
-                pagination.append(`
+
+                    // 마지막 페이지 버튼
+                    pagination.append(`
                     <li class="page-item ${currentPage >= totalPages ? 'disabled' : ''}">
                         <a class="page-link" href="#" id="last-page" aria-label="Last">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 `);
-                
-                // 페이지 정보 업데이트
-                $('#current-page-info').text(currentPage);
-                $('#total-page-info').text(totalPages);
-            }
-            
-            // 특정 페이지 표시
-            function showPage(page) {
-                const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
-                currentPage = Math.max(1, Math.min(page, totalPages));
-                
-                const startIndex = (currentPage - 1) * itemsPerPage;
-                const endIndex = startIndex + itemsPerPage;
-                
-                // 모든 행 숨기기
-                $('.post-row').addClass('hidden');
-                
-                // 현재 페이지의 게시물들만 표시
-                const currentPosts = filteredPosts.slice(startIndex, endIndex);
-                currentPosts.forEach(post => {
-                    $(`.post-row[data-id="${post.id}"]`).removeClass('hidden');
-                });
-                
-                // 결과 없음 메시지 처리
-                if (filteredPosts.length === 0) {
-                    $('#no-results').show();
-                    $('.table').hide();
-                } else {
-                    $('#no-results').hide();
-                    $('.table').show();
+
+                    // 페이지 정보 업데이트
+                    $('#current-page-info').text(currentPage);
+                    $('#total-page-info').text(totalPages);
                 }
-                
-                renderPagination();
-                
-                // 스크롤을 테이블 맨 위로
-                $('html, body').animate({
-                    scrollTop: $('.table').offset().top - 100
-                }, 300);
-            }
-            
-            // 검색 결과 정보 업데이트
-            function updateResultInfo() {
-                const searchTerm = $('#search-term').val().trim();
-                
-                if (searchTerm) {
-                    $('#result-info').html(`'<strong>${searchTerm}</strong>' 검색 결과: <span id="total-count">${filteredPosts.length}</span>개`);
-                } else {
-                    $('#result-info').html(`전체 <span id="total-count">${filteredPosts.length}</span>개의 게시물이 있습니다.`);
+
+                // 특정 페이지 표시
+                function showPage(page) {
+                    const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+                    currentPage = Math.max(1, Math.min(page, totalPages));
+
+                    const startIndex = (currentPage - 1) * itemsPerPage;
+                    const endIndex = startIndex + itemsPerPage;
+
+                    // 모든 행 숨기기
+                    $('.post-row').addClass('hidden');
+
+                    // 현재 페이지의 게시물들만 표시
+                    const currentPosts = filteredPosts.slice(startIndex, endIndex);
+                    currentPosts.forEach(post => {
+                        $(`.post-row[data-id="${post.id}"]`).removeClass('hidden');
+                    });
+
+                    // 결과 없음 메시지 처리
+                    if (filteredPosts.length === 0) {
+                        $('#no-results').show();
+                        $('.table').hide();
+                    } else {
+                        $('#no-results').hide();
+                        $('.table').show();
+                    }
+
+                    renderPagination();
+
+                    // 스크롤을 테이블 맨 위로
+                    $('html, body').animate({
+                        scrollTop: $('.table').offset().top - 100
+                    }, 300);
                 }
-            }
-            
-            // 검색 기능
-            function performSearch() {
-                const searchTerm = $('#search-term').val().trim().toLowerCase();
-                const category = $('#category').val();
-                
-                if (!searchTerm) {
-                    filteredPosts = [...allPosts];
-                } else {
-                    filteredPosts = allPosts.filter(post => {
-                        if (category === 'title') {
-                            return post.title.toLowerCase().includes(searchTerm);
-                        } else if (category === 'author') {
-                            return post.author.toLowerCase().includes(searchTerm);
-                        } else if (category === 'comment') {
-                            // 댓글 검색은 실제로는 서버에서 처리해야 하지만, 
-                            // 여기서는 제목과 작성자에서 검색하도록 함
-                            return post.title.toLowerCase().includes(searchTerm) || 
-                                   post.author.toLowerCase().includes(searchTerm);
-                        }
-                        return false;
+
+                // 검색 결과 정보 업데이트
+                function updateResultInfo() {
+                    const searchTerm = $('#search-term').val().trim();
+                    let infoText = '';
+
+                    if (showBestOnly && searchTerm) {
+                        infoText = `'<strong>${searchTerm}</strong>' 베스트글 검색 결과: <span id="total-count">${filteredPosts.length}</span>개`;
+                    } else if (showBestOnly) {
+                        infoText = `베스트글: <span id="total-count">${filteredPosts.length}</span>개`;
+                    } else if (searchTerm) {
+                        infoText = `'<strong>${searchTerm}</strong>' 검색 결과: <span id="total-count">${filteredPosts.length}</span>개`;
+                    } else {
+                        infoText = `전체 <span id="total-count">${filteredPosts.length}</span>개의 게시물이 있습니다.`;
+                    }
+
+                    $('#result-info').html(infoText);
+                }
+
+                // 검색 적용
+                function applySearch() {
+                    const searchTerm = $('#search-term').val().trim().toLowerCase();
+                    const category = $('#category').val();
+
+                    // 먼저 탭별로 필터링
+                    let tabFilteredPosts;
+                    if (currentTab === "all") {
+                        tabFilteredPosts = [...allPosts];
+                    } else {
+                        tabFilteredPosts = allPosts.filter(post => post.category === currentTab);
+                    }
+
+                    // 베스트글 필터가 활성화되어 있다면 베스트 게시물만 필터링
+                    if (showBestOnly) {
+                        tabFilteredPosts = tabFilteredPosts.filter(post => isBestPost(post));
+                    }
+
+                    // 검색어가 있으면 추가 필터링
+                    if (!searchTerm) {
+                        filteredPosts = tabFilteredPosts;
+                    } else {
+                        filteredPosts = tabFilteredPosts.filter(post => {
+                            if (category === 'title') {
+                                return post.title.toLowerCase().includes(searchTerm);
+                            } else if (category === 'author') {
+                                return post.author.toLowerCase().includes(searchTerm);
+                            } else if (category === 'comment') {
+                                return post.title.toLowerCase().includes(searchTerm) ||
+                                    post.author.toLowerCase().includes(searchTerm);
+                            }
+                            return false;
+                        });
+                    }
+
+                    sortPosts();
+                }
+
+                // 검색 기능
+                function performSearch() {
+                    applySearch();
+
+                    // 검색 결과 하이라이트
+                    const searchTerm = $('#search-term').val().trim();
+                    if (searchTerm) {
+                        setTimeout(() => {
+                            highlightSearchTerm(searchTerm);
+                        }, 100);
+                    }
+
+                    renderAllPosts();
+
+                    // 토스트 메시지
+                    $.toast({
+                        heading: '검색 완료',
+                        text: `${filteredPosts.length}개의 결과를 찾았습니다.`,
+                        icon: 'info',
+                        position: 'top-right',
+                        hideAfter: 2000
                     });
                 }
-                
-                // 검색 결과 하이라이트
-                if (searchTerm) {
-                    setTimeout(() => {
-                        highlightSearchTerm(searchTerm);
-                    }, 100);
+
+                // 검색어 하이라이트
+                function highlightSearchTerm(term) {
+                    if (!term) return;
+
+                    $('.title-text, .post-author').each(function () {
+                        const $this = $(this);
+                        const text = $this.text();
+                        const regex = new RegExp(`(${term})`, 'gi');
+                        const highlightedText = text.replace(regex, '<span class="search-highlight">$1</span>');
+                        $this.html(highlightedText);
+                    });
                 }
-                
-                renderAllPosts();
-                
-                // 토스트 메시지
-                $.toast({
-                    heading: '검색 완료',
-                    text: `${filteredPosts.length}개의 결과를 찾았습니다.`,
-                    icon: 'info',
-                    position: 'top-right',
-                    hideAfter: 2000
+
+                // 하이라이트 제거
+                function removeHighlight() {
+                    $('.search-highlight').each(function () {
+                        const $this = $(this);
+                        $this.replaceWith($this.text());
+                    });
+                }
+
+                // 검색 초기화
+                function resetSearch() {
+                    $('#search-term').val('');
+                    $('#category').val('title');
+                    removeHighlight();
+                    
+                    // 베스트글 필터도 초기화
+                    showBestOnly = false;
+                    $('#filter-best').removeClass('btn-secondary').addClass('btn-outline-secondary');
+                    
+                    filterByTab(currentTab); // 현재 탭에 맞게 다시 필터링
+
+                    $.toast({
+                        heading: '검색 초기화',
+                        text: '검색이 초기화되었습니다.',
+                        icon: 'success',
+                        position: 'top-right',
+                        hideAfter: 2000
+                    });
+                }
+
+                // 베스트글 필터 토글
+                function toggleBestFilter() {
+                    showBestOnly = !showBestOnly;
+                    
+                    if (showBestOnly) {
+                        $('#filter-best').removeClass('btn-outline-secondary').addClass('btn-secondary');
+                    } else {
+                        $('#filter-best').removeClass('btn-secondary').addClass('btn-outline-secondary');
+                    }
+
+                    // 현재 탭과 검색 조건을 유지하면서 베스트글 필터 적용
+                    filterByTab(currentTab);
+
+                    const message = showBestOnly ? '베스트글만 표시합니다.' : '전체 게시글을 표시합니다.';
+                    $.toast({
+                        heading: '필터 변경',
+                        text: message,
+                        icon: 'info',
+                        position: 'top-right',
+                        hideAfter: 1500
+                    });
+                }
+
+                // 탭 클릭 이벤트
+                $('.nav-tabs button').click(function (e) {
+                    e.preventDefault();
+
+                    // 탭 활성화 상태 변경
+                    $('.nav-tabs button').removeClass('active');
+                    $(this).addClass('active');
+
+                    // 탭별 필터링
+                    const tab = $(this).data('tab');
+                    filterByTab(tab);
                 });
-            }
-            
-            // 검색어 하이라이트
-            function highlightSearchTerm(term) {
-                if (!term) return;
-                
-                $('.title-text, .post-author').each(function() {
-                    const $this = $(this);
-                    const text = $this.text();
-                    const regex = new RegExp(`(${term})`, 'gi');
-                    const highlightedText = text.replace(regex, '<span class="search-highlight">$1</span>');
-                    $this.html(highlightedText);
+
+                // 정렬 버튼 이벤트
+                $('#sort-likes').click(function () {
+                    currentSort = "likes";
+                    $('.sort-buttons .btn:not(#filter-best)').removeClass('btn-secondary').addClass('btn-outline-secondary');
+                    $(this).removeClass('btn-outline-secondary').addClass('btn-secondary');
+
+                    sortPosts();
+                    renderAllPosts();
+
+                    $.toast({
+                        heading: '정렬 변경',
+                        text: '추천수 순으로 정렬되었습니다.',
+                        icon: 'info',
+                        position: 'top-right',
+                        hideAfter: 1500
+                    });
                 });
-            }
-            
-            // 하이라이트 제거
-            function removeHighlight() {
-                $('.search-highlight').each(function() {
-                    const $this = $(this);
-                    $this.replaceWith($this.text());
+
+                $('#sort-date').click(function () {
+                    currentSort = "date";
+                    $('.sort-buttons .btn:not(#filter-best)').removeClass('btn-secondary').addClass('btn-outline-secondary');
+                    $(this).removeClass('btn-outline-secondary').addClass('btn-secondary');
+
+                    sortPosts();
+                    renderAllPosts();
+
+                    $.toast({
+                        heading: '정렬 변경',
+                        text: '등록일 순으로 정렬되었습니다.',
+                        icon: 'info',
+                        position: 'top-right',
+                        hideAfter: 1500
+                    });
                 });
-            }
-            
-            // 검색 초기화
-            function resetSearch() {
-                $('#search-term').val('');
-                $('#category').val('title');
-                filteredPosts = [...allPosts];
-                removeHighlight();
-                renderAllPosts();
-                
-                $.toast({
-                    heading: '검색 초기화',
-                    text: '모든 게시물을 표시합니다.',
-                    icon: 'success',
-                    position: 'top-right',
-                    hideAfter: 2000
+
+                // 베스트글 필터 버튼 이벤트
+                $('#filter-best').click(function () {
+                    toggleBestFilter();
                 });
-            }
-            
-            // 이벤트 핸들러들
-            $('#search-btn').click(function(e) {
-                e.preventDefault();
-                performSearch();
-            });
-            
-            $('#reset-btn').click(function(e) {
-                e.preventDefault();
-                resetSearch();
-            });
-            
-            // Enter 키로 검색
-            $('#search-term').keypress(function(e) {
-                if (e.which === 13) {
+
+                // 이벤트 핸들러들
+                $('#search-btn').click(function (e) {
                     e.preventDefault();
                     performSearch();
-                }
+                });
+
+                $('#reset-btn').click(function (e) {
+                    e.preventDefault();
+                    resetSearch();
+                });
+
+                // Enter 키로 검색
+                $('#search-term').keypress(function (e) {
+                    if (e.which === 13) {
+                        e.preventDefault();
+                        performSearch();
+                    }
+                });
+
+                // 페이지네이션 이벤트 (이벤트 위임 사용)
+                $(document).on('click', '#first-page', function (e) {
+                    e.preventDefault();
+                    if (!$(this).parent().hasClass('disabled')) {
+                        showPage(1);
+                    }
+                });
+
+                $(document).on('click', '#last-page', function (e) {
+                    e.preventDefault();
+                    if (!$(this).parent().hasClass('disabled')) {
+                        const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+                        showPage(totalPages);
+                    }
+                });
+
+                $(document).on('click', '#prev-page', function (e) {
+                    e.preventDefault();
+                    if (!$(this).parent().hasClass('disabled')) {
+                        showPage(currentPage - 1);
+                    }
+                });
+
+                $(document).on('click', '#next-page', function (e) {
+                    e.preventDefault();
+                    if (!$(this).parent().hasClass('disabled')) {
+                        showPage(currentPage + 1);
+                    }
+                });
+
+                $(document).on('click', '.page-num', function (e) {
+                    e.preventDefault();
+                    const page = parseInt($(this).data('page'));
+                    showPage(page);
+                });
+
+                // 초기 설정 및 렌더링
+                currentSort = "date"; // 기본값을 등록일 순으로 설정
+                $('#sort-date').removeClass('btn-outline-secondary').addClass('btn-secondary');
+                filterByTab("all"); // 전체 탭으로 시작
             });
-            
-            // 페이지네이션 이벤트 (이벤트 위임 사용)
-            $(document).on('click', '#first-page', function(e) {
-                e.preventDefault();
-                if (!$(this).parent().hasClass('disabled')) {
-                    showPage(1);
-                }
-            });
-            
-            $(document).on('click', '#last-page', function(e) {
-                e.preventDefault();
-                if (!$(this).parent().hasClass('disabled')) {
-                    const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
-                    showPage(totalPages);
-                }
-            });
-            
-            $(document).on('click', '#prev-page', function(e) {
-                e.preventDefault();
-                if (!$(this).parent().hasClass('disabled')) {
-                    showPage(currentPage - 1);
-                }
-            });
-            
-            $(document).on('click', '#next-page', function(e) {
-                e.preventDefault();
-                if (!$(this).parent().hasClass('disabled')) {
-                    showPage(currentPage + 1);
-                }
-            });
-            
-            $(document).on('click', '.page-num', function(e) {
-                e.preventDefault();
-                const page = parseInt($(this).data('page'));
-                showPage(page);
-            });
-            
-            // 초기 렌더링
-            renderAllPosts();
-        });
-    </script>
+        </script>
 </body>
 
 </html>
