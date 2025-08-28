@@ -62,7 +62,7 @@
     <div class="d-flex justify-content-around">
         <div class="container-xl row">
             <div>
-                <span class="fw-bold fs-3">'검색어'</span>
+                <span class="fw-bold fs-3" id="search-term">'검색어'</span>
                 <span class="fs-4">검색 결과입니다.</span>
                 <p class="mt-2">총 <strong class="fs-4 text-black">3</strong>개의 작품이 검색되었습니다.</p>
             </div>
@@ -154,7 +154,26 @@
 
     <!-- custom -->
     <script>
+        // 페이지의 모든 콘텐츠가 로드된 후 스크립트가 실행되도록 합니다.
+        document.addEventListener('DOMContentLoaded', function () {
+            // 'search-term' ID를 가진 요소를 찾아서 변수에 저장합니다.
+            const searchTermElement = document.getElementById('search-term');
+            
+            // 현재 페이지의 URL에서 쿼리 파라미터를 가져옵니다.
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // 'query'라는 이름의 파라미터 값을 가져옵니다.
+            const query = urlParams.get('query');
 
+            // 'query' 파라미터에 값이 있는지 확인합니다.
+            if (query) {
+                // 값이 있다면, 'search-term' 요소의 텍스트를 해당 값으로 변경합니다.
+                searchTermElement.textContent = `'${query}'`;
+            } else {
+                // 값이 없다면, '검색어 없음'이라는 텍스트를 표시합니다.
+                searchTermElement.textContent = "'검색어 없음'";
+            }
+        });
     </script>
 
 </body>
