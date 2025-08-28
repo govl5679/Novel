@@ -77,8 +77,9 @@
                 </a>
             </div>
             <div class="navbar-nav col-6">
-                <form class="input-group" action="../home/search.html">
-                    <input type="text" class="form-control" placeholder="작가, 작품명" id="">
+                <!-- 검색창 form. GET 방식으로 search.html에 'query' 파라미터로 검색어를 전달합니다. -->
+                <form class="input-group" action="../home/search.html" method="GET">
+                    <input type="text" class="form-control" placeholder="작가, 작품명" name="query">
                     <button class="btn btn-outline-success p-3" type="submit" id="search">
                         <i class="bi bi-search"></i>
                     </button>
@@ -162,7 +163,7 @@
                     <a class="nav-link rounded-5" href="ranking.html">전체</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-5" href="ranking_realtime.html">실시간</a>
+                    <a class="nav-link rounded-5" href="ranking_realtime.html">기간별</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link rounded-5" href="ranking_new.html">신작</a>
@@ -199,37 +200,15 @@
         <!--콘텐츠묶음-->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="novel-list-container">
             <!-- 카드 1 -->
-            <div class="col novel-card" data-genre="판타지">
-                <div class="card h-100 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <img src="https://picsum.photos/400/601" class="img-fluid rounded-start" alt="전생했더니 액체괴물">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <span class="ranking-badge">1</span>
-                                    <a href="../novel/list.html"
-                                        class="text-decoration-none text-body stretched-link">전생했더니 액체괴물</a>
-                                </h5>
-                                <p class="card-text text-muted small">포풍저그</p>
-                                <p class="card-text">눈을 뜨니, 나는 인간도 용사도 아닌 점성 없는 액체괴물이었다.</p>
-                                <p class="card-text"><small class="text-primary">#판타지</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 카드 2 -->
             <div class="col novel-card" data-genre="무협">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/608" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/608" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">2</span>마교의 막내사부</h5>
+                                <h5 class="card-title"><span class="ranking-badge">1</span>마교의 막내사부</h5>
                                 <p class="card-text text-muted small">마교교주</p>
                                 <p class="card-text">천마의 제자가 된 소년, 강호를 뒤흔들다.</p>
                                 <p class="card-text"><small class="text-primary">#무협</small></p>
@@ -238,16 +217,16 @@
                     </div>
                 </div>
             </div>
-            <!-- 카드 3 -->
+            <!-- 카드 2 -->
             <div class="col novel-card" data-genre="기타">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/613" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/613" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">3</span>각성자들의 후견인</h5>
+                                <h5 class="card-title"><span class="ranking-badge">2</span>각성자들의 후견인</h5>
                                 <p class="card-text text-muted small">육성마스터</p>
                                 <p class="card-text">망해버린 F급 헌터, S급 동생들 덕에 인생 역전?</p>
                                 <p class="card-text"><small class="text-primary">#기타</small></p>
@@ -256,16 +235,16 @@
                     </div>
                 </div>
             </div>
-            <!-- 카드 4 -->
+            <!-- 카드 3 -->
             <div class="col novel-card" data-genre="판타지">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/607" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/607" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">4</span>영혼의 지배자로 회귀</h5>
+                                <h5 class="card-title"><span class="ranking-badge">3</span>영혼의 지배자로 회귀</h5>
                                 <p class="card-text text-muted small">레벨업</p>
                                 <p class="card-text">죽음의 순간, 과거로 돌아왔다. 이번엔 군주가 되겠다.</p>
                                 <p class="card-text"><small class="text-primary">#판타지</small></p>
@@ -274,16 +253,16 @@
                     </div>
                 </div>
             </div>
-            <!-- 카드 5 -->
+            <!-- 카드 4 -->
             <div class="col novel-card" data-genre="현대">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/610" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/610" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">5</span>잿더미 속에서 귀환</h5>
+                                <h5 class="card-title"><span class="ranking-badge">4</span>잿더미 속에서 귀환</h5>
                                 <p class="card-text text-muted small">고인물</p>
                                 <p class="card-text">죽어서 들어간 납골당, 그곳에서 모든 것이 다시 시작되었다.</p>
                                 <p class="card-text"><small class="text-primary">#현대</small></p>
@@ -292,181 +271,19 @@
                     </div>
                 </div>
             </div>
-            <!-- 카드 6 -->
-            <div class="col novel-card" data-genre="무협">
-                <div class="card h-100 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <img src="https://picsum.photos/400/602" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">6</span>화산의 흑풍</h5>
-                                <p class="card-text text-muted small">김무협</p>
-                                <p class="card-text">화산의 정상에서, 마교의 그림자가 드리운다. 나는 검을 들 수밖에 없었다.</p>
-                                <p class="card-text"><small class="text-primary">#무협</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 카드 7 -->
+            <!-- 카드 5 -->
             <div class="col novel-card" data-genre="스포츠">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/612" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/612" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">7</span>마운드의 지배자</h5>
+                                <h5 class="card-title"><span class="ranking-badge">5</span>마운드의 지배자</h5>
                                 <p class="card-text text-muted small">야구왕</p>
                                 <p class="card-text">포기를 모르는 소년의 뜨거운 마운드 위 이야기.</p>
                                 <p class="card-text"><small class="text-primary">#스포츠</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 카드 8 -->
-            <div class="col novel-card" data-genre="로맨스">
-                <div class="card h-100 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <img src="https://picsum.photos/400/615" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">8</span>악녀의 회귀</h5>
-                                <p class="card-text text-muted small">회귀전문</p>
-                                <p class="card-text">배신당한 악녀의 화려한 복수극과 새로운 사랑.</p>
-                                <p class="card-text"><small class="text-primary">#로맨스</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 카드 9 -->
-            <div class="col novel-card" data-genre="판타지">
-                <div class="card h-100 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <img src="https://picsum.photos/400/614" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">9</span>고룡의 계약자</h5>
-                                <p class="card-text text-muted small">용기사</p>
-                                <p class="card-text">고대 드래곤의 힘을 이어받은 소년의 모험.</p>
-                                <p class="card-text"><small class="text-primary">#판타지</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 카드 10 -->
-            <div class="col novel-card" data-genre="로맨스">
-                <div class="card h-100 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <img src="https://picsum.photos/400/603" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">10</span>위장결혼의 대가</h5>
-                                <p class="card-text text-muted small">로맨티카</p>
-                                <p class="card-text">1년간의 계약 결혼, 하지만 그의 집착이 시작되었다.</p>
-                                <p class="card-text"><small class="text-primary">#로맨스</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 카드 11 -->
-            <div class="col novel-card" data-genre="로맨스">
-                <div class="card h-100 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <img src="https://picsum.photos/400/609" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">11</span>황태자의 시크릿 레시피</h5>
-                                <p class="card-text text-muted small">달콤살벌</p>
-                                <p class="card-text">까칠한 황태자의 마음을 녹이는 달콤한 디저트 로맨스.</p>
-                                <p class="card-text"><small class="text-primary">#로맨스</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 카드 12 -->
-            <div class="col novel-card" data-genre="현대">
-                <div class="card h-100 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <img src="https://picsum.photos/400/604" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">12</span>재벌의 페르소나</h5>
-                                <p class="card-text text-muted small">도시인</p>
-                                <p class="card-text">재벌인 걸 숨기고 탑배우가 되기로 했다. 쉽지 않다.</p>
-                                <p class="card-text"><small class="text-primary">#현대</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 카드 13 -->
-            <div class="col novel-card" data-genre="SF">
-                <div class="card h-100 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <img src="https://picsum.photos/400/611" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">13</span>우주 유랑 가이드</h5>
-                                <p class="card-text text-muted small">더글라스</p>
-                                <p class="card-text">은하계의 끝에서 끝까지, 수건 한 장 들고 떠나는 여행.</p>
-                                <p class="card-text"><small class="text-primary">#SF</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 카드 14 -->
-            <div class="col novel-card" data-genre="스포츠">
-                <div class="card h-100 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <img src="https://picsum.photos/400/606" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">14</span>코트의 지배자</h5>
-                                <p class="card-text text-muted small">강슬램</p>
-                                <p class="card-text">천재 농구선수의 성장 스토리. 전국 제패를 향하여!</p>
-                                <p class="card-text"><small class="text-primary">#스포츠</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 카드 15 -->
-            <div class="col novel-card" data-genre="SF">
-                <div class="card h-100 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <img src="https://picsum.photos/400/605" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><span class="ranking-badge">15</span>종언의 방주</h5>
-                                <p class="card-text text-muted small">우주인</p>
-                                <p class="card-text">인류의 마지막 희망을 싣고, 미지의 우주로 떠난다.</p>
-                                <p class="card-text"><small class="text-primary">#SF</small></p>
                             </div>
                         </div>
                     </div>

@@ -59,8 +59,9 @@
                 </a>
             </div>
             <div class="navbar-nav col-6">
-                <form class="input-group" action="../home/search.html">
-                    <input type="text" class="form-control" placeholder="작가, 작품명" id="">
+                <!-- 검색창 form. GET 방식으로 search.html에 'query' 파라미터로 검색어를 전달합니다. -->
+                <form class="input-group" action="../home/search.html" method="GET">
+                    <input type="text" class="form-control" placeholder="작가, 작품명" name="query">
                     <button class="btn btn-outline-success p-3" type="submit" id="search">
                         <i class="bi bi-search"></i>
                     </button>
@@ -144,7 +145,7 @@
                     <a class="nav-link active rounded-5" aria-current="page" href="ranking.html">전체</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-5" href="ranking_realtime.html">실시간</a>
+                    <a class="nav-link rounded-5" href="ranking_realtime.html">기간별</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link rounded-5" href="ranking_new.html">신작</a>
@@ -180,11 +181,11 @@
 
         <!-- 랭킹 목록 -->
         <div id="ranking-list" class="list-group">
-            <a href="#" class="list-group-item list-group-item-action" data-genre="판타지">
+            <a href="../novel/list.html" class="list-group-item list-group-item-action" data-genre="판타지">
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">1</div>
                     <div class="col-1"><img src="https://picsum.photos/400/601" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">전생했더니 액체괴물</h5>
                         <p class="mb-1 text-muted small">포풍저그</p>
@@ -197,7 +198,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">2</div>
                     <div class="col-1"><img src="https://picsum.photos/400/602" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">화산의 흑풍</h5>
                         <p class="mb-1 text-muted small">김무협</p>
@@ -210,7 +211,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">3</div>
                     <div class="col-1"><img src="https://picsum.photos/400/603" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">위장결혼의 대가</h5>
                         <p class="mb-1 text-muted small">로맨티카</p>
@@ -223,7 +224,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">4</div>
                     <div class="col-1"><img src="https://picsum.photos/400/604" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">재벌의 페르소나</h5>
                         <p class="mb-1 text-muted small">도시인</p>
@@ -236,7 +237,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">5</div>
                     <div class="col-1"><img src="https://picsum.photos/400/605" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">종언의 방주</h5>
                         <p class="mb-1 text-muted small">우주인</p>
@@ -249,7 +250,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">6</div>
                     <div class="col-1"><img src="https://picsum.photos/400/606" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">코트의 지배자</h5>
                         <p class="mb-1 text-muted small">강슬램</p>
@@ -262,7 +263,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">7</div>
                     <div class="col-1"><img src="https://picsum.photos/400/607" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">영혼의 지배자로 회귀</h5>
                         <p class="mb-1 text-muted small">레벨업</p>
@@ -275,7 +276,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">8</div>
                     <div class="col-1"><img src="https://picsum.photos/400/608" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">마교의 막내사부</h5>
                         <p class="mb-1 text-muted small">마교교주</p>
@@ -288,7 +289,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">9</div>
                     <div class="col-1"><img src="https://picsum.photos/400/609" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">황태자의 시크릿 레시피</h5>
                         <p class="mb-1 text-muted small">달콤살벌</p>
@@ -301,7 +302,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">10</div>
                     <div class="col-1"><img src="https://picsum.photos/400/610" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">잿더미 속에서 귀환</h5>
                         <p class="mb-1 text-muted small">고인물</p>
@@ -314,7 +315,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">11</div>
                     <div class="col-1"><img src="https://picsum.photos/400/611" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">우주 유랑 가이드</h5>
                         <p class="mb-1 text-muted small">더글라스</p>
@@ -327,7 +328,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">12</div>
                     <div class="col-1"><img src="https://picsum.photos/400/612" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">마운드의 지배자</h5>
                         <p class="mb-1 text-muted small">야구왕</p>
@@ -340,7 +341,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">13</div>
                     <div class="col-1"><img src="https://picsum.photos/400/613" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">각성자들의 후견인</h5>
                         <p class="mb-1 text-muted small">육성마스터</p>
@@ -353,7 +354,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">14</div>
                     <div class="col-1"><img src="https://picsum.photos/400/614" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">고룡의 계약자</h5>
                         <p class="mb-1 text-muted small">용기사</p>
@@ -366,7 +367,7 @@
                 <div class="d-flex w-100 align-items-center">
                     <div class="col-1 text-center fw-bold fs-4">15</div>
                     <div class="col-1"><img src="https://picsum.photos/400/615" class="img-fluid rounded-start"
-                            alt="..."></div>
+                            alt="..." loading="lazy"></div>
                     <div class="col-10 ps-3">
                         <h5 class="mb-1">악녀의 회귀</h5>
                         <p class="mb-1 text-muted small">회귀전문</p>

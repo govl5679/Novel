@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device=width, initial-scale=1">
-    <title>랭킹 실시간 | 북북노벨</title>
+    <title>랭킹 기간별 | 북북노벨</title>
 
     <!-- bootstrap v5.3 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
@@ -77,8 +77,9 @@
                 </a>
             </div>
             <div class="navbar-nav col-6">
-                <form class="input-group" action="../home/search.html">
-                    <input type="text" class="form-control" placeholder="작가, 작품명" id="">
+                <!-- 검색창 form. GET 방식으로 search.html에 'query' 파라미터로 검색어를 전달합니다. -->
+                <form class="input-group" action="../home/search.html" method="GET">
+                    <input type="text" class="form-control" placeholder="작가, 작품명" name="query">
                     <button class="btn btn-outline-success p-3" type="submit" id="search">
                         <i class="bi bi-search"></i>
                     </button>
@@ -162,7 +163,7 @@
                     <a class="nav-link rounded-5" href="ranking.html">전체</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active rounded-5" href="ranking_realtime.html">실시간</a>
+                    <a class="nav-link active rounded-5" href="ranking_realtime.html">기간별</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link rounded-5" href="ranking_new.html">신작</a>
@@ -174,36 +175,24 @@
         </div>
         <!-- //카테고리 -->
 
-        <!-- 장르 -->
-        <div class="mt-3 p-3" id="genre-filter-container">
+        <!-- 기간 -->
+        <div class="mt-3 p-3" id="period-filter-container">
             <div class="d-flex flex-wrap gap-2">
-                <button type="button" class="btn btn-success rounded-pill genre-btn" data-genre="전체">전체</button>
-                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
-                    data-genre="판타지">판타지</button>
-                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
-                    data-genre="무협">무협</button>
-                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
-                    data-genre="로맨스">로맨스</button>
-                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
-                    data-genre="현대">현대</button>
-                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
-                    data-genre="SF">SF</button>
-                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
-                    data-genre="스포츠">스포츠</button>
-                <button type="button" class="btn btn-outline-secondary rounded-pill genre-btn"
-                    data-genre="기타">기타</button>
+                <button type="button" class="btn btn-success rounded-pill period-btn" data-period="daily">일간</button>
+                <button type="button" class="btn btn-outline-secondary rounded-pill period-btn" data-period="weekly">주간</button>
+                <button type="button" class="btn btn-outline-secondary rounded-pill period-btn" data-period="monthly">월간</button>
             </div>
         </div>
-        <!-- //장르 -->
+        <!-- //기간 -->
 
         <!--콘텐츠묶음-->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="novel-list-container">
             <!-- 카드 1 -->
-            <div class="col novel-card" data-genre="판타지">
+            <div class="col novel-card" data-genre="판타지" data-daily-rank="1" data-weekly-rank="5" data-monthly-rank="10">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/601" class="img-fluid rounded-start" alt="전생했더니 액체괴물">
+                            <img src="https://picsum.photos/400/601" class="img-fluid rounded-start" alt="전생했더니 액체괴물" loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -221,11 +210,11 @@
                 </div>
             </div>
             <!-- 카드 2 -->
-            <div class="col novel-card" data-genre="무협">
+            <div class="col novel-card" data-genre="무협" data-daily-rank="2" data-weekly-rank="1" data-monthly-rank="15">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/602" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/602" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -239,11 +228,11 @@
                 </div>
             </div>
             <!-- 카드 3 -->
-            <div class="col novel-card" data-genre="로맨스">
+            <div class="col novel-card" data-genre="로맨스" data-daily-rank="3" data-weekly-rank="12" data-monthly-rank="3">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/603" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/603" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -257,11 +246,11 @@
                 </div>
             </div>
             <!-- 카드 4 -->
-            <div class="col novel-card" data-genre="현대">
+            <div class="col novel-card" data-genre="현대" data-daily-rank="4" data-weekly-rank="8" data-monthly-rank="7">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/604" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/604" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -275,11 +264,11 @@
                 </div>
             </div>
             <!-- 카드 5 -->
-            <div class="col novel-card" data-genre="SF">
+            <div class="col novel-card" data-genre="SF" data-daily-rank="5" data-weekly-rank="3" data-monthly-rank="11">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/605" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/605" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -293,11 +282,11 @@
                 </div>
             </div>
             <!-- 카드 6 -->
-            <div class="col novel-card" data-genre="스포츠">
+            <div class="col novel-card" data-genre="스포츠" data-daily-rank="6" data-weekly-rank="15" data-monthly-rank="2">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/606" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/606" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -311,11 +300,11 @@
                 </div>
             </div>
             <!-- 카드 7 -->
-            <div class="col novel-card" data-genre="판타지">
+            <div class="col novel-card" data-genre="판타지" data-daily-rank="7" data-weekly-rank="9" data-monthly-rank="6">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/607" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/607" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -329,11 +318,11 @@
                 </div>
             </div>
             <!-- 카드 8 -->
-            <div class="col novel-card" data-genre="무협">
+            <div class="col novel-card" data-genre="무협" data-daily-rank="8" data-weekly-rank="2" data-monthly-rank="14">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/608" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/608" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -347,11 +336,11 @@
                 </div>
             </div>
             <!-- 카드 9 -->
-            <div class="col novel-card" data-genre="로맨스">
+            <div class="col novel-card" data-genre="로맨스" data-daily-rank="9" data-weekly-rank="11" data-monthly-rank="4">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/609" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/609" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -365,11 +354,11 @@
                 </div>
             </div>
             <!-- 카드 10 -->
-            <div class="col novel-card" data-genre="현대">
+            <div class="col novel-card" data-genre="현대" data-daily-rank="10" data-weekly-rank="7" data-monthly-rank="9">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/610" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/610" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -383,11 +372,11 @@
                 </div>
             </div>
             <!-- 카드 11 -->
-            <div class="col novel-card" data-genre="SF">
+            <div class="col novel-card" data-genre="SF" data-daily-rank="11" data-weekly-rank="4" data-monthly-rank="13">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/611" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/611" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -401,11 +390,11 @@
                 </div>
             </div>
             <!-- 카드 12 -->
-            <div class="col novel-card" data-genre="스포츠">
+            <div class="col novel-card" data-genre="스포츠" data-daily-rank="12" data-weekly-rank="14" data-monthly-rank="1">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/612" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/612" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -419,11 +408,11 @@
                 </div>
             </div>
             <!-- 카드 13 -->
-            <div class="col novel-card" data-genre="기타">
+            <div class="col novel-card" data-genre="기타" data-daily-rank="13" data-weekly-rank="6" data-monthly-rank="8">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/613" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/613" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -437,11 +426,11 @@
                 </div>
             </div>
             <!-- 카드 14 -->
-            <div class="col novel-card" data-genre="판타지">
+            <div class="col novel-card" data-genre="판타지" data-daily-rank="14" data-weekly-rank="13" data-monthly-rank="5">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/614" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/614" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -455,11 +444,11 @@
                 </div>
             </div>
             <!-- 카드 15 -->
-            <div class="col novel-card" data-genre="로맨스">
+            <div class="col novel-card" data-genre="로맨스" data-daily-rank="15" data-weekly-rank="10" data-monthly-rank="12">
                 <div class="card h-100 shadow-sm">
                     <div class="row g-0">
                         <div class="col-4">
-                            <img src="https://picsum.photos/400/615" class="img-fluid rounded-start" alt="...">
+                            <img src="https://picsum.photos/400/615" class="img-fluid rounded-start" alt="..." loading="lazy">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
@@ -501,27 +490,30 @@
         <!-- custom -->
         <script>
             $(document).ready(function () {
-                // 장르 필터링 로직
-                $('.genre-btn').on('click', function () {
-                    const selectedGenre = $(this).data('genre');
+                // 기간별 랭킹 정렬 로직
+                $('.period-btn').on('click', function () {
+                    const selectedPeriod = $(this).data('period');
+                    const rankAttribute = `data-${selectedPeriod}-rank`;
 
                     // 버튼 활성 상태 업데이트
-                    $('.genre-btn').removeClass('btn-success').addClass('btn-outline-secondary');
+                    $('.period-btn').removeClass('btn-success').addClass('btn-outline-secondary');
                     $(this).removeClass('btn-outline-secondary').addClass('btn-success');
 
-                    // 카드 필터링
-                    if (selectedGenre === '전체') {
-                        $('.novel-card').show();
-                    } else {
-                        $('.novel-card').hide();
-                        $('.novel-card[data-genre="' + selectedGenre + '"]').show();
-                    }
+                    // 카드 정렬
+                    const novelListContainer = $('#novel-list-container');
+                    const novelCards = novelListContainer.children('.novel-card');
 
-                    // 순위 재계산
-                    let visibleRank = 1;
-                    $('.novel-card:visible').each(function () {
-                        $(this).find('.ranking-badge').text(visibleRank);
-                        visibleRank++;
+                    novelCards.sort(function (a, b) {
+                        const rankA = parseInt($(a).attr(rankAttribute));
+                        const rankB = parseInt($(b).attr(rankAttribute));
+                        return rankA - rankB;
+                    });
+
+                    novelListContainer.empty().append(novelCards);
+
+                    // 순위 재계산 및 표시
+                    novelCards.each(function (index) {
+                        $(this).find('.ranking-badge').text(index + 1);
                     });
                 });
             });
