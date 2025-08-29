@@ -59,6 +59,75 @@
             justify-content: center;
             margin-right: 6px;
         }
+
+        /* 출석체크 달력 스타일 (개선안) */
+        #attendanceModal .modal-content {
+            border-radius: 15px;
+        }
+
+        #calendar-header .btn {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        #attendance-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        #attendance-calendar .week-names {
+            font-weight: bold;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+            padding-bottom: 10px;
+        }
+
+        #attendance-calendar .day {
+            border: 1px solid #f0f0f0;
+            text-align: center;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        #attendance-calendar .day:hover {
+            transform: scale(1.05);
+            background-color: #f8f9fa;
+        }
+
+        #attendance-calendar .day.today {
+            border: 2px solid #0d6efd;
+            color: #0d6efd;
+            font-weight: bold;
+        }
+
+        #attendance-calendar .day.checked {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+
+        #attendance-calendar .day.checked .bi-check-circle {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* 비활성화된 날짜 (지난달/다음달) */
+        #attendance-calendar .day.disabled {
+            color: #d0d0d0;
+        }
     </style>
 </head>
 
@@ -102,17 +171,17 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-around my-4 text-center" style="gap: 1rem;">
-                        <a href="#" class="text-decoration-none text-dark">
+                        <a href="../home/coin.html" class="text-decoration-none text-dark">
                             <i class="bi bi-coin fs-4"></i>
                             <br>
                             <small style="font-size: 0.9rem;">코인충전</small>
                         </a>
-                        <a href="#" class="text-decoration-none text-dark">
+                        <a href="../home/event.html" class="text-decoration-none text-dark">
                             <i class="bi bi-gift fs-4"></i>
                             <br>
                             <small style="font-size: 0.9rem;">이벤트</small>
                         </a>
-                        <a href="#" class="text-decoration-none text-dark">
+                        <a href="#" id="attendance-check-link" class="text-decoration-none text-dark">
                             <i class="bi bi-calendar-check fs-4"></i>
                             <br>
                             <small style="font-size: 0.9rem;">출석체크</small>
@@ -416,6 +485,31 @@
         </div>
     </div>
 
+    <!-- 출석체크 모달 -->
+    <div class="modal fade" id="attendanceModal" tabindex="-1" aria-labelledby="attendanceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="attendanceModalLabel">📅 출석체크</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="calendar-header" class="text-center mb-4">
+                        <button id="prev-month" class="btn btn-outline-secondary">&lt;</button>
+                        <span id="current-month-year" class="mx-4 fs-4 fw-bold"></span>
+                        <button id="next-month" class="btn btn-outline-secondary">&gt;</button>
+                    </div>
+                    <div id="attendance-calendar" class="grid-container"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" id="check-in-btn" class="btn btn-success">출석완료</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //출석체크 모달 -->
+
     <!-- Footer -->
     <footer class="bg-dark text-white py-4 mt-5">
         <div class="container text-center">
@@ -453,6 +547,107 @@
                         card.style.display = "none";
                     }
                 });
+            });
+        });
+
+        // 출석체크 모달 로직 (상태 초기화 및 토스트 중복 방지)
+        $(document).ready(function () {
+            const attendanceModal = new bootstrap.Modal(document.getElementById('attendanceModal'));
+            const calendarEl = document.getElementById('attendance-calendar');
+            const monthYearEl = document.getElementById('current-month-year');
+            const checkInBtn = document.getElementById('check-in-btn');
+            const prevMonthBtn = document.getElementById('prev-month');
+            const nextMonthBtn = document.getElementById('next-month');
+
+            let currentDate = new Date();
+            let hasCheckedInThisSession = false;
+
+            // 토스트 메시지 중복 방지 함수
+            function showToast(options) {
+                $('.jq-toast-wrap').remove();
+                $.toast(options);
+            }
+
+            function renderCalendar(date) {
+                calendarEl.innerHTML = '';
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                const today = new Date();
+
+                monthYearEl.textContent = `${year}년 ${month + 1}월`;
+
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                const startDay = firstDay.getDay();
+
+                const weekNames = ['일', '월', '화', '수', '목', '금', '토'];
+                weekNames.forEach(name => {
+                    const weekNameEl = document.createElement('div');
+                    weekNameEl.className = 'week-names';
+                    weekNameEl.textContent = name;
+                    calendarEl.appendChild(weekNameEl);
+                });
+
+                for (let i = 0; i < startDay; i++) {
+                    const emptyEl = document.createElement('div');
+                    calendarEl.appendChild(emptyEl);
+                }
+
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayEl = document.createElement('div');
+                    dayEl.className = 'day';
+                    dayEl.textContent = i;
+                    
+                    if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
+                        dayEl.classList.add('today');
+                        dayEl.id = 'today-cell'; // 오늘 날짜 식별용 ID
+                    }
+
+                    calendarEl.appendChild(dayEl);
+                }
+            }
+
+            $('#attendance-check-link').on('click', function (e) {
+                e.preventDefault();
+                hasCheckedInThisSession = false; // 모달 열 때마다 초기화
+                currentDate = new Date();
+                renderCalendar(currentDate);
+                attendanceModal.show();
+            });
+
+            prevMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar(currentDate);
+            });
+
+            nextMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar(currentDate);
+            });
+
+            checkInBtn.addEventListener('click', () => {
+                if (hasCheckedInThisSession) {
+                    showToast({ 
+                        heading: '알림', 
+                        text: '이미 출석체크 완료되었습니다.', 
+                        icon: 'info', 
+                        position: 'top-center' 
+                    });
+                } else {
+                    hasCheckedInThisSession = true;
+                    const todayCell = document.getElementById('today-cell');
+                    if (todayCell) {
+                        todayCell.classList.add('checked');
+                        todayCell.innerHTML += '<br><i class="bi bi-check-circle"></i>';
+                    }
+                    showToast({ 
+                        heading: '출석 완료', 
+                        text: '출석이 완료되었습니다. 5 coin을 지급합니다.', 
+                        icon: 'success', 
+                        position: 'top-center' 
+                    });
+                }
             });
         });
     </script>
