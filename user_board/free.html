@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device=width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>유저게시판 | 북북노벨</title>
 
     <!-- bootstrap v5.3 -->
@@ -101,7 +101,7 @@
     </style>
 </head>
 
-<body data-page-id="fanart/view_1">
+<body data-page-id="free/view_1">
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg d-flex flex-column fixed-top bg-white sticky-top">
         <div class="container row py-3">
@@ -283,7 +283,7 @@
     <script>
         $(document).ready(function () {
             // 현재 페이지 ID 가져오기
-            const pageId = $('body').data('page-id') || 'fanart/view_1';
+            const pageId = $('body').data('page-id') || 'free/view_1';
 
             // 기본 데이터 설정 (서버에서 가져올 데이터)
             const defaultData = {
@@ -457,30 +457,29 @@
             onPageLoad();
         });
 
-        $(document).ready(function () {
-            let comments = [];
+        let comments = [];
 
-            // 댓글 추가
-            $('#addCommentBtn').click(function () {
-                const text = $('#commentInput').val().trim();
-                if (!text) return;
+        // 댓글 추가
+        $('#addCommentBtn').click(function () {
+            const text = $('#commentInput').val().trim();
+            if (!text) return;
 
-                const newComment = {
-                    id: Date.now(),
-                    text: text,
-                    replies: []
-                };
+            const newComment = {
+                id: Date.now(),
+                text: text,
+                replies: []
+            };
 
-                comments.push(newComment);
-                $('#commentInput').val('');
-                renderComments();
-            });
+            comments.push(newComment);
+            $('#commentInput').val('');
+            renderComments();
+        });
 
-            // 댓글 렌더링
-            function renderComments() {
-                $('#commentList').empty();
-                comments.forEach(comment => {
-                    const li = $(`
+        // 댓글 렌더링
+        function renderComments() {
+            $('#commentList').empty();
+            comments.forEach(comment => {
+                const li = $(`
                 <li class="list-group-item">
                     <div class="fw-bold">${comment.text}</div>
                     <button class="btn btn-sm btn-outline-secondary mt-2 replyBtn">답글</button>
@@ -492,33 +491,32 @@
                 </li>
             `);
 
-                    // 답글 렌더링
-                    comment.replies.forEach(reply => {
-                        li.find('.replies').append(`
+                // 답글 렌더링
+                comment.replies.forEach(reply => {
+                    li.find('.replies').append(`
                     <li class="list-group-item ms-4">
                         ↳ ${reply}
                     </li>
                 `);
-                    });
-
-                    // 답글 버튼 클릭
-                    li.find('.replyBtn').click(function () {
-                        li.find('.replyBox').toggle();
-                    });
-
-                    // 답글 등록
-                    li.find('.submitReplyBtn').click(function () {
-                        const replyText = li.find('.replyInput').val().trim();
-                        if (!replyText) return;
-
-                        comment.replies.push(replyText);
-                        renderComments();
-                    });
-
-                    $('#commentList').append(li);
                 });
-            }
-        });
+
+                // 답글 버튼 클릭
+                li.find('.replyBtn').click(function () {
+                    li.find('.replyBox').toggle();
+                });
+
+                // 답글 등록
+                li.find('.submitReplyBtn').click(function () {
+                    const replyText = li.find('.replyInput').val().trim();
+                    if (!replyText) return;
+
+                    comment.replies.push(replyText);
+                    renderComments();
+                });
+
+                $('#commentList').append(li);
+            });
+        }
     </script>
 </body>
 
