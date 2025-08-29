@@ -119,6 +119,10 @@ body {
     text-align: center;
     margin-bottom: 2rem;
 }
+.bi-person-fill-lock {
+    font-size: 3rem;
+    color:#1B8E49;
+}
 
 .auth-title {
     font-size: 1.75rem;
