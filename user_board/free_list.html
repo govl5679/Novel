@@ -739,10 +739,12 @@
 
                     renderPagination();
 
-                    // 스크롤을 테이블 맨 위로
-                    $('html, body').animate({
-                        scrollTop: $('.table').offset().top - 100
-                    }, 300);
+                    // 페이지 이동 시에만 스크롤을 테이블 맨 위로
+                    if (page !== 1) {
+                        $('html, body').animate({
+                            scrollTop: $('.table').offset().top - 100
+                        }, 300);
+                    }
                 }
 
                 // 검색 결과 정보 업데이트

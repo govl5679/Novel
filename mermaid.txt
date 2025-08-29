@@ -1,0 +1,30 @@
+
+sequenceDiagram
+    actor User
+    participant Browser as Browser (Client)
+    participant WebServer as Web Server (Frontend)
+    participant AuthServer as Authentication Server (Backend)
+    participant DB as Database
+
+    User->>Browser: 아이디/비밀번호 입력 후 로그인 버튼 클릭
+    Browser->>AuthServer: 로그인 정보 전송 (POST /auth/login)
+    
+    activate AuthServer
+    AuthServer->>DB: 사용자 정보 조회
+    activate DB
+    DB-->>AuthServer: 사용자 정보 반환
+    deactivate DB
+    
+    AuthServer->>AuthServer: 비밀번호 일치 여부 확인
+    
+    alt 로그인 성공
+        AuthServer-->>Browser: 로그인 성공 응답 (JWT 토큰 발급)
+        Browser->>WebServer: 메인 페이지 요청
+        activate WebServer
+        WebServer-->>Browser: 메인 페이지(home.html) 표시
+        deactivate WebServer
+    else 로그인 실패
+        AuthServer-->>Browser: 로그인 실패 응답
+        Browser-->>User: 에러 메시지 표시
+    end
+    deactivate AuthServer
