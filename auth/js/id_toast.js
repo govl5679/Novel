@@ -42,10 +42,10 @@ class ToastManager {
 
     getIconClass(type) {
         const iconMap = {
-            success: 'fas fa-check-circle',
-            error: 'fas fa-exclamation-circle',
-            warning: 'fas fa-exclamation-triangle',
-            info: 'fas fa-info-circle'
+            success: 'bi bi-check-circle-fill', // 성공 아이콘
+            error: 'bi bi-x-circle-fill',         // 에러 아이콘
+            warning: 'bi bi-exclamation-triangle-fill', // 경고 아이콘
+            info: 'bi bi-info-circle-fill'          // 정보 아이콘
         };
         return iconMap[type] || iconMap.info;
     }

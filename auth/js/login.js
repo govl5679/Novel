@@ -10,7 +10,7 @@ const translations = {
         user_id_placeholder: '아이디를 입력해주세요',
         password_placeholder: '비밀번호를 입력해주세요',
         remember_me: '로그인 유지',
-        login_button: '로그인',
+        loginBtn: '로그인',
         find_username: '아이디 찾기',
         find_password: '비밀번호 찾기',
         register: '회원가입',
@@ -32,7 +32,7 @@ const translations = {
         user_id_placeholder: 'ユーザーIDを入力してください',
         password_placeholder: 'パスワードを入力してください',
         remember_me: 'ログイン状態を保持',
-        login_button: 'ログイン',
+        loginBtn: 'ログイン',
         find_username: 'ID検索',
         find_password: 'パスワード検索',
         register: '会員登録',
@@ -54,7 +54,7 @@ const translations = {
         user_id_placeholder: 'Enter your username',
         password_placeholder: 'Enter your password',
         remember_me: 'Remember me',
-        login_button: 'Sign In',
+        loginBtn: 'Sign In',
         find_username: 'Find Username',
         find_password: 'Find Password',
         register: 'Sign Up',
@@ -206,7 +206,7 @@ function startLockoutTimer() {
         const remaining = Math.ceil((lockoutTime - Date.now()) / 1000);
         if (remaining <= 0) {
             loginBtn.disabled = false;
-            btnText.textContent = translations[currentLang].login_button;
+            btnText.textContent = translations[currentLang].loginBtn;
             localStorage.removeItem('login_attempts');
             localStorage.removeItem('lockout_time');
             loginAttempts = 0;
@@ -270,7 +270,7 @@ function handleLogin(e) {
 
             setTimeout(() => {
                 // 실제 애플리케이션에서는 대시보드로 리다이렉트
-                window.location.href = ("./home/home.hlml");
+                window.location.href = ('../../home/home.html');
             }, 1500);
 
         } else {
@@ -335,7 +335,7 @@ function showToast(message, type = 'success') {
     toast.className = `toast ${type} show`;
     toast.innerHTML = `
         <div class="toast-body d-flex align-items-center">
-            <i class="fas ${type === 'success' ? 'bi-check-circle-fill' : type === 'error' ? 'bi-x-circle-fill' : 'bi-exclamation-triangle-fill'} me-2"></i>
+            <i class="bi ${type === 'success' ? 'bi-check-circle-fill' : type === 'error' ? 'bi-x-circle-fill' : 'bi-exclamation-triangle-fill'} me-2"></i>
             ${message}
         </div>
     `;
