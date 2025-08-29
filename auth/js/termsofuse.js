@@ -1,5 +1,5 @@
 // 다국어 지원
-const translations = {
+window.translations = {
     ko: {
         site_name: '북북노벨',
         current_lang: '한국어',
