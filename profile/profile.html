@@ -19,46 +19,123 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <style>
         /* 사용자 정의 스타일 (주석) */
-        .bi-person-circle {
-            font-size: 200px;
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e9f7ef/*, #FF0000, #FF3300, #FF6600, #FF9900, #FFCC00, #FFFF00, #FF0033, #FF3333, #FF6633, #FF9933, #FFCC33, #FFFF33, #FF0066, #FF3366, #FF6666, #FF9966, #FFCC66, #FFFF66, #FF0099, #FF3399, #FF6699, #FF9999, #FFCC99, #FFFF99, #FF00CC, #FF33CC, #FF66CC, #FF99CC, #FFCCCC, #FFFFCC, #FF00FF, #FF33FF, #FF66FF, #FF99FF, #FFCCFF, #FFFFFF, #FF6600, #FF9900, #FFCC00, #FFFF00, #FF6633, #FF9933, #FFCC33, #FFFF33, #FF6666, #FF9966, #FFCC66, #FFFF66, #FF6699, #FF9999, #FFCC99, #FFFF99, #FF66CC, #FF99CC, #FFCCCC, #FFFFCC, #FF66FF, #FF99FF, #FFCCFF, #FFFFFF, #FFCC00, #FFFF00, #FFCC33, #FFFF33, #FFCC66, #FFFF66, #FFCC99, #FFFF99, #FFCCCC, #FFFFCC, #FFCCFF, #FFFFFF, #00FF00, #33FF00, #66FF00, #99FF00, #CCFF00, #FFFF00, #00FF33, #33FF33, #66FF33, #99FF33, #CCFF33, #FFFF33, #00FF66, #33FF66, #66FF66, #99FF66, #CCFF66, #FFFF66, #00FF99, #33FF99, #66FF99, #99FF99, #CCFF99, #FFFF99, #00FFCC, #33FFCC, #66FFCC, #99FFCC, #CCFFCC, #FFFFCC, #00FFFF, #33FFFF, #66FFFF, #99FFFF, #CCFFFF, #FFFFFF, #0000FF, #3300FF, #6600FF, #9900FF, #CC00FF, #FF00FF, #0033FF, #3333FF, #6633FF, #9933FF, #CC33FF, #FF33FF, #0066FF, #3366FF, #6666FF, #9966FF, #CC66FF, #FF66FF, #0099FF, #3399FF, #6699FF, #9999FF, #CC99FF, #FF99FF, #00CCFF, #33CCFF, #66CCFF, #99CCFF, #CCCCFF, #FFCCFF, #00FFFF, #33FFFF, #66FFFF, #99FFFF, #CCFFFF, #FFFFFF, #660099, #990099, #CC0099, #FF0099, #663399, #993399, #CC3399, #FF3399, #666699, #996699, #CC6699, #FF6699, #669999, #999999, #CC9999, #FF9999, #66CC99, #99CC99, #CCCC99, #FFCC99, #66FF99, #99FF99, #CCFF99, #FFFF99*/);
+            background-size: 600% 600%;
+            animation: gradientMove 15s ease infinite;
+}
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .my-div {
+            background-color: white;
+        }
+        #profileImage:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        #information:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        #editBtn:hover {
+            transform: scale(10.05);
+            transition: transform 0.3s ease;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
+    <!-- navbar -->
     <nav class="navbar navbar-expand-lg d-flex flex-column fixed-top bg-white sticky-top">
         <div class="container row py-3">
-            <!--북북노벨 타이틀-->
             <div class="navbar-nav col-3">
                 <a class="navbar-brand fs-2 fw-bold" href="../home/home.html">
                     <i class="bi bi-book me-2 fs-1 text-success"></i>북북노벨
                 </a>
             </div>
-            <!--검색창-->
-            <div class="navbar-nav col-8">
-                <form class="input-group" action="../home/search.html">
-                    <input type="text" class="form-control" placeholder="Recipient’s username" id="">
-                    <button class="btn btn-outline-light p-3" type="submit" id="search">
+            <div class="navbar-nav col-6">
+                <!-- 검색창 form. GET 방식으로 search.html에 'query' 파라미터로 검색어를 전달합니다. -->
+                <form class="input-group" action="../home/search.html" method="GET">
+                    <input type="text" class="form-control" placeholder="작가, 작품명" name="query">
+                    <button class="btn btn-outline-success p-3" type="submit" id="search">
                         <i class="bi bi-search"></i>
                     </button>
                 </form>
             </div>
-            <!-- 프로필 -->
-            <div class="navbar-nav col-1 d-flex justify-content-end">
-                <a href="../profile/profile.html" class="text-muted">
-                    <i class="bi bi-person-circle fs-2 ms-3"></i>
+            <div class="navbar-nav col-3 d-flex justify-content-end position-relative">
+                <a href="#" class="btn btn-link p-0" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-person-circle fs-2 text-dark"></i>
                 </a>
+                <div class="dropdown-menu dropdown-menu-end p-5 border rounded shadow-lg"
+                    style="width: 350px; transform: translateX(10px); background-color: white;">
+                    <div class="text-end mb-2">
+                        <button class="btn-close ms-2" type="button" aria-label="Close"
+                            data-bs-dismiss="dropdown"></button>
+                    </div>
+                    <div class="d-flex align-items-center mb-4 p-3 rounded-3" style="background-color: #f7f9fc;">
+                        <div class="me-3">
+                            <h6 class="fw-bold mb-0" style="font-size: 1.1rem;">지금 <a href="../auth/login.html">로그인</a>
+                                하고
+                            </h6>
+                            <small style="font-size: 0.9rem;">다양한 혜택 받아보세요.</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-around my-4 text-center" style="gap: 1rem;">
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-coin fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">코인충전</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-gift fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">이벤트</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-calendar-check fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">출석체크</small>
+                        </a>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../notice/list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">공지사항</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">결제 내역</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../user_board/fanart_list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">팬아트</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">1:1 문의하기</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="border-top col-12 border-success"></div>
-        <!-- 목록 -->
         <div class="container navbar-nav d-flex justify-content-start py-3 fs-5">
-            <a class="nav-link text-dark me-2" href="../home/home.html">자유</a>
-            <a class="nav-link text-dark me-2" href="../home/ranking.html">랭킹</a>
+            <a class="nav-link text-dark me-2" href="../home/home.html">홈</a>
+            <a class="nav-link text-success me-2" href="../home/ranking.html">랭킹</a>
             <a class="nav-link text-dark me-2" href="../user_board/free_list.html">유저 게시판</a>
             <a class="nav-link text-dark me-2" href="../notice/list.html">공지사항</a>
         </div>
     </nav>
+    <!-- navbar -->
+    <!-- 본문 -->
     <div class="container">
         <div class="mt-3 mb-3">
             <div class="row justify-content-between align-items-center p-4">
@@ -71,19 +148,20 @@
                 </div>
                 <!-- 회원 정보 -->
                 <div class="col-lg-6">
-                    <div class="card p-4 shadow-sm">
-                        <h2 class="mb-3"><strong>닉네임:</strong>&nbsp;<span id="nicknameDisplay">장세령</span></h2>
-                        <h2 class="mb-3"><strong>레벨:</strong>&nbsp;12</h2>
-                        <h2 class="mb-3"><strong>코인:</strong>&nbsp;3450</h2>
-                        <h2 class="mb-3"><strong>이메일:</strong>&nbsp;<span id="emailDisplay">sololeveling.naver.com</span></h2>
-                        <h2 class="mb-3"><strong>회원번호:</strong>&nbsp;#2025001</h2>
+                    <div id="information" class="card p-4 shadow-sm">
+                        <h2 class="mb-3"><strong>🪪닉네임</strong>&nbsp;<span id="nicknameDisplay">장세령</span></h2>
+                        <h2 class="mb-3"><strong>⚔️레벨</strong>&nbsp;99</h2>
+                        <h2 class="mb-3"><strong>💰코인</strong>&nbsp;28,544,611</h2>
+                        <h2 class="mb-3"><strong>📬이메일</strong>&nbsp;<span
+                                id="emailDisplay">sololeveling.naver.com</span></h2>
+                        <h2 class="mb-3"><strong>📋회원번호</strong>&nbsp;#269698</h2>
                         <div class="text-end">
-                            <a href="edit.html" class="btn btn-sm btn-outline-warning" href="edit.html">수정</a>
+                            <a id="editBtn" href="edit.html" class="btn btn-sm btn-outline-warning" href="edit.html">수정</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="border rounded row row-cols-sm-1 row-cols-md-2 g-2 mt-4 shadow">
+            <div class="my-div border rounded row row-cols-sm-1 row-cols-md-2 g-2 mt-4 p-4 shadow">
                 <!-- 관심 작품 -->
                 <div class="col mt-3">
                     <p class="h1 mb-3 text-center">
@@ -449,6 +527,7 @@
             </div>
         </div>
     </div>
+    <!-- 본문 -->
     <!-- bootstrap v5.3 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"
         integrity="sha512-Tc0i+vRogmX4NN7tuLbQfBxa8JkfUSAxSFVzmU31nVdHyiHElPPy2cWfFacmCJKw0VqovrzKhdd2TSTMdAxp2g=="
@@ -478,6 +557,12 @@
             profileImg.classList.remove("d-none");
             profileIcon.classList.add("d-none");
         }
+        // ㅇ //
+        const easterEgg = document.getElementById("easterEgg");
+        easterEgg.addEventListener("click", function() {
+            body.style.transition = "animation: gradientMove 15s ease infinite;"
+            body.style.background = "background: linear-gradient(to right, #f8f9fa, #e9f7ef/*, #FF0000, #FF3300, #FF6600, #FF9900, #FFCC00, #FFFF00, #FF0033, #FF3333, #FF6633, #FF9933, #FFCC33, #FFFF33, #FF0066, #FF3366, #FF6666, #FF9966, #FFCC66, #FFFF66, #FF0099, #FF3399, #FF6699, #FF9999, #FFCC99, #FFFF99, #FF00CC, #FF33CC, #FF66CC, #FF99CC, #FFCCCC, #FFFFCC, #FF00FF, #FF33FF, #FF66FF, #FF99FF, #FFCCFF, #FFFFFF, #FF6600, #FF9900, #FFCC00, #FFFF00, #FF6633, #FF9933, #FFCC33, #FFFF33, #FF6666, #FF9966, #FFCC66, #FFFF66, #FF6699, #FF9999, #FFCC99, #FFFF99, #FF66CC, #FF99CC, #FFCCCC, #FFFFCC, #FF66FF, #FF99FF, #FFCCFF, #FFFFFF, #FFCC00, #FFFF00, #FFCC33, #FFFF33, #FFCC66, #FFFF66, #FFCC99, #FFFF99, #FFCCCC, #FFFFCC, #FFCCFF, #FFFFFF, #00FF00, #33FF00, #66FF00, #99FF00, #CCFF00, #FFFF00, #00FF33, #33FF33, #66FF33, #99FF33, #CCFF33, #FFFF33, #00FF66, #33FF66, #66FF66, #99FF66, #CCFF66, #FFFF66, #00FF99, #33FF99, #66FF99, #99FF99, #CCFF99, #FFFF99, #00FFCC, #33FFCC, #66FFCC, #99FFCC, #CCFFCC, #FFFFCC, #00FFFF, #33FFFF, #66FFFF, #99FFFF, #CCFFFF, #FFFFFF, #0000FF, #3300FF, #6600FF, #9900FF, #CC00FF, #FF00FF, #0033FF, #3333FF, #6633FF, #9933FF, #CC33FF, #FF33FF, #0066FF, #3366FF, #6666FF, #9966FF, #CC66FF, #FF66FF, #0099FF, #3399FF, #6699FF, #9999FF, #CC99FF, #FF99FF, #00CCFF, #33CCFF, #66CCFF, #99CCFF, #CCCCFF, #FFCCFF, #00FFFF, #33FFFF, #66FFFF, #99FFFF, #CCFFFF, #FFFFFF, #660099, #990099, #CC0099, #FF0099, #663399, #993399, #CC3399, #FF3399, #666699, #996699, #CC6699, #FF6699, #669999, #999999, #CC9999, #FF9999, #66CC99, #99CC99, #CCCC99, #FFCC99, #66FF99, #99FF99, #CCFF99, #FFFF99);"
+        });
     </script>
 </body>
 
