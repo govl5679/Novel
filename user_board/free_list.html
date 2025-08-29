@@ -546,7 +546,7 @@
                 /// 테이블 행 HTML 생성 함수
                 function createRowHTML(post) {
                     // 전체 탭에서 추천수 15 이상일 때 베스트 배지 표시
-                    const bestBadge = (currentTab === "all" && isBestPost(post)) ?
+                    const bestBadge = isBestPost(post) ?
                         '<span class="best-badge">베스트</span>' : '';
 
                     // 말머리 설정
