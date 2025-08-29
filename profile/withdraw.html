@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device=width, initial-scale=1">
-    <title>default</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>withdraw</title>
 
     <!-- bootstrap v5.3 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
@@ -14,37 +14,547 @@
     <!-- bootstrap icons 1.13.1 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- jquery toast plugin v1.3.2 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
-        integrity="sha512-wJgJNTBBkLit7ymC6vvzM1EcSWeM9mmOu+1USHaRBbHkm6W9EgM0HY27+UtUaprntaYQJF75rc8gjxllKs5OIQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* 사용자 정의 스타일 (주석) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .body2 {
+            font-family: 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            padding-top: 200px;
+
+        }
+
+        .container2 {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .step {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .warning-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc3545;
+        }
+
+        .warning-item h3 {
+            color: #dc3545;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .warning-item p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #dc3545;
+        }
+
+        .checkbox-wrapper label {
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .reason-item {
+            margin-bottom: 15px;
+        }
+
+        .reason-item input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #dc3545;
+        }
+
+        .reason-item label {
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .other-reason {
+            margin-top: 10px;
+        }
+
+        .other-reason input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .btn2 {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .btn2-next {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn2-next:hover:not(:disabled) {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .btn2-next:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .warning-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .warning-popup.show {
+            display: flex;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: popupIn 0.3s ease-out;
+        }
+
+        @keyframes popupIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .popup-red {
+            border-top: 5px solid #dc3545;
+        }
+
+        .popup-orange {
+            border-top: 5px solid #fd7e14;
+        }
+
+        .popup-yellow {
+            border-top: 5px solid #ffc107;
+        }
+
+        .popup-content h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .popup-red h3 {
+            color: #dc3545;
+        }
+
+        .popup-orange h3 {
+            color: #fd7e14;
+        }
+
+        .popup-yellow h3 {
+            color: #ffc107;
+        }
+
+        .popup-content p {
+            margin-bottom: 20px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .btn2-confirm {
+            background: #6c757d;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn2-confirm:hover {
+            background: #5a6268;
+        }
+
+        .completion {
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .crying-emoji {
+            font-size: 80px;
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .completion h1 {
+            font-size: 36px;
+            color: #dc3545;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .completion p {
+            color: #666;
+            font-size: 18px;
+        }
     </style>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg d-flex flex-column fixed-top bg-white shadow-sm" style="z-index: 1030;">
+        <div class="container row py-3">
+            <!--북북노벨 타이틀-->
+            <div class="navbar-nav col-3">
+                <a class="navbar-brand fs-2 fw-bold" href="../home/home.html">
+                    <i class="bi bi-book me-2 fs-1 text-success"></i>북북노벨
+                </a>
+            </div>
+            <!--검색창-->
+            <div class="navbar-nav col-8">
+                <form class="input-group" action="../home/search.html">
+                    <input type="text" class="form-control" placeholder="검색어를 입력하세요">
+                    <button class="btn btn-outline-success p-3" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- 프로필 -->
+            <div class="navbar-nav col-1 d-flex justify-content-end">
+                <a href="../profile/profile.html" class="text-muted">
+                    <i class="bi bi-person-circle fs-2 ms-3"></i>
+                </a>
+            </div>
+        </div>
+        <div class="border-top col-12 border-success"></div>
+        <!-- 목록 -->
+        <div class="container navbar-nav d-flex justify-content-start py-3 fs-5">
+            <a class="nav-link text-dark me-2" href="../home/home.html">자유</a>
+            <a class="nav-link text-dark me-2" href="../home/ranking.html">랭킹</a>
+            <a class="nav-link text-dark me-2" href="../user_board/free_list.html">유저 게시판</a>
+            <a class="nav-link text-dark me-2" href="../notice/list.html">공지사항</a>
+        </div>
+    </nav>
+
+    <div class="body2">
+        <div class="container2">
+            <!-- 주의사항 단계 -->
+            <div class="step active" id="step1">
+                <div class="header">
+                    <h1>⚠️ 회원 탈퇴 주의사항</h1>
+                    <p>탈퇴 전 반드시 확인해주세요</p>
+                </div>
+
+                <div class="warning-item">
+                    <h3>📚 작품 및 데이터 삭제</h3>
+                    <p>회원 탈퇴 시 작성하신 모든 소설, 리뷰, 댓글이 영구적으로 삭제됩니다. 복구가 불가능하니 신중하게 결정해주세요.</p>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="agree1" onchange="checkAllAgreements()">
+                        <label for="agree1">해당 내용을 확인했습니다</label>
+                    </div>
+                </div>
+
+                <div class="warning-item">
+                    <h3>💰 포인트 및 혜택 소멸</h3>
+                    <p>보유하고 계신 모든 포인트, 쿠폰, 등급 혜택이 소멸됩니다. 사용하지 않은 포인트는 환불되지 않습니다.</p>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="agree2" onchange="checkAllAgreements()">
+                        <label for="agree2">해당 내용을 확인했습니다</label>
+                    </div>
+                </div>
+
+                <div class="warning-item">
+                    <h3>📖 구독 서비스 해지</h3>
+                    <p>진행 중인 모든 구독 서비스가 즉시 해지되며, 이용 중이던 프리미엄 소설에 더 이상 접근할 수 없습니다.</p>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="agree3" onchange="checkAllAgreements()">
+                        <label for="agree3">해당 내용을 확인했습니다</label>
+                    </div>
+                </div>
+
+                <div class="warning-item">
+                    <h3>🔒 계정 복구 불가</h3>
+                    <p>탈퇴 처리 완료 후에는 같은 이메일로 재가입이 불가하며, 계정 복구나 데이터 복원이 절대 불가능합니다.</p>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="agree4" onchange="checkAllAgreements()">
+                        <label for="agree4">해당 내용을 확인했습니다</label>
+                    </div>
+                </div>
+
+                <div class="warning-item">
+                    <h3>👥 소셜 기능 중단</h3>
+                    <p>팔로우/팔로워 관계, 메시지, 커뮤니티 활동 기록이 모두 삭제되며, 다른 사용자와의 모든 연결이 끊어집니다.</p>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="agree5" onchange="checkAllAgreements()">
+                        <label for="agree5">해당 내용을 확인했습니다</label>
+                    </div>
+                </div>
+
+                <button class="btn2 btn2-next" id="nextStep1" onclick="goToStep2()" disabled>다음</button>
+            </div>
+
+            <!-- 탈퇴 사유 선택 단계 -->
+            <div class="step" id="step2">
+                <div class="header">
+                    <h1>📝 탈퇴 사유</h1>
+                    <p>더 나은 서비스를 위해 탈퇴 사유를 알려주세요</p>
+                </div>
+
+                <div class="reason-item">
+                    <input type="radio" id="reason1" name="reason" value="사용빈도 낮음" onchange="checkReasonSelection()">
+                    <label for="reason1">서비스 사용 빈도가 낮아서</label>
+                </div>
+
+                <div class="reason-item">
+                    <input type="radio" id="reason2" name="reason" value="콘텐츠 불만족" onchange="checkReasonSelection()">
+                    <label for="reason2">원하는 콘텐츠가 부족해서</label>
+                </div>
+
+                <div class="reason-item">
+                    <input type="radio" id="reason3" name="reason" value="비용 부담" onchange="checkReasonSelection()">
+                    <label for="reason3">이용료가 부담스러워서</label>
+                </div>
+
+                <div class="reason-item">
+                    <input type="radio" id="reason4" name="reason" value="인터페이스 불편" onchange="checkReasonSelection()">
+                    <label for="reason4">사이트 이용이 불편해서</label>
+                </div>
+
+                <div class="reason-item">
+                    <input type="radio" id="reason5" name="reason" value="개인정보 우려" onchange="checkReasonSelection()">
+                    <label for="reason5">개인정보 보안이 우려되어서</label>
+                </div>
+
+                <div class="reason-item">
+                    <input type="radio" id="reason6" name="reason" value="타 서비스 이용" onchange="checkReasonSelection()">
+                    <label for="reason6">다른 서비스를 이용하게 되어서</label>
+                </div>
+
+                <div class="reason-item">
+                    <input type="radio" id="reasonOther" name="reason" value="기타"
+                        onchange="checkReasonSelection(); toggleOtherInput()">
+                    <label for="reasonOther">기타</label>
+                    <div class="other-reason">
+                        <input type="text" id="otherReasonText" placeholder="기타 사유를 입력해주세요" disabled>
+                    </div>
+                </div>
+
+                <button class="btn2 btn2-next" id="nextStep2" onclick="showWarnings()" disabled>다음</button>
+            </div>
+
+            <!-- 완료 화면 -->
+            <div class="step completion" id="completion" style="display: none;">
+                <div class="crying-emoji">😭</div>
+                <h1>회원 탈퇴를 완료했습니다</h1>
+                <p>그동안 북북노벨 이용해주셔서 감사했습니다.<br>언제든 다시 돌아오실 수 있습니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 경고 팝업들 -->
+    <div class="warning-popup" id="popup1">
+        <div class="popup-content popup-red">
+            <h3>⚠️ 정말 탈퇴하시겠습니까?</h3>
+            <p>모든 데이터가 영구적으로 삭제되며 복구할 수 없습니다.</p>
+            <button class="btn2-confirm" onclick="showNextPopup(2)">확인</button>
+        </div>
+    </div>
+
+    <div class="warning-popup" id="popup2">
+        <div class="popup-content popup-orange">
+            <h3>🚨 마지막 경고입니다!</h3>
+            <p>정말로 계속 진행하시겠습니까? 이 작업은 되돌릴 수 없습니다.</p>
+            <button class="btn2-confirm" onclick="showNextPopup(3)">확인</button>
+        </div>
+    </div>
+
+    <div class="warning-popup" id="popup3">
+        <div class="popup-content popup-yellow">
+            <h3>💔 마지막 기회입니다</h3>
+            <p>소중한 추억과 작품들이 모두 사라집니다. 정말 괜찮으시겠습니까?</p>
+            <button class="btn2-confirm" onclick="completeWithdrawal()">확인</button>
+        </div>
+    </div>
 
     <!-- bootstrap v5.3 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"
         integrity="sha512-Tc0i+vRogmX4NN7tuLbQfBxa8JkfUSAxSFVzmU31nVdHyiHElPPy2cWfFacmCJKw0VqovrzKhdd2TSTMdAxp2g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- jquery v3.7.1 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- jquery toast plugin v1.3.2 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
-        integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- custom -->
     <script>
+        let currentWarningPopup = 0;
 
+        function checkAllAgreements() {
+            const checkboxes = ['agree1', 'agree2', 'agree3', 'agree4', 'agree5'];
+            const allChecked = checkboxes.every(id => document.getElementById(id).checked);
+            document.getElementById('nextStep1').disabled = !allChecked;
+        }
+
+        function checkReasonSelection() {
+            const reasonSelected = document.querySelector('input[name="reason"]:checked');
+            document.getElementById('nextStep2').disabled = !reasonSelected;
+        }
+
+        function toggleOtherInput() {
+            const otherRadio = document.getElementById('reasonOther');
+            const otherInput = document.getElementById('otherReasonText');
+            otherInput.disabled = !otherRadio.checked;
+            if (otherRadio.checked) {
+                otherInput.focus();
+            } else {
+                otherInput.value = '';
+            }
+        }
+
+        function goToStep2() {
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+        }
+
+        function showWarnings() {
+            document.getElementById('popup1').classList.add('show');
+        }
+
+        function showNextPopup(popupNumber) {
+            // 현재 팝업 숨기기
+            const currentPopup = document.getElementById(`popup${popupNumber - 1}`);
+            if (currentPopup) {
+                currentPopup.classList.remove('show');
+            }
+
+            // 다음 팝업 보여주기
+            const nextPopup = document.getElementById(`popup${popupNumber}`);
+            if (nextPopup) {
+                setTimeout(() => {
+                    nextPopup.classList.add('show');
+                }, 300);
+            }
+        }
+
+        function completeWithdrawal() {
+            // 마지막 팝업 숨기기
+            document.getElementById('popup3').classList.remove('show');
+
+            // 단계 2 숨기고 완료 화면 보여주기
+            setTimeout(() => {
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('completion').style.display = 'block';
+            }, 500);
+        }
     </script>
-
 </body>
 
 </html>
