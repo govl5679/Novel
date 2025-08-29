@@ -30,32 +30,83 @@
 <body>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg d-flex flex-column fixed-top bg-white sticky-top">
-
         <div class="container row py-3">
-            <!--북북노벨 타이틀-->
             <div class="navbar-nav col-3">
                 <a class="navbar-brand fs-2 fw-bold" href="../home/home.html">
                     <i class="bi bi-book me-2 fs-1 text-success"></i>북북노벨
                 </a>
             </div>
-            <!--검색창-->
-            <div class="navbar-nav col-8">
-                <form class="input-group" action="../home/search.html">
-                    <input type="text" class="form-control" placeholder="Recipient’s username" id="">
+            <div class="navbar-nav col-6">
+                <!-- 검색창 form. GET 방식으로 search.html에 'query' 파라미터로 검색어를 전달합니다. -->
+                <form class="input-group" action="../home/search.html" method="GET">
+                    <input type="text" class="form-control" placeholder="작가, 작품명" name="query">
                     <button class="btn btn-outline-success p-3" type="submit" id="search">
                         <i class="bi bi-search"></i>
                     </button>
                 </form>
             </div>
-            <!-- 프로필 -->
-            <div class="navbar-nav col-1 d-flex justify-content-end">
-                <i class="bi bi-person-circle fs-2 ms-3"></i>
+            <div class="navbar-nav col-3 d-flex justify-content-end position-relative">
+                <a href="#" class="btn btn-link p-0" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-person-circle fs-2 text-dark"></i>
+                </a>
+                <!-- 드롭다운 -->
+                <div class="dropdown-menu dropdown-menu-end p-5 border rounded shadow-lg"
+                    style="width: 350px; transform: translateX(10px); background-color: white;">
+                    <div class="text-end mb-2">
+                        <button class="btn-close ms-2" type="button" aria-label="Close"
+                            data-bs-dismiss="dropdown"></button>
+                    </div>
+                    <div class="d-flex align-items-center mb-4 p-3 rounded-3" style="background-color: #f7f9fc;">
+                        <div class="me-3">
+                            <h6 class="fw-bold mb-0" style="font-size: 1.1rem;">지금 <a href="../auth/login.html">로그인</a>
+                                하고
+                            </h6>
+                            <small style="font-size: 0.9rem;">다양한 혜택 받아보세요.</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-around my-4 text-center" style="gap: 1rem;">
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-coin fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">코인충전</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-gift fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">이벤트</small>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <i class="bi bi-calendar-check fs-4"></i>
+                            <br>
+                            <small style="font-size: 0.9rem;">출석체크</small>
+                        </a>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../notice/list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">공지사항</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">결제 내역</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li><a class="dropdown-item text-dark" href="../user_board/fanart_list.html"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">팬아트</a></li>
+                                <li><a class="dropdown-item text-dark" href="#"
+                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">1:1 문의하기</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="border-top col-12 border-success"></div>
-        <!-- 목록 -->
         <div class="container navbar-nav d-flex justify-content-start py-3 fs-5">
-            <a class="nav-link text-dark me-2" href="../home/home.html">자유</a>
+            <a class="nav-link text-dark me-2" href="../home/home.html">홈</a>
             <a class="nav-link text-dark me-2" href="../home/ranking.html">랭킹</a>
             <a class="nav-link text-dark me-2" href="../user_board/free_list.html">유저 게시판</a>
             <a class="nav-link text-dark me-2" href="../notice/list.html">공지사항</a>
@@ -76,43 +127,46 @@
                 <div class="card-body row">
                     <!-- 이미지부 -->
                     <div class="col-4">
-                        <img src="/images/placeholder_400x600.jpg" class="card-img-top" alt="이미지를 불러오지 못 했습니다." width="400" height="600" loading="lazy">
+                        <a href="../novel/list.html"><img src="/images/placeholder_400x601.jpg" class="card-img-top" alt="전생했더니 액체괴물"
+                            loading="lazy"></a>
                     </div>
                     <!-- 글씨부 -->
                     <div class="ms-3 col align-self-center">
-                        <div class="fs-4 fw-bold">제목</div>
-                        <div class="mt-2 text-secondary">작가</div>
-                        <div class="mt-4 text-primary">코미디 로맨스</div>
+                        <a href="../novel/list.html" class="text-decoration-none text-dark"><div class="fs-4 fw-bold">전생했더니 액체괴물</div></a>
+                        <div class="mt-2 text-secondary">포풍저그</div>
+                        <div class="mt-4 text-primary">판타지</div>
                     </div>
                 </div>
             </div>
-            <!--콘텐츠1-->
+            <!--콘텐츠2-->
             <div class="card col-4 border-0">
                 <div class="card-body row">
                     <!-- 이미지부 -->
                     <div class="col-4">
-                        <img src="/images/placeholder_400x600.jpg" class="card-img-top" alt="이미지를 불러오지 못 했습니다." width="400" height="600" loading="lazy">
+                        <a href="#"><img src="/images/placeholder_400x615.jpg" class="card-img-top" alt="화산의 흑풍"
+                            loading="lazy"></a>
                     </div>
                     <!-- 글씨부 -->
                     <div class="ms-3 col align-self-center">
-                        <div class="fs-4 fw-bold">제목</div>
-                        <div class="mt-2 text-secondary">작가</div>
-                        <div class="mt-4 text-primary">코미디 로맨스</div>
+                        <a href="#" class="text-decoration-none text-dark"><div class="fs-4 fw-bold">화산의 흑풍</div></a>
+                        <div class="mt-2 text-secondary">김무협</div>
+                        <div class="mt-4 text-primary">무협</div>
                     </div>
                 </div>
             </div>
-            <!--콘텐츠1-->
+            <!--콘텐츠3-->
             <div class="card col-4 border-0">
                 <div class="card-body row">
                     <!-- 이미지부 -->
                     <div class="col-4">
-                        <img src="/images/placeholder_400x600.jpg" class="card-img-top" alt="이미지를 불러오지 못 했습니다." width="400" height="600" loading="lazy">
+                        <a href="#"><img src="/images/placeholder_400x609.jpg" class="card-img-top" alt="위장결혼의 대가"
+                            loading="lazy"></a>
                     </div>
                     <!-- 글씨부 -->
                     <div class="ms-3 col align-self-center">
-                        <div class="fs-4 fw-bold">제목</div>
-                        <div class="mt-2 text-secondary">작가</div>
-                        <div class="mt-4 text-primary">코미디 로맨스</div>
+                        <a href="#" class="text-decoration-none text-dark"><div class="fs-4 fw-bold">위장결혼의 대가</div></a>
+                        <div class="mt-2 text-secondary">로맨티카</div>
+                        <div class="mt-4 text-primary">로맨스</div>
                     </div>
                 </div>
             </div>
@@ -128,9 +182,6 @@
             </li>
             <li class="page-item active">
                 <a class="page-link bg-dark text-white border-dark" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link text-dark border-dark" href="#">2</a>
             </li>
             <li class="page-item">
                 <a class="page-link text-dark border-dark" href="#" aria-label="Next">
@@ -162,10 +213,10 @@
         document.addEventListener('DOMContentLoaded', function () {
             // 'search-term' ID를 가진 요소를 찾아서 변수에 저장합니다.
             const searchTermElement = document.getElementById('search-term');
-            
+
             // 현재 페이지의 URL에서 쿼리 파라미터를 가져옵니다.
             const urlParams = new URLSearchParams(window.location.search);
-            
+
             // 'query'라는 이름의 파라미터 값을 가져옵니다.
             const query = urlParams.get('query');
 

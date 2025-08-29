@@ -73,8 +73,9 @@
                 </a>
             </div>
             <div class="navbar-nav col-6">
+                <!-- 검색창 form. GET 방식으로 search.html에 'query' 파라미터로 검색어를 전달합니다. -->
                 <form class="input-group" action="../home/search.html">
-                    <input type="text" class="form-control" placeholder="작가, 작품명" id="">
+                    <input type="text" class="form-control" placeholder="작가, 작품명" name="query">
                     <button class="btn btn-outline-success p-3" type="submit" id="search">
                         <i class="bi bi-search"></i>
                     </button>
@@ -133,10 +134,17 @@
                                         style="font-size: 0.95rem; padding-bottom: 0.6rem;">팬아트</a></li>
                                 <li><a class="dropdown-item text-dark" href="#"
                                         style="font-size: 0.95rem; padding-bottom: 0.6rem;">1:1 문의하기</a></li>
-                                <li><a class="dropdown-item text-muted" href="../admin/user_list.html"
-                                        style="font-size: 0.95rem; padding-bottom: 0.6rem;">관리자모드</a></li>
                             </ul>
                         </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="">
+                        <ul class="list-unstyled">
+                            <li><a class="dropdown-item text-muted" href="../profile/profile.html"
+                                    style="font-size: 0.95rem; padding-bottom: 0.6rem;">프로필보기</a></li>
+                            <li><a class="dropdown-item text-muted" href="../admin/user_list.html"
+                                    style="font-size: 0.95rem; padding-bottom: 0.6rem;">관리자모드</a></li>
+                        </ul>
                     </div>
                 </div>
                 <!-- //드롭다운 -->
@@ -307,9 +315,9 @@
     <!-- 최신 연재 -->
     <div class="container my-5">
         <h3 class="fw-bold mb-4">🆕 최신 연재</h3>
-        <div id="latestUploadsCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div id="latestUploadsCarousel" class="carousel slide carousel" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="3000">
+                <div class="carousel-item active" data-bs-interval="4000">
                     <div class="card border-0 shadow-sm p-3">
                         <div class="row g-0">
                             <div class="col-md-2">
@@ -414,11 +422,6 @@
             <p class="mb-0">© 2025 북북노벨 | 웹소설 플랫폼</p>
         </div>
     </footer>
-
-    <!-- bootstrap v5.3 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"
-        integrity="sha512-Tc0i+vRogmX4NN7tuLbQfBxa8JkfUSAxSFVzmU31nVdHyiHElPPy2cWfFacmCJKw0VqovrzKhdd2TSTMdAxp2g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- jquery v3.7.1 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
