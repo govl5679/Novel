@@ -34,7 +34,7 @@ class FormManager {
 
         if (emailInput) {
             // 실시간 유효성 검사
-            emailInput.addEventListener('input', this.clearFieldError);
+            emailInput.addEventListener('input', (e) => this.clearFieldError(e));
         }
     }
 
@@ -43,15 +43,21 @@ class FormManager {
 
         const formData = new FormData(e.target);
         const email = formData.get('email').trim();
+        const emailField = document.getElementById('email');
+
+        // 이메일 필드의 에러 상태를 우선 초기화
+        this.clearFieldError({ target: emailField });
 
         // 유효성 검사
         if (!email) {
-            this.showFieldError('email', this.languageManager.getTranslation('error_email_required'));
+            // showFieldError 대신 toastManager의 error 메소드 사용
+            this.toastManager.error(this.languageManager.getTranslation('올바르지 않은 이메일입니다'));
             return;
         }
 
         if (!this.isValidEmail(email)) {
-            this.showFieldError('email', this.languageManager.getTranslation('error_email_invalid'));
+            // showFieldError 대신 toastManager의 error 메소드 사용
+            this.toastManager.error(this.languageManager.getTranslation('올바르지 않은 이메일입니다'));
             return;
         }
 
@@ -62,14 +68,15 @@ class FormManager {
         setTimeout(() => {
             if (this.registeredEmails.includes(email.toLowerCase())) {
                 // 이메일 전송 성공
-                this.toastManager.success(this.languageManager.getTranslation('toast_email_sent'));
+                this.toastManager.success(this.languageManager.getTranslation('계정에 연결된 이메일로 아이디를 보냈습니다'));
 
                 setTimeout(() => {
                     this.showSuccessState();
                 }, 1000);
             } else {
                 // 등록되지 않은 이메일
-                this.showFieldError('email', this.languageManager.getTranslation('error_email_not_found'));
+                // showFieldError 대신 toastManager의 error 메소드 사용
+                this.toastManager.error(this.languageManager.getTranslation('올바르지 않은 이메일입니다'));
             }
 
             this.showLoading(false);
@@ -99,18 +106,18 @@ class FormManager {
         }
     }
 
+    // 이 함수는 이제 사용하지 않지만, 다른 곳에서 쓸 수 있으니 남겨둘게.
     showFieldError(fieldId, message) {
         const field = document.getElementById(fieldId);
         if (!field) return;
-
         const feedback = field.parentNode.querySelector('.invalid-feedback');
-
         field.classList.add('is-invalid');
         if (feedback) {
             feedback.textContent = message;
         }
     }
 
+    // 이 함수는 사용자가 다시 입력할 때 에러 표시를 지우기 위해 필요해.
     clearFieldError(event) {
         const field = event.target;
         field.classList.remove('is-invalid');
@@ -133,30 +140,20 @@ class FormManager {
         const successState = document.getElementById('successState');
         const form = document.getElementById('findUserIdForm');
 
-        // 상태 초기화
         if (successState) successState.classList.add('hidden');
         if (initialState) initialState.classList.remove('hidden');
-
-        // 폼 초기화
         if (form) form.reset();
 
-        // 에러 상태 초기화
         const emailInput = document.getElementById('email');
         if (emailInput) {
-            emailInput.classList.remove('is-invalid');
-            const feedback = emailInput.parentNode.querySelector('.invalid-feedback');
-            if (feedback) {
-                feedback.textContent = '';
-            }
+            this.clearFieldError({ target: emailInput });
         }
     }
 
-    // 페이지 네비게이션 (더미 함수)
     navigateToPage(page) {
-        console.log(`Navigate to: ${page}.html`);
+        console.log(`Maps to: ${page}.html`);
         this.toastManager.info(`${page} 페이지로 이동합니다`);
     }
 }
 
-// 전역으로 사용할 수 있도록 내보내기
 window.FormManager = FormManager;

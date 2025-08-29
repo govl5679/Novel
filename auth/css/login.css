@@ -147,6 +147,8 @@ body {
 .form-control {
     border: 2px solid var(--border-color);
     border-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
     padding: 0.75rem 1rem;
     font-size: 1rem;
     transition: all 0.2s ease;
@@ -289,9 +291,11 @@ body {
         margin: 1rem;
         border-radius: 0.75rem;
     }
+
     .auth-title {
         font-size: 1.5rem;
     }
+
     .nav-controls {
         gap: 0.5rem;
     }
@@ -313,17 +317,8 @@ body {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
-}
-
-.hidden {
-    display: none !important;
-}
-
-.theme-toggle #theme-icon {
-    font-size: 1.2rem;
-    color: var(--primary-color);
-    vertical-align: middle;
 }
