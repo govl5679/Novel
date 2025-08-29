@@ -20,7 +20,8 @@ class LanguageManager {
     }
 
     changeLanguage(langCode) {
-        if (translations[langCode]) {
+        // 이제부터 window.translations 사전을 보도록 수정
+        if (window.translations && window.translations[langCode]) {
             this.currentLang = langCode;
             localStorage.setItem('preferred_language', langCode);
             this.updateLanguageText();
@@ -28,18 +29,18 @@ class LanguageManager {
     }
 
     updateLanguageText() {
-        const texts = translations[this.currentLang];
+        // window.translations 사전이 있는지 확인
+        if (!window.translations) return;
+        const texts = window.translations[this.currentLang];
 
         if (!texts) {
             console.error(`Translation not found for language: ${this.currentLang}`);
             return;
         }
 
-        // data-lang 속성을 가진 요소들 업데이트
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
             if (texts[key]) {
-                // HTML이 포함된 텍스트 처리
                 if (texts[key].includes('<br>')) {
                     element.innerHTML = texts[key];
                 } else {
@@ -48,7 +49,6 @@ class LanguageManager {
             }
         });
 
-        // placeholder 속성 업데이트
         document.querySelectorAll('[data-lang-placeholder]').forEach(element => {
             const key = element.getAttribute('data-lang-placeholder');
             if (texts[key]) {
@@ -66,7 +66,8 @@ class LanguageManager {
     }
 
     getTranslation(key) {
-        const texts = translations[this.currentLang];
+        if (!window.translations) return key;
+        const texts = window.translations[this.currentLang];
         return texts && texts[key] ? texts[key] : key;
     }
 }

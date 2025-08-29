@@ -152,7 +152,7 @@ function initializeForm() {
             const input = this.closest('.input-group').querySelector('input');
             const type = input.type === 'password' ? 'text' : 'password';
             input.type = type;
-            this.querySelector('i').className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+            this.querySelector('i').className = type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash-fill';
         });
     });
 

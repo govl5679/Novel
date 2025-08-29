@@ -152,7 +152,8 @@ function initializeLoginForm() {
     passwordToggle.addEventListener('click', function () {
         const type = passwordInput.type === 'password' ? 'text' : 'password';
         passwordInput.type = type;
-        this.querySelector('i').className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+        // Font Awesome(fas) 대신 Bootstrap Icons(bi) 이름으로 수정
+        this.querySelector('i').className = type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash-fill';
         localStorage.setItem('password_visible', type === 'text');
     });
 
@@ -178,7 +179,8 @@ function restorePasswordToggleState() {
         const passwordInput = document.getElementById('password');
         const passwordToggle = document.querySelector('.password-toggle');
         passwordInput.type = 'text';
-        passwordToggle.querySelector('i').className = 'fas fa-eye-slash';
+        // Font Awesome(fas) 대신 Bootstrap Icons(bi) 이름으로 수정
+        passwordToggle.querySelector('i').className = 'bi bi-eye-slash-fill';
     }
 }
 
