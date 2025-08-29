@@ -255,7 +255,7 @@ function handleLogin(e) {
 
     // 실제 로그인 검증 (더미 로직)
     setTimeout(() => {
-        if (userId === 'admin' && password === 'password123') {
+        if (userId === 'admin' && password === '123123') {
             // 로그인 성공
             loginAttempts = 0;
             localStorage.removeItem('login_attempts');
@@ -335,7 +335,7 @@ function showToast(message, type = 'success') {
     toast.className = `toast ${type} show`;
     toast.innerHTML = `
         <div class="toast-body d-flex align-items-center">
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-exclamation-triangle'} me-2"></i>
+            <i class="fas ${type === 'success' ? 'bi-check-circle-fill' : type === 'error' ? 'bi-x-circle-fill' : 'bi-exclamation-triangle-fill'} me-2"></i>
             ${message}
         </div>
     `;
