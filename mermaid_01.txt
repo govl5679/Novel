@@ -1,0 +1,70 @@
+graph TD
+    subgraph "사용자"
+        A[웹사이트 방문자]
+    end
+
+    subgraph "인증"
+        B[로그인 페이지]
+        C[회원가입 페이지]
+        D[ID/PW 찾기]
+    end
+
+    subgraph "메인 콘텐츠"
+        E[홈]
+        F[작품 목록]
+        G[작품 뷰어]
+        H[랭킹]
+        I[이벤트]
+        J[검색]
+    end
+
+    subgraph "커뮤니티"
+        K[자유 게시판]
+        L[팬아트 게시판]
+        M[리뷰 게시판]
+    end
+
+    subgraph "사용자 프로필"
+        N[프로필 정보]
+        O[비밀번호 변경]
+        P[코인 충전]
+        Q[회원 탈퇴]
+    end
+
+    subgraph "정보"
+        R[공지사항]
+        S[이용약관]
+    end
+
+    subgraph "관리자"
+        T[사용자 목록]
+        U[출금 관리]
+        V[공지사항 관리]
+    end
+
+    A --> E
+    A --> B
+    A --> C
+    A --> S
+
+    E --> F
+    E --> H
+    E --> I
+    E --> J
+    E --> K
+    E --> L
+    E --> R
+
+    B --> N
+    C --> B
+
+    F --> G
+    G --> M
+
+    N --> O
+    N --> P
+    N --> Q
+
+    Admin[관리자] --> T
+    Admin --> U
+    Admin --> V

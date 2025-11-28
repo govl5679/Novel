@@ -340,13 +340,10 @@
                 if (tooltip) {
                     tooltip.hide();
                 }
-
                 const $this = $(this);
                 const isActive = $this.hasClass('active');
                 const icon = $this.find('i');
-
                 $this.toggleClass('active');
-
                 if (!isActive) {
                     icon.removeClass('bi-heart').addClass('bi-heart-fill');
                     $.toast({

@@ -1,0 +1,60 @@
+graph TD
+    subgraph "ユーザー"
+        A[ウェブサイト訪問者]
+    end
+
+    subgraph "認証"
+        B[ログインページ]
+        C[会員登録ページ]
+        D[ID/PW検索]
+    end
+
+    subgraph "メインコンテンツ"
+        E[ホーム]
+        F[作品一覧]
+        G[作品ビューア]
+        H[ランキング]
+        I[検索]
+    end
+
+    subgraph "コミュニティ"
+        K[自由掲示板]
+        L[ファンアート掲示板]
+    end
+
+    subgraph "ユーザープロフィール"
+        N[プロフィール情報]
+        O[パスワード変更]
+        P[コインチャージ]
+        Q[退会]
+    end
+
+    subgraph "情報"
+        R[お知らせ]
+    end
+
+    subgraph "管理者"
+        T[ユーザー一覧]
+    end
+
+    A --> E
+    A --> B
+    A --> C
+
+    E --> F
+    E --> H
+    E --> I
+    E --> K
+    E --> L
+    E --> R
+
+    B --> N
+    C --> B
+
+    F --> G
+
+    N --> O
+    N --> P
+    N --> Q
+
+    Admin[管理者] --> T
